@@ -1,222 +1,292 @@
 import Link from "next/link";
 import {
-  BookOpen,
-  Wrench,
-  Lightbulb,
-  Globe,
   ArrowRight,
   GraduationCap,
   TrendingUp,
   Users,
+  BookOpen,
+  Wrench,
+  Lightbulb,
+  Globe,
   ChevronRight,
+  Zap,
+  Shield,
+  BarChart3,
 } from "lucide-react";
+import HeroSection from "@/components/HeroSection";
 
-const quickLinks = [
-  {
-    href: "/diretrizes",
-    icon: BookOpen,
-    title: "Diretrizes",
-    description: "Como usar IA de forma responsável no ensino. Princípios, políticas e modelos de syllabus.",
-    color: "bg-blue-50 border-ufrgs-blue",
-    iconColor: "text-ufrgs-blue",
-    badge: "Para professores",
-  },
-  {
-    href: "/ferramentas",
-    icon: Wrench,
-    title: "Ferramentas",
-    description: "Catálogo de ferramentas de IA recomendadas por universidades top do mundo.",
-    color: "bg-indigo-50 border-indigo-500",
-    iconColor: "text-indigo-600",
-    badge: "8 ferramentas",
-  },
-  {
-    href: "/exemplos",
-    icon: Lightbulb,
-    title: "Exemplos de Uso",
-    description: "Casos práticos de como professores estão usando IA em suas aulas hoje.",
-    color: "bg-amber-50 border-ufrgs-gold",
-    iconColor: "text-ufrgs-gold",
-    badge: "8 casos práticos",
-  },
-  {
-    href: "/benchmarking",
-    icon: Globe,
-    title: "Benchmarking Global",
-    description: "O que Harvard, MIT, Georgia Tech e outras instituições fazem de diferente.",
-    color: "bg-emerald-50 border-emerald-500",
-    iconColor: "text-emerald-600",
-    badge: "Pesquisa global",
-  },
-];
-
+/* ============================================================
+   DATA
+   ============================================================ */
 const stats = [
   {
     icon: TrendingUp,
     value: "2×",
     label: "mais aprendizagem",
     detail:
-      "Harvard realizou um RCT controlado (194 alunos) e comprovou que um tutor IA bem configurado dobra o ganho de aprendizagem em relação à aula tradicional.",
-    source: "Harvard, 2024",
+      "Harvard conduziu um RCT controlado com 194 alunos de Física (PS2 Pal, 2025): alunos com tutor IA personalizado obtiveram o dobro do ganho de aprendizagem em comparação com ensino ativo tradicional.",
+    source: "Harvard University, RCT 2025",
+    color: "from-blue-500 to-indigo-600",
   },
   {
     icon: Users,
-    value: "24/7",
-    label: "suporte a alunos",
+    value: "75–97%",
+    label: "acurácia em sala real",
     detail:
-      "Georgia Tech criou a Jill Watson, uma TA virtual com IA, que responde dúvidas de alunos a qualquer hora. Alunos passaram semanas sem perceber que não era humana.",
-    source: "Georgia Tech",
+      "A Jill Watson, assistente de ensino virtual da Georgia Tech baseada em RAG + GPT, atingiu 75 a 97% de acurácia em respostas a alunos reais. Estudantes chegaram a semanas sem perceber que não era humana.",
+    source: "Georgia Tech – Jill Watson",
+    color: "from-emerald-500 to-teal-600",
   },
   {
     icon: GraduationCap,
     value: "+1M",
-    label: "estudantes em literacia de IA",
+    label: "pessoas em literacia de IA",
     detail:
-      "A Universidade de Helsinki criou o MOOC 'Elements of AI' — gratuito, sem pré-requisitos — e mais de 1 milhão de pessoas já completaram o curso em todo o mundo.",
-    source: "U. Helsinki",
+      "A Universidade de Helsinki criou o MOOC 'Elements of AI' — gratuito, sem pré-requisitos, em 25+ idiomas. Mais de 1 milhão de pessoas já completaram o curso globalmente.",
+    source: "University of Helsinki",
+    color: "from-purple-500 to-violet-600",
+  },
+  {
+    icon: BarChart3,
+    value: "50.000",
+    label: "professores treinados",
+    detail:
+      "A Universidade Nacional de Seul liderou o maior programa de capacitação em IA para educadores da Ásia: 50.000 professores treinados em literacia de IA, ética e impacto social até 2025.",
+    source: "Seoul National University, 2025",
+    color: "from-orange-500 to-red-500",
   },
 ];
 
+const features = [
+  {
+    href: "/diretrizes",
+    Icon: BookOpen,
+    title: "Diretrizes",
+    description: "5 princípios fundamentais e 3 modelos de política de IA para o syllabus do seu curso.",
+    badge: "Para professores",
+    badgeBg: "bg-blue-100 text-blue-700",
+    iconBg: "bg-blue-50",
+    iconColor: "text-ufrgs-blue",
+    border: "border-ufrgs-blue",
+  },
+  {
+    href: "/ferramentas",
+    Icon: Wrench,
+    title: "Ferramentas",
+    description: "Catálogo curado de ferramentas de IA recomendadas por Harvard, MIT, Imperial e mais.",
+    badge: "8 ferramentas",
+    badgeBg: "bg-indigo-100 text-indigo-700",
+    iconBg: "bg-indigo-50",
+    iconColor: "text-indigo-600",
+    border: "border-indigo-400",
+  },
+  {
+    href: "/exemplos",
+    Icon: Lightbulb,
+    title: "Exemplos de Uso",
+    description: "Casos práticos reais: tutor 24/7, simulações, redesign de avaliações e muito mais.",
+    badge: "8 casos",
+    badgeBg: "bg-amber-100 text-amber-700",
+    iconBg: "bg-amber-50",
+    iconColor: "text-amber-600",
+    border: "border-amber-400",
+  },
+  {
+    href: "/benchmarking",
+    Icon: Globe,
+    title: "Benchmarking Global",
+    description: "O que as 38 melhores universidades do mundo fazem de diferente com IA no ensino.",
+    badge: "38 universidades",
+    badgeBg: "bg-emerald-100 text-emerald-700",
+    iconBg: "bg-emerald-50",
+    iconColor: "text-emerald-600",
+    border: "border-emerald-400",
+  },
+];
+
+const principles = [
+  { Icon: Shield,   title: "Transparência",        sub: "Declare quando usou IA" },
+  { Icon: Zap,      title: "Foco no Aprendizado",  sub: "IA apoia, não substitui" },
+  { Icon: BookOpen, title: "Objetivos Primeiro",   sub: "Pedagogia antes da ferramenta" },
+  { Icon: Users,    title: "Política Clara",        sub: "Comunique no início do semestre" },
+];
+
+const highlights = [
+  { uni: "Harvard", flag: "🇺🇸", text: "Tutor IA PS2 Pal dobrou aprendizagem em RCT (194 alunos)" },
+  { uni: "Georgia Tech", flag: "🇺🇸", text: "Jill Watson: TA virtual com 75–97% de acurácia" },
+  { uni: "Oxford", flag: "🇬🇧", text: "ChatGPT EDU adotado institucionalmente em 2025" },
+  { uni: "Imperial", flag: "🇬🇧", text: "dAIsy: plataforma multi-modelo para ensino adaptativo" },
+  { uni: "Helsinki", flag: "🇫🇮", text: "Elements of AI: 1M+ estudantes em 25 idiomas" },
+  { uni: "NUS", flag: "🇸🇬", text: "Role-play em Direito e Saúde com IA desde 2020" },
+];
+
+/* ============================================================
+   PAGE
+   ============================================================ */
 export default function HomePage() {
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-ufrgs-dark via-ufrgs-blue to-ufrgs-light text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-20 w-96 h-96 bg-ufrgs-gold rounded-full blur-3xl"></div>
-        </div>
+    <div className="bg-slate-50">
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-sm mb-6">
-              <span className="w-2 h-2 bg-ufrgs-gold rounded-full animate-pulse"></span>
-              Disciplina PEP · Engenharia de Produção · UFRGS
-            </div>
+      {/* ── HERO ─────────────────────────────────────────── */}
+      <HeroSection />
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Inteligência Artificial{" "}
-              <span className="text-ufrgs-gold">no Ensino Superior</span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-blue-100 leading-relaxed mb-8 max-w-2xl">
-              Recursos práticos para professores e alunos de Engenharia de Produção usarem IA de forma
-              responsável, baseados em evidências das melhores universidades do mundo.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/diretrizes"
-                className="inline-flex items-center gap-2 bg-ufrgs-gold hover:bg-ufrgs-gold-light text-ufrgs-dark font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
-              >
-                Ver Diretrizes <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/exemplos"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200"
-              >
-                Explorar Exemplos
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Links */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-10">
-          <h2 className="section-title">O que você encontra aqui</h2>
-          <p className="section-subtitle max-w-2xl mx-auto">
-            Um guia completo e atualizado sobre IA no ensino — das diretrizes às ferramentas, dos exemplos práticos às boas práticas globais.
+      {/* ── FEATURES GRID ────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center mb-12">
+          <p className="section-label justify-center">O que você encontra aqui</p>
+          <h2 className="section-title">Tudo em um só lugar</h2>
+          <p className="section-sub max-w-2xl mx-auto">
+            De diretrizes a ferramentas, de exemplos práticos ao benchmarking global —
+            conteúdo criado com base nas melhores práticas de universidades de referência.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {quickLinks.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`card p-6 border-t-4 ${item.color} group hover:-translate-y-1 transition-transform duration-200`}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`p-2 rounded-lg bg-white shadow-sm`}>
-                    <Icon className={`w-6 h-6 ${item.iconColor}`} />
-                  </div>
-                  <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
-                    {item.badge}
-                  </span>
+          {features.map(({ href, Icon, title, description, badge, badgeBg, iconBg, iconColor, border }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`card card-hover p-6 border-t-4 ${border} group flex flex-col`}
+            >
+              <div className="flex items-start justify-between mb-5">
+                <div className={`p-2.5 rounded-xl ${iconBg}`}>
+                  <Icon className={`w-5 h-5 ${iconColor}`} />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2 text-lg">{item.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-3">{item.description}</p>
-                <span className="inline-flex items-center gap-1 text-ufrgs-blue text-sm font-medium group-hover:gap-2 transition-all">
-                  Acessar <ChevronRight className="w-4 h-4" />
-                </span>
-              </Link>
-            );
-          })}
+                <span className={`badge ${badgeBg}`}>{badge}</span>
+              </div>
+              <h3 className="font-bold text-gray-900 text-lg mb-2">{title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed flex-1">{description}</p>
+              <span className="mt-4 inline-flex items-center gap-1 text-ufrgs-blue text-sm font-semibold
+                               group-hover:gap-2 transition-all">
+                Acessar <ChevronRight className="w-4 h-4" />
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Why it matters */}
-      <section className="bg-gray-50 py-16">
+      {/* ── STATS ────────────────────────────────────────── */}
+      <section className="bg-ufrgs-dark py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="section-title">Por que isso importa?</h2>
-            <p className="section-subtitle max-w-2xl mx-auto">
-              As universidades mais avançadas do mundo já integraram IA no ensino — com resultados mensuráveis.
-              Aqui estão os dados que motivaram este portal.
+          <div className="text-center mb-12">
+            <p className="inline-flex items-center gap-1.5 text-ufrgs-gold text-sm font-semibold
+                           bg-ufrgs-gold/10 px-3 py-1 rounded-full mb-3">
+              Dados de pesquisa
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Por que isso importa?
+            </h2>
+            <p className="text-blue-200 text-lg max-w-2xl mx-auto">
+              Números reais de universidades que já fizeram a transição — e mediram os resultados.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {stats.map((stat, i) => {
-              const Icon = stat.icon;
-              return (
-                <div key={i} className="card p-8 text-center">
-                  <div className="flex justify-center mb-4">
-                    <div className="bg-ufrgs-blue/10 p-3 rounded-full">
-                      <Icon className="w-8 h-8 text-ufrgs-blue" />
-                    </div>
-                  </div>
-                  <div className="text-5xl font-bold text-ufrgs-dark mb-1">{stat.value}</div>
-                  <div className="text-ufrgs-blue font-semibold text-lg mb-3">{stat.label}</div>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-3">{stat.detail}</p>
-                  <span className="text-xs font-medium text-gray-400 bg-gray-100 px-3 py-1 rounded-full">
-                    Fonte: {stat.source}
-                  </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map(({ icon: Icon, value, label, detail, source, color }, i) => (
+              <div key={i} className="bg-white/5 hover:bg-white/10 border border-white/10
+                                       rounded-2xl p-6 transition-all duration-200 flex flex-col">
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${color}
+                                  flex items-center justify-center mb-4 shadow-lg`}>
+                  <Icon className="w-5 h-5 text-white" />
                 </div>
-              );
-            })}
+                <div className="text-4xl font-extrabold text-white mb-1">{value}</div>
+                <div className="text-ufrgs-gold font-semibold text-sm mb-3">{label}</div>
+                <p className="text-blue-200/80 text-xs leading-relaxed flex-1">{detail}</p>
+                <div className="mt-4 pt-3 border-t border-white/10">
+                  <span className="text-xs text-blue-300/60">{source}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-gradient-to-r from-ufrgs-dark to-ufrgs-blue rounded-2xl p-8 md:p-12 text-white text-center">
-          <h2 className="text-3xl font-bold mb-4">Pronto para começar?</h2>
-          <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto">
-            Comece pelas diretrizes para entender os princípios, depois explore as ferramentas e veja exemplos
-            reais de outros professores.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/diretrizes"
-              className="inline-flex items-center gap-2 bg-ufrgs-gold hover:bg-ufrgs-gold-light text-ufrgs-dark font-semibold px-8 py-3 rounded-lg transition-all duration-200"
-            >
-              Ler Diretrizes <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/ferramentas"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200"
-            >
-              Ver Ferramentas
+      {/* ── HIGHLIGHTS (university strip) ────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div>
+            <p className="section-label">Benchmarking global</p>
+            <h2 className="section-title mb-0">O que as top universidades fazem</h2>
+          </div>
+          <Link href="/benchmarking"
+            className="inline-flex items-center gap-2 text-ufrgs-blue font-semibold text-sm
+                       hover:text-ufrgs-dark transition-colors shrink-0">
+            Ver todas as 38 universidades <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {highlights.map(({ uni, flag, text }, i) => (
+            <div key={i}
+              className="card p-5 flex items-start gap-4 card-hover">
+              <div className="text-3xl leading-none mt-0.5">{flag}</div>
+              <div>
+                <p className="font-bold text-ufrgs-dark text-sm mb-1">{uni}</p>
+                <p className="text-gray-500 text-sm leading-relaxed">{text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PRINCIPLES STRIP ─────────────────────────────── */}
+      <section className="bg-gradient-to-r from-blue-50 to-indigo-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <p className="section-label justify-center">Diretrizes</p>
+            <h2 className="section-title">5 princípios para uso responsável</h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {principles.map(({ Icon, title, sub }, i) => (
+              <Link key={i} href="/diretrizes"
+                className="card p-5 text-center card-hover group">
+                <div className="flex justify-center mb-3">
+                  <div className="bg-ufrgs-blue/10 group-hover:bg-ufrgs-blue group-hover:text-white
+                                   p-3 rounded-xl transition-all duration-200">
+                    <Icon className="w-5 h-5 text-ufrgs-blue group-hover:text-white transition-colors" />
+                  </div>
+                </div>
+                <p className="font-bold text-gray-900 text-sm mb-1">{title}</p>
+                <p className="text-gray-400 text-xs">{sub}</p>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Link href="/diretrizes" className="btn-primary inline-flex items-center gap-2">
+              Ver diretrizes completas <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
+
+      {/* ── CTA ──────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="relative overflow-hidden bg-gradient-to-br from-ufrgs-dark via-ufrgs-blue
+                         to-ufrgs-light rounded-3xl p-10 md:p-16 text-white text-center">
+          {/* decorative blobs */}
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/5 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-16 -left-16 w-56 h-56 bg-ufrgs-gold/10 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Pronto para começar?</h2>
+            <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto">
+              Comece pelas diretrizes, explore as ferramentas e veja como outros professores
+              estão usando IA nas suas disciplinas hoje.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link href="/diretrizes" className="btn-gold inline-flex items-center gap-2">
+                Ler Diretrizes <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link href="/ferramentas" className="btn-ghost inline-flex items-center gap-2">
+                Ver Ferramentas
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
