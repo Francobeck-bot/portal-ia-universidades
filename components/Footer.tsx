@@ -13,7 +13,7 @@ export default function Footer() {
 
             {/* Brand */}
             <div className="flex items-center gap-4">
-              <Image src="/logo-ufrgs.jpg" alt="UFRGS" width={48} height={48} className="object-contain shrink-0" />
+              <Image src="/logo-ufrgs.png" alt="UFRGS" width={68} height={68} className="object-contain shrink-0" />
               <div className="w-px h-8 bg-gray-200 shrink-0" />
               <Image src="/logo-ep.png" alt="Engenharia de Produção UFRGS" width={116} height={35} className="object-contain shrink-0" />
               <div className="w-px h-8 bg-gray-200 shrink-0 hidden md:block" />

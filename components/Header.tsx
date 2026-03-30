@@ -35,7 +35,7 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/logo-ufrgs.jpg" alt="UFRGS" width={52} height={52} className="object-contain" />
+            <Image src="/logo-ufrgs.png" alt="UFRGS" width={72} height={72} className="object-contain" />
             <div className="w-px h-6 bg-gray-200" />
             <Image src="/logo-ep.png" alt="Engenharia de Produção UFRGS" width={126} height={38} className="object-contain" />
           </Link>
