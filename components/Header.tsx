@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
@@ -33,16 +34,10 @@ export default function Header() {
         <div className="flex items-center justify-between h-14">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5">
-            <div
-              className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, #004aad, #5de0e6)" }}
-            >
-              <span className="text-white font-black text-xs">IA</span>
-            </div>
-            <span className="font-black text-sm text-gray-900 tracking-tight">
-              IA no Ensino <span className="text-gray-400 font-normal">· Engenharia de Produção UFRGS</span>
-            </span>
+          <Link href="/" className="flex items-center gap-3">
+            <Image src="/logo-ufrgs.jpg" alt="UFRGS" width={36} height={36} className="object-contain" />
+            <div className="w-px h-6 bg-gray-200" />
+            <Image src="/logo-ep.png" alt="Engenharia de Produção UFRGS" width={120} height={36} className="object-contain" />
           </Link>
 
           {/* Desktop Nav */}
