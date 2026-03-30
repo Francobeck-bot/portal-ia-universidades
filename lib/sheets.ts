@@ -35,7 +35,7 @@ export const FALLBACK_SYLLABUS: SyllabusModel[] = [
 export async function fetchPrinciples(sheetUrl?: string): Promise<Principle[]> {
   if (!sheetUrl || sheetUrl.includes("SEU_ID")) return FALLBACK_PRINCIPLES;
   try {
-    const res = await fetch(sheetUrl, { next: { revalidate: 3600 } });
+    const res = await fetch(sheetUrl, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
     const rows = parseCSV(csv);
@@ -49,7 +49,7 @@ export async function fetchPrinciples(sheetUrl?: string): Promise<Principle[]> {
 export async function fetchSyllabus(sheetUrl?: string): Promise<SyllabusModel[]> {
   if (!sheetUrl || sheetUrl.includes("SEU_ID")) return FALLBACK_SYLLABUS;
   try {
-    const res = await fetch(sheetUrl, { next: { revalidate: 3600 } });
+    const res = await fetch(sheetUrl, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
     const rows = parseCSV(csv);
@@ -272,7 +272,7 @@ export async function fetchTools(sheetUrl?: string): Promise<Tool[]> {
     return FALLBACK_TOOLS;
   }
   try {
-    const res = await fetch(sheetUrl, { next: { revalidate: 3600 } });
+    const res = await fetch(sheetUrl, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
     const rows = parseCSV(csv);
@@ -293,7 +293,7 @@ export async function fetchExamples(sheetUrl?: string): Promise<Example[]> {
     return FALLBACK_EXAMPLES;
   }
   try {
-    const res = await fetch(sheetUrl, { next: { revalidate: 3600 } });
+    const res = await fetch(sheetUrl, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
     const rows = parseCSV(csv);
