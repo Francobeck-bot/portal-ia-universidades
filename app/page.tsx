@@ -136,7 +136,6 @@ export default function HomePage() {
                 <div
                   className="text-5xl font-black mb-1"
                   style={{
-                    letterSpacing: "-0.03em",
                     background: "linear-gradient(135deg, #ffffff 40%, #5de0e6 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",

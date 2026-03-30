@@ -20,16 +20,16 @@
     @apply font-display;
   }
 
-  /* H1 grandes: tracking bem negativo (editorial) */
-  h1 { letter-spacing: -0.03em; }
+  /* Montserrat Black em tamanhos grandes: levemente comprimido */
+  h1 { letter-spacing: -0.02em; }
 
-  /* H2 seções: levemente negativo */
-  h2 { letter-spacing: -0.015em; }
+  /* Seções: mínimo, quase imperceptível */
+  h2 { letter-spacing: -0.01em; }
 
-  /* H3 cards: quase normal */
-  h3 { letter-spacing: -0.005em; }
+  /* Cards e subtítulos: normal */
+  h3, h4, h5 { letter-spacing: 0em; }
 
-  /* Body e labels: sem compressão */
+  /* Body: sem compressão, line-height confortável */
   p, li { letter-spacing: 0em; line-height: 1.65; }
 }
 
