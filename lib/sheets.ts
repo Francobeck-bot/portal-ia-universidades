@@ -1,3 +1,65 @@
+export interface Principle {
+  numero: string;   // "01" a "05"
+  titulo: string;
+  descricao: string;
+}
+
+export interface SyllabusModel {
+  tipo: string;     // "Restritivo" | "Misto" | "Aberto"
+  texto: string;
+}
+
+export const FALLBACK_PRINCIPLES: Principle[] = [
+  { numero: "01", titulo: "Transparência",                  descricao: "Declare quando usou IA, como faria com qualquer fonte. Ensine os alunos a fazer o mesmo nos trabalhos." },
+  { numero: "02", titulo: "Aprendizado em primeiro lugar",  descricao: "IA apoia, não substitui o pensamento crítico. O objetivo final é o desenvolvimento das competências do aluno." },
+  { numero: "03", titulo: "Objetivos antes das ferramentas", descricao: "Defina o que quer ensinar antes de escolher a ferramenta. A pergunta certa é: como esta IA ajuda a alcançar este objetivo?" },
+  { numero: "04", titulo: "Política clara",                 descricao: "Informe os alunos no início do semestre sobre o que é permitido. Uma política clara reduz ambiguidade e conflitos." },
+  { numero: "05", titulo: "Revisão contínua",               descricao: "As diretrizes evoluem com a tecnologia. Revise suas políticas a cada semestre e acompanhe o que outras universidades fazem." },
+];
+
+export const FALLBACK_SYLLABUS: SyllabusModel[] = [
+  {
+    tipo: "Restritivo",
+    texto: "O uso de ferramentas de IA generativa não é permitido nesta disciplina. Todo trabalho deve ser de autoria própria do estudante.",
+  },
+  {
+    tipo: "Misto",
+    texto: "Ferramentas de IA podem ser usadas como apoio ao processo de aprendizagem, desde que seu uso seja declarado e o trabalho final reflita a compreensão própria do estudante. Indique no trabalho quais ferramentas utilizou e como.",
+  },
+  {
+    tipo: "Aberto",
+    texto: "O uso de IA é encorajado nesta disciplina como parte da preparação para o mercado de trabalho. O estudante deve documentar seu processo, incluindo os prompts utilizados e uma análise crítica dos resultados gerados.",
+  },
+];
+
+export async function fetchPrinciples(sheetUrl?: string): Promise<Principle[]> {
+  if (!sheetUrl || sheetUrl.includes("SEU_ID")) return FALLBACK_PRINCIPLES;
+  try {
+    const res = await fetch(sheetUrl, { next: { revalidate: 3600 } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const valid = (rows as unknown as Principle[]).filter((p) => p.titulo?.trim());
+    return valid.length > 0 ? valid : FALLBACK_PRINCIPLES;
+  } catch {
+    return FALLBACK_PRINCIPLES;
+  }
+}
+
+export async function fetchSyllabus(sheetUrl?: string): Promise<SyllabusModel[]> {
+  if (!sheetUrl || sheetUrl.includes("SEU_ID")) return FALLBACK_SYLLABUS;
+  try {
+    const res = await fetch(sheetUrl, { next: { revalidate: 3600 } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const valid = (rows as unknown as SyllabusModel[]).filter((s) => s.tipo?.trim() && s.texto?.trim());
+    return valid.length > 0 ? valid : FALLBACK_SYLLABUS;
+  } catch {
+    return FALLBACK_SYLLABUS;
+  }
+}
+
 export interface Tool {
   nome: string;
   tipo: string;
@@ -214,8 +276,12 @@ export async function fetchTools(sheetUrl?: string): Promise<Tool[]> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
     const rows = parseCSV(csv);
-    if (rows.length === 0) return FALLBACK_TOOLS;
-    return rows as unknown as Tool[];
+    // Remove linhas vazias (sem nome ou sem link) para não gerar cards quebrados
+    const valid = (rows as unknown as Tool[]).filter(
+      (t) => t.nome?.trim() && t.link?.trim()
+    );
+    if (valid.length === 0) return FALLBACK_TOOLS;
+    return valid;
   } catch {
     console.warn("Could not fetch tools from Google Sheets, using fallback data.");
     return FALLBACK_TOOLS;
@@ -231,8 +297,12 @@ export async function fetchExamples(sheetUrl?: string): Promise<Example[]> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
     const rows = parseCSV(csv);
-    if (rows.length === 0) return FALLBACK_EXAMPLES;
-    return rows as unknown as Example[];
+    // Remove linhas vazias (sem titulo ou sem categoria) para não gerar cards quebrados
+    const valid = (rows as unknown as Example[]).filter(
+      (e) => e.titulo?.trim() && e.categoria?.trim()
+    );
+    if (valid.length === 0) return FALLBACK_EXAMPLES;
+    return valid;
   } catch {
     console.warn("Could not fetch examples from Google Sheets, using fallback data.");
     return FALLBACK_EXAMPLES;

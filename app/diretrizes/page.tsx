@@ -1,63 +1,17 @@
-import { Eye, Brain, Target, FileText, RefreshCw, AlertTriangle, Copy } from "lucide-react";
+import { Eye, Brain, Target, FileText, RefreshCw, AlertTriangle } from "lucide-react";
+import { fetchPrinciples, fetchSyllabus } from "@/lib/sheets";
+import { SHEETS_CONFIG } from "@/lib/config";
+import SyllabusCard from "@/components/SyllabusCard";
+import type { LucideIcon } from "lucide-react";
 
-const principles = [
-  {
-    Icon: Eye,
-    title: "Transparência",
-    description:
-      "Declare quando usou IA, como faria com qualquer fonte. Ensine os alunos a fazer o mesmo nos trabalhos.",
-  },
-  {
-    Icon: Brain,
-    title: "Aprendizado em primeiro lugar",
-    description:
-      "IA apoia, não substitui o pensamento crítico. O objetivo final é o desenvolvimento das competências do aluno.",
-  },
-  {
-    Icon: Target,
-    title: "Objetivos antes das ferramentas",
-    description:
-      "Defina o que quer ensinar antes de escolher a ferramenta. A pergunta certa é: como esta IA ajuda a alcançar este objetivo?",
-  },
-  {
-    Icon: FileText,
-    title: "Política clara",
-    description:
-      "Informe os alunos no início do semestre sobre o que é permitido. Uma política clara reduz ambiguidade e conflitos.",
-  },
-  {
-    Icon: RefreshCw,
-    title: "Revisão contínua",
-    description:
-      "As diretrizes evoluem com a tecnologia. Revise suas políticas a cada semestre e acompanhe o que outras universidades fazem.",
-  },
-];
+const PRINCIPLE_ICONS: LucideIcon[] = [Eye, Brain, Target, FileText, RefreshCw];
 
-const syllabusModels = [
-  {
-    type: "Restritivo",
-    borderColor: "#ef4444",
-    tagBg: "#fef2f2",
-    tagColor: "#b91c1c",
-    text: `"O uso de ferramentas de IA generativa não é permitido nesta disciplina. Todo trabalho deve ser de autoria própria do estudante."`,
-  },
-  {
-    type: "Misto",
-    borderColor: "#f59e0b",
-    tagBg: "#fffbeb",
-    tagColor: "#b45309",
-    text: `"Ferramentas de IA podem ser usadas como apoio ao processo de aprendizagem, desde que seu uso seja declarado e o trabalho final reflita a compreensão própria do estudante. Indique no trabalho quais ferramentas utilizou e como."`,
-  },
-  {
-    type: "Aberto",
-    borderColor: "#5de0e6",
-    tagBg: "#ecfeff",
-    tagColor: "#0e7490",
-    text: `"O uso de IA é encorajado nesta disciplina como parte da preparação para o mercado de trabalho. O estudante deve documentar seu processo, incluindo os prompts utilizados e uma análise crítica dos resultados gerados."`,
-  },
-];
+export default async function DiretrizesPage() {
+  const [principles, syllabusModels] = await Promise.all([
+    fetchPrinciples(SHEETS_CONFIG.principlesSheetUrl),
+    fetchSyllabus(SHEETS_CONFIG.syllabusSheetUrl),
+  ]);
 
-export default function DiretrizesPage() {
   return (
     <div className="bg-white">
 
@@ -100,29 +54,34 @@ export default function DiretrizesPage() {
           </p>
 
           <div className="space-y-3">
-            {principles.map(({ Icon, title, description }, i) => (
-              <div
-                key={i}
-                className="flex gap-5 p-6 rounded-xl border border-gray-100 hover:border-[#5de0e6]/50
-                           hover:shadow-sm transition-all duration-200 bg-white"
-              >
-                <div className="shrink-0 mt-0.5">
-                  <div
-                    className="p-2.5 rounded-lg"
-                    style={{ background: "linear-gradient(135deg, #004aad15, #5de0e620)" }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: "#004aad" }} />
+            {principles.map((principle, i) => {
+              const Icon = PRINCIPLE_ICONS[i] ?? FileText;
+              return (
+                <div
+                  key={i}
+                  className="flex gap-5 p-6 rounded-xl border border-gray-100 hover:border-[#5de0e6]/50
+                             hover:shadow-sm transition-all duration-200 bg-white"
+                >
+                  <div className="shrink-0 mt-0.5">
+                    <div
+                      className="p-2.5 rounded-lg"
+                      style={{ background: "linear-gradient(135deg, #004aad15, #5de0e620)" }}
+                    >
+                      <Icon className="w-5 h-5" style={{ color: "#004aad" }} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-xs font-black" style={{ color: "#5de0e6" }}>
+                        {principle.numero}
+                      </span>
+                      <h3 className="font-black text-gray-900">{principle.titulo}</h3>
+                    </div>
+                    <p className="text-gray-500 text-sm leading-relaxed">{principle.descricao}</p>
                   </div>
                 </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-xs font-black" style={{ color: "#5de0e6" }}>0{i + 1}</span>
-                    <h3 className="font-black text-gray-900">{title}</h3>
-                  </div>
-                  <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -137,35 +96,8 @@ export default function DiretrizesPage() {
           </p>
 
           <div className="space-y-4">
-            {syllabusModels.map(({ type, borderColor, tagBg, tagColor, text }, i) => (
-              <div
-                key={i}
-                className="rounded-xl p-6 bg-white border"
-                style={{ borderColor: `${borderColor}60` }}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span
-                    className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold"
-                    style={{ background: tagBg, color: tagColor }}
-                  >
-                    Modelo {type}
-                  </span>
-                  <button
-                    className="inline-flex items-center gap-1.5 text-xs font-medium
-                               text-gray-400 hover:text-gray-700 transition-colors"
-                    title="Copiar texto"
-                  >
-                    <Copy className="w-3.5 h-3.5" />
-                    Copiar
-                  </button>
-                </div>
-                <blockquote
-                  className="text-gray-700 text-sm leading-relaxed italic border-l-2 pl-4"
-                  style={{ borderColor }}
-                >
-                  {text}
-                </blockquote>
-              </div>
+            {syllabusModels.map((model, i) => (
+              <SyllabusCard key={i} model={model} />
             ))}
           </div>
         </section>
