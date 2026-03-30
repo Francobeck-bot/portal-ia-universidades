@@ -2,7 +2,7 @@ import { fetchTools } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";
 import ToolsClient from "@/components/ToolsClient";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function FerramentasPage() {
   const tools = await fetchTools(SHEETS_CONFIG.toolsSheetUrl);

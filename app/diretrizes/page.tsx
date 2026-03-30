@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Eye, Brain, Target, FileText, RefreshCw, AlertTriangle } from "lucide-react";
 import { fetchPrinciples, fetchSyllabus } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";

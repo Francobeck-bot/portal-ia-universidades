@@ -2,7 +2,7 @@ import { fetchExamples } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";
 import ExamplesClient from "@/components/ExamplesClient";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function ExemplosPage() {
   const examples = await fetchExamples(SHEETS_CONFIG.examplesSheetUrl);
