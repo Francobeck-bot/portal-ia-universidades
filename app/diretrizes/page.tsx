@@ -81,8 +81,8 @@ export default function DiretrizesPage() {
             </span>
           </h1>
           <p className="text-lg text-gray-500 max-w-2xl leading-relaxed">
-            O uso de IA no ensino superior não é uma questão de ser a favor ou contra —
-            é uma questão de como fazer de forma que realmente beneficie o aprendizado.
+            O uso de IA no ensino superior não é uma questão de ser a favor ou contra.
+            É uma questão de como fazer de forma que realmente beneficie o aprendizado.
           </p>
         </div>
       </div>
@@ -183,7 +183,7 @@ export default function DiretrizesPage() {
                 <p className="text-amber-800 text-sm leading-relaxed mb-3">
                   Ferramentas como <strong>Turnitin AI Detection</strong> e <strong>GPTZero</strong> apresentam
                   altas taxas de falso-positivo e são <strong>comprovadamente enviesadas contra falantes
-                  não-nativos de inglês</strong> — acusando injustamente alunos que escreveram por conta própria.
+                  não-nativos de inglês</strong>, acusando injustamente alunos que escreveram por conta própria.
                 </p>
                 <p className="text-amber-800 text-sm leading-relaxed mb-3">
                   Universidades como <strong>MIT</strong> e <strong>University of Toronto</strong> rejeitam

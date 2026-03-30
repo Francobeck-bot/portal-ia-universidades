@@ -69,8 +69,8 @@ export default function HomePage() {
           <p className="section-label">O que você encontra aqui</p>
           <h2 className="section-title">Tudo em um só lugar</h2>
           <p className="section-sub max-w-xl">
-            De diretrizes a ferramentas, de casos práticos a instruções passo a passo —
-            conteúdo baseado nas melhores universidades do mundo.
+            De diretrizes a ferramentas, de casos práticos a instruções passo a passo.
+            Conteúdo baseado nas melhores universidades do mundo.
           </p>
         </div>
 
@@ -118,7 +118,7 @@ export default function HomePage() {
               Por que usar IA no ensino?
             </h2>
             <p className="text-white/60 text-lg max-w-xl">
-              Números reais de pesquisas nas melhores universidades — para quem ainda tem dúvidas.
+              Números reais de pesquisas nas melhores universidades, para quem ainda tem dúvidas.
             </p>
           </div>
 
@@ -126,26 +126,36 @@ export default function HomePage() {
             {stats.map(({ value, label, source, detail }, i) => (
               <div
                 key={i}
-                className="rounded-xl p-8 border border-white/10 hover:border-[#5de0e6]/50
-                           transition-colors duration-200"
-                style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(8px)" }}
+                className="rounded-xl p-8 border transition-colors duration-200"
+                style={{
+                  background: "rgba(0, 10, 30, 0.55)",
+                  borderColor: "rgba(93,224,230,0.25)",
+                  backdropFilter: "blur(2px)",
+                }}
               >
                 <div
-                  className="text-5xl font-black mb-1 tracking-tight"
+                  className="text-5xl font-black mb-1"
                   style={{
-                    background: "linear-gradient(135deg, #ffffff, #5de0e6)",
+                    letterSpacing: "-0.03em",
+                    background: "linear-gradient(135deg, #ffffff 40%, #5de0e6 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}
                 >
                   {value}
                 </div>
-                <div className="text-sm font-bold mb-1 uppercase tracking-wide"
-                     style={{ color: "#5de0e6" }}>
+                <div
+                  className="text-xs font-bold mb-1 uppercase"
+                  style={{ color: "#5de0e6", letterSpacing: "0.1em" }}
+                >
                   {label}
                 </div>
-                <div className="text-xs text-white/40 mb-4 font-medium">{source}</div>
-                <p className="text-white/60 text-sm leading-relaxed">{detail}</p>
+                <div className="text-xs mb-5 font-medium" style={{ color: "rgba(255,255,255,0.45)" }}>
+                  {source}
+                </div>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>
+                  {detail}
+                </p>
               </div>
             ))}
           </div>
