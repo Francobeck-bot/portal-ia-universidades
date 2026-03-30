@@ -1,232 +1,205 @@
-import {
-  Shield,
-  Eye,
-  Brain,
-  Target,
-  BookOpen,
-  RefreshCw,
-  AlertTriangle,
-  CheckCircle,
-  XCircle,
-  FileText,
-} from "lucide-react";
+import { Eye, Brain, Target, FileText, RefreshCw, AlertTriangle, Copy } from "lucide-react";
 
 const principles = [
   {
-    icon: Eye,
+    Icon: Eye,
     title: "Transparência",
     description:
-      "Declare quando você usou IA para criar ou revisar materiais. Ensine os alunos a fazer o mesmo nos trabalhos. A transparência normaliza o uso ético e constrói confiança.",
-    examples: ["Indicar no rodapé de uma apresentação que foi elaborada com auxílio de ChatGPT", "Incluir na política do curso como e quando os alunos devem declarar uso de IA"],
+      "Declare quando usou IA, como faria com qualquer fonte. Ensine os alunos a fazer o mesmo nos trabalhos.",
   },
   {
-    icon: Brain,
-    title: "Foco no Aprendizado",
+    Icon: Brain,
+    title: "Aprendizado em primeiro lugar",
     description:
-      "IA é uma ferramenta de apoio, não substituta do pensamento crítico. O objetivo final é o desenvolvimento das competências do aluno — a IA deve amplificar esse processo, não cortocircuitá-lo.",
-    examples: ["Usar IA como interlocutor para testar argumentos, não para gerá-los", "Pedir que alunos expliquem e critiquem a resposta que a IA deu"],
+      "IA apoia, não substitui o pensamento crítico. O objetivo final é o desenvolvimento das competências do aluno.",
   },
   {
-    icon: Target,
-    title: "Objetivos Primeiro",
+    Icon: Target,
+    title: "Objetivos antes das ferramentas",
     description:
-      "Defina o que quer ensinar ANTES de escolher a ferramenta de IA. A pergunta certa é: 'como esta ferramenta ajuda a alcançar este objetivo de aprendizagem?', não 'o que essa ferramenta faz?'.",
-    examples: ["Mapear competências do curso → identificar onde IA pode ajudar vs. atrapalhar", "Evitar usar IA só por ser novidade, sem conexão com o objetivo pedagógico"],
+      "Defina o que quer ensinar antes de escolher a ferramenta. A pergunta certa é: como esta IA ajuda a alcançar este objetivo?",
   },
   {
-    icon: FileText,
-    title: "Política Clara",
+    Icon: FileText,
+    title: "Política clara",
     description:
-      "Informe os alunos no início do semestre sobre o que é permitido, encorajado e proibido em relação ao uso de IA. Uma política clara reduz ambiguidade e conflitos.",
-    examples: ["Incluir seção sobre IA no syllabus do curso", "Discutir abertamente na primeira aula os limites do uso de IA"],
+      "Informe os alunos no início do semestre sobre o que é permitido. Uma política clara reduz ambiguidade e conflitos.",
   },
   {
-    icon: RefreshCw,
-    title: "Atualização Contínua",
+    Icon: RefreshCw,
+    title: "Revisão contínua",
     description:
-      "As diretrizes evoluem com a tecnologia. O que vale hoje pode ser diferente em 6 meses. Revise suas políticas semestralmente e acompanhe o que outras universidades estão fazendo.",
-    examples: ["Revisitar o syllabus a cada semestre para atualizar a política de IA", "Seguir publicações de centros de inovação em ensino de universidades de referência"],
+      "As diretrizes evoluem com a tecnologia. Revise suas políticas a cada semestre e acompanhe o que outras universidades fazem.",
   },
 ];
 
 const syllabusModels = [
   {
     type: "Restritivo",
-    color: "border-red-300 bg-red-50",
-    badgeColor: "bg-red-100 text-red-700",
-    icon: XCircle,
-    iconColor: "text-red-500",
-    text: `"O uso de ferramentas de Inteligência Artificial (ChatGPT, Copilot, Claude, etc.) para redigir, gerar ou reformular qualquer parte dos trabalhos avaliados desta disciplina é proibido. Isso inclui rascunhos, análises e relatórios. O objetivo das avaliações é desenvolver sua capacidade de raciocínio e comunicação. O uso indevido será tratado como desonestidade acadêmica, conforme o Regimento da UFRGS."`,
-    note: "Adequado para disciplinas onde o processo de escrita ou raciocínio é a própria competência avaliada.",
+    borderColor: "#ef4444",
+    tagBg: "#fef2f2",
+    tagColor: "#b91c1c",
+    text: `"O uso de ferramentas de IA generativa não é permitido nesta disciplina. Todo trabalho deve ser de autoria própria do estudante."`,
   },
   {
     type: "Misto",
-    color: "border-yellow-300 bg-yellow-50",
-    badgeColor: "bg-yellow-100 text-yellow-700",
-    icon: AlertTriangle,
-    iconColor: "text-yellow-500",
-    text: `"Você pode usar ferramentas de IA como ChatGPT ou Copilot para: (a) pesquisar e entender conceitos, (b) revisar gramática e clareza do texto, (c) gerar ideias iniciais para brainstorm. Você NÃO pode usar IA para: redigir os argumentos centrais do trabalho, gerar análises ou conclusões. Sempre que usar IA, declare ao final do trabalho: 'Usei [ferramenta] para [finalidade específica].' Trabalhos sem declaração quando IA foi usada serão penalizados."`,
-    note: "Recomendado para a maioria das disciplinas. Equilibra aprendizagem com letramento digital.",
+    borderColor: "#f59e0b",
+    tagBg: "#fffbeb",
+    tagColor: "#b45309",
+    text: `"Ferramentas de IA podem ser usadas como apoio ao processo de aprendizagem, desde que seu uso seja declarado e o trabalho final reflita a compreensão própria do estudante. Indique no trabalho quais ferramentas utilizou e como."`,
   },
   {
-    type: "Permissivo",
-    color: "border-green-300 bg-green-50",
-    badgeColor: "bg-green-100 text-green-700",
-    icon: CheckCircle,
-    iconColor: "text-green-500",
-    text: `"Nesta disciplina, o uso de ferramentas de IA é encorajado como parte do processo de trabalho. Entendemos IA como uma ferramenta profissional que vocês usarão na carreira. O que avaliamos é sua capacidade de: (1) usar IA com critério para resolver problemas reais, (2) verificar, criticar e complementar o que a IA produz, (3) entregar resultado de qualidade. Documente como você usou IA em cada entrega. A reflexão sobre esse processo faz parte da avaliação."`,
-    note: "Recomendado para disciplinas técnicas, projetos de conclusão ou quando o objetivo inclui letramento em IA.",
+    type: "Aberto",
+    borderColor: "#5de0e6",
+    tagBg: "#ecfeff",
+    tagColor: "#0e7490",
+    text: `"O uso de IA é encorajado nesta disciplina como parte da preparação para o mercado de trabalho. O estudante deve documentar seu processo, incluindo os prompts utilizados e uma análise crítica dos resultados gerados."`,
   },
 ];
 
 export default function DiretrizesPage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Page Header */}
-      <div className="mb-12">
-        <div className="inline-flex items-center gap-2 text-ufrgs-blue text-sm font-medium mb-3">
-          <Shield className="w-4 h-4" />
-          Para professores e alunos
+    <div className="bg-white">
+
+      {/* Page hero */}
+      <div
+        className="border-b border-gray-100"
+        style={{ background: "linear-gradient(135deg, #004aad08, #5de0e615)" }}
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          <p className="section-label">Para professores e alunos</p>
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+            Diretrizes para Uso<br />
+            <span
+              style={{
+                background: "linear-gradient(135deg, #004aad, #5de0e6)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Responsável de IA
+            </span>
+          </h1>
+          <p className="text-lg text-gray-500 max-w-2xl leading-relaxed">
+            O uso de IA no ensino superior não é uma questão de ser a favor ou contra —
+            é uma questão de como fazer de forma que realmente beneficie o aprendizado.
+          </p>
         </div>
-        <h1 className="text-4xl font-bold text-ufrgs-dark mb-4">
-          Diretrizes para Uso Responsável de IA
-        </h1>
-        <p className="text-lg text-gray-600 leading-relaxed max-w-3xl">
-          O uso de IA no ensino superior não é uma questão de ser a favor ou contra — é uma questão de
-          como fazer isso de forma que realmente beneficie o aprendizado. Estas diretrizes são baseadas
-          nas melhores práticas identificadas em universidades de referência mundial.
-        </p>
       </div>
 
-      {/* What is responsible use */}
-      <section className="mb-14">
-        <div className="bg-ufrgs-dark text-white rounded-2xl p-8">
-          <div className="flex items-start gap-4">
-            <div className="bg-ufrgs-gold/20 p-3 rounded-xl">
-              <BookOpen className="w-7 h-7 text-ufrgs-gold" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-3">O que é uso responsável de IA no ensino?</h2>
-              <p className="text-blue-100 leading-relaxed mb-4">
-                Uso responsável significa aproveitar o potencial da IA para melhorar o aprendizado —
-                personalizando o suporte, liberando tempo para atividades de maior valor — sem
-                comprometer o desenvolvimento das competências que o ensino deve cultivar.
-              </p>
-              <p className="text-blue-100 leading-relaxed">
-                Não é sobre banir ou liberar tudo. É sobre definir, para cada contexto, <strong className="text-white">quando
-                a IA amplifica o aprendizado e quando ela o substitui</strong>. Essa linha é diferente
-                para cada disciplina e objetivo pedagógico.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
 
-      {/* Principles */}
-      <section className="mb-14">
-        <h2 className="text-2xl font-bold text-ufrgs-dark mb-2">5 Princípios Fundamentais</h2>
-        <p className="text-gray-600 mb-8">
-          Baseados no que as melhores universidades do mundo praticam e recomendam.
-        </p>
+        {/* ── SEÇÃO 1: Princípios ── */}
+        <section>
+          <p className="section-label">01</p>
+          <h2 className="text-2xl font-black text-gray-900 mb-2">
+            Princípios para uso responsável de IA no ensino
+          </h2>
+          <p className="text-gray-500 mb-8">
+            Cinco princípios baseados no que as melhores universidades do mundo praticam e recomendam.
+          </p>
 
-        <div className="space-y-6">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <div key={i} className="card p-6 flex gap-5">
-                <div className="shrink-0">
-                  <div className="bg-ufrgs-blue/10 p-3 rounded-xl">
-                    <Icon className="w-6 h-6 text-ufrgs-blue" />
+          <div className="space-y-3">
+            {principles.map(({ Icon, title, description }, i) => (
+              <div
+                key={i}
+                className="flex gap-5 p-6 rounded-xl border border-gray-100 hover:border-[#5de0e6]/50
+                           hover:shadow-sm transition-all duration-200 bg-white"
+              >
+                <div className="shrink-0 mt-0.5">
+                  <div
+                    className="p-2.5 rounded-lg"
+                    style={{ background: "linear-gradient(135deg, #004aad15, #5de0e620)" }}
+                  >
+                    <Icon className="w-5 h-5" style={{ color: "#004aad" }} />
                   </div>
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs font-bold text-ufrgs-blue bg-ufrgs-blue/10 px-2 py-0.5 rounded-full">
-                      #{i + 1}
-                    </span>
-                    <h3 className="text-lg font-bold text-gray-900">{p.title}</h3>
+                <div>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="text-xs font-black" style={{ color: "#5de0e6" }}>0{i + 1}</span>
+                    <h3 className="font-black text-gray-900">{title}</h3>
                   </div>
-                  <p className="text-gray-600 leading-relaxed mb-3">{p.description}</p>
-                  <div className="bg-gray-50 rounded-lg p-3">
-                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                      Exemplos práticos
-                    </p>
-                    <ul className="space-y-1">
-                      {p.examples.map((ex, j) => (
-                        <li key={j} className="flex items-start gap-2 text-sm text-gray-600">
-                          <CheckCircle className="w-4 h-4 text-ufrgs-blue shrink-0 mt-0.5" />
-                          {ex}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      {/* Syllabus Models */}
-      <section className="mb-14">
-        <h2 className="text-2xl font-bold text-ufrgs-dark mb-2">
-          Como comunicar sua política de IA para os alunos
-        </h2>
-        <p className="text-gray-600 mb-8">
-          Inclua uma dessas seções — adaptada para sua disciplina — no syllabus do seu curso. A clareza
-          desde o início evita conflitos e educa os alunos sobre uso ético.
-        </p>
+        {/* ── SEÇÃO 2: Modelos de syllabus ── */}
+        <section>
+          <p className="section-label">02</p>
+          <h2 className="text-2xl font-black text-gray-900 mb-2">
+            Como comunicar sua política de IA para os alunos
+          </h2>
+          <p className="text-gray-500 mb-8">
+            Três modelos prontos para copiar e colar no syllabus do seu curso.
+          </p>
 
-        <div className="space-y-6">
-          {syllabusModels.map((model, i) => {
-            const Icon = model.icon;
-            return (
-              <div key={i} className={`rounded-xl border-2 ${model.color} p-6`}>
-                <div className="flex items-center gap-3 mb-4">
-                  <Icon className={`w-5 h-5 ${model.iconColor}`} />
-                  <span className={`badge ${model.badgeColor} font-semibold`}>
-                    Modelo {model.type}
+          <div className="space-y-4">
+            {syllabusModels.map(({ type, borderColor, tagBg, tagColor, text }, i) => (
+              <div
+                key={i}
+                className="rounded-xl p-6 bg-white border"
+                style={{ borderColor: `${borderColor}60` }}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span
+                    className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold"
+                    style={{ background: tagBg, color: tagColor }}
+                  >
+                    Modelo {type}
                   </span>
+                  <button
+                    className="inline-flex items-center gap-1.5 text-xs font-medium
+                               text-gray-400 hover:text-gray-700 transition-colors"
+                    title="Copiar texto"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                    Copiar
+                  </button>
                 </div>
-                <blockquote className="text-gray-700 leading-relaxed text-sm italic border-l-4 border-gray-300 pl-4 mb-4">
-                  {model.text}
+                <blockquote
+                  className="text-gray-700 text-sm leading-relaxed italic border-l-2 pl-4"
+                  style={{ borderColor }}
+                >
+                  {text}
                 </blockquote>
-                <p className="text-xs text-gray-500">
-                  <strong>Quando usar:</strong> {model.note}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── SEÇÃO 3: Aviso ── */}
+        <section>
+          <p className="section-label">03</p>
+          <div className="rounded-xl p-6 border-2 border-amber-200 bg-amber-50">
+            <div className="flex items-start gap-4">
+              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-black text-amber-900 mb-2">
+                  Aviso importante: detectores de IA não são confiáveis
+                </h3>
+                <p className="text-amber-800 text-sm leading-relaxed mb-3">
+                  Ferramentas como <strong>Turnitin AI Detection</strong> e <strong>GPTZero</strong> apresentam
+                  altas taxas de falso-positivo e são <strong>comprovadamente enviesadas contra falantes
+                  não-nativos de inglês</strong> — acusando injustamente alunos que escreveram por conta própria.
+                </p>
+                <p className="text-amber-800 text-sm leading-relaxed mb-3">
+                  Universidades como <strong>MIT</strong> e <strong>University of Toronto</strong> rejeitam
+                  formalmente o uso dessas ferramentas como evidência em processos disciplinares.
+                </p>
+                <p className="text-amber-700 text-sm">
+                  <strong>O que funciona melhor:</strong> redesenhar avaliações para exigir evidência de
+                  processo (rascunhos, reflexões, defesas orais) e adotar declaração de uso como mecanismo
+                  de integridade acadêmica.
                 </p>
               </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Warning about detectors */}
-      <section className="mb-10">
-        <div className="bg-amber-50 border-2 border-amber-300 rounded-xl p-6">
-          <div className="flex items-start gap-4">
-            <AlertTriangle className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-bold text-amber-800 text-lg mb-2">
-                Não recomendamos: detectores de IA em textos de alunos
-              </h3>
-              <p className="text-amber-700 leading-relaxed mb-3">
-                Ferramentas como GPTZero, Turnitin AI Detection e similares <strong>não são confiáveis</strong> para
-                fins disciplinares. As taxas de falso-positivo são altas — um aluno que escreveu genuinamente
-                pode ser acusado injustamente.
-              </p>
-              <p className="text-amber-700 leading-relaxed mb-3">
-                A Universidade de Toronto, entre outras, <strong>orienta explicitamente seus professores a não usar
-                detectores de IA</strong> como evidência em processos disciplinares.
-              </p>
-              <p className="text-amber-700 text-sm">
-                <strong>O que funciona melhor:</strong> redesenhar avaliações para que exijam evidências de processo
-                (rascunhos, reflexões, apresentações orais), e usar a declaração de uso como mecanismo de integridade
-                — ao invés de tentar detectar o que não se pode detectar com precisão.
-              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+      </div>
     </div>
   );
 }

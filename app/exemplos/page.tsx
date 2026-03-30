@@ -1,4 +1,3 @@
-import { Lightbulb, Info } from "lucide-react";
 import { fetchExamples } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";
 import ExamplesClient from "@/components/ExamplesClient";
@@ -9,31 +8,36 @@ export default async function ExemplosPage() {
   const examples = await fetchExamples(SHEETS_CONFIG.examplesSheetUrl);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Page Header */}
-      <div className="mb-10">
-        <div className="inline-flex items-center gap-2 text-ufrgs-blue text-sm font-medium mb-3">
-          <Lightbulb className="w-4 h-4" />
-          Baseados em casos reais
+    <div className="bg-white">
+      {/* Page hero */}
+      <div
+        className="border-b border-gray-100"
+        style={{ background: "linear-gradient(135deg, #004aad08, #5de0e615)" }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          <p className="section-label">Baseados em casos reais</p>
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+            Exemplos de Uso{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg, #004aad, #5de0e6)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              de IA no Ensino
+            </span>
+          </h1>
+          <p className="text-lg text-gray-500 max-w-2xl">
+            Casos práticos com instruções passo a passo de como implementar na sua disciplina hoje.
+            Todos baseados em experiências reais de universidades de referência.
+          </p>
         </div>
-        <h1 className="text-4xl font-bold text-ufrgs-dark mb-4">Exemplos de Uso de IA no Ensino</h1>
-        <p className="text-lg text-gray-600 max-w-3xl">
-          Casos práticos de como professores ao redor do mundo estão usando IA para melhorar o aprendizado.
-          Todos baseados em experiências reais de universidades de referência.
-        </p>
       </div>
 
-      {/* Info banner */}
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 flex items-start gap-3">
-        <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-        <p className="text-sm text-amber-700">
-          <strong>Para professores:</strong> Tem um exemplo de uso que deu certo na sua disciplina? Adicione
-          na planilha Google Sheets vinculada ao portal — sem precisar de programador. O site atualiza
-          automaticamente em até 1 hora.
-        </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <ExamplesClient examples={examples} />
       </div>
-
-      <ExamplesClient examples={examples} />
     </div>
   );
 }

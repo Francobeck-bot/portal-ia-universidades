@@ -1,74 +1,56 @@
 import Link from "next/link";
-import { Brain, ExternalLink } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-ufrgs-dark text-white mt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="bg-ufrgs-gold p-1.5 rounded-lg">
-                <Brain className="w-5 h-5 text-ufrgs-dark" />
+    <footer className="border-t border-gray-100 bg-white mt-20">
+      <div
+        className="border-b border-gray-100"
+        style={{ background: "linear-gradient(135deg, #004aad08, #5de0e612)" }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+
+            {/* Brand */}
+            <div className="flex items-center gap-3">
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                style={{ background: "linear-gradient(135deg, #004aad, #5de0e6)" }}
+              >
+                <span className="text-white font-black text-xs">IA</span>
               </div>
-              <span className="font-bold">IA no Ensino – EP UFRGS</span>
+              <div>
+                <p className="font-black text-sm text-gray-900">IA no Ensino – EP UFRGS</p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Portal mantido pela COMGRAD do curso de Engenharia de Produção
+                </p>
+              </div>
             </div>
-            <p className="text-blue-200 text-sm leading-relaxed">
-              Portal de recursos sobre uso responsável de Inteligência Artificial no ensino superior,
-              resultado da disciplina de Práticas de Engenharia de Produção (PEP) da UFRGS.
-            </p>
-          </div>
 
-          {/* Navigation */}
-          <div>
-            <h3 className="font-semibold mb-3 text-ufrgs-gold">Navegação</h3>
-            <ul className="space-y-2 text-sm text-blue-200">
+            {/* Nav */}
+            <nav className="flex flex-wrap gap-x-6 gap-y-2">
               {[
-                { href: "/", label: "Início" },
-                { href: "/diretrizes", label: "Diretrizes" },
+                { href: "/",            label: "Início" },
+                { href: "/diretrizes",  label: "Diretrizes" },
                 { href: "/ferramentas", label: "Ferramentas" },
-                { href: "/exemplos", label: "Exemplos de Uso" },
-                { href: "/benchmarking", label: "Benchmarking Global" },
+                { href: "/exemplos",    label: "Exemplos de Uso" },
               ].map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+                >
+                  {link.label}
+                </Link>
               ))}
-            </ul>
-          </div>
-
-          {/* Credits */}
-          <div>
-            <h3 className="font-semibold mb-3 text-ufrgs-gold">Créditos</h3>
-            <p className="text-blue-200 text-sm leading-relaxed mb-2">
-              Desenvolvido como trabalho acadêmico na disciplina PEP — Práticas de Engenharia de Produção.
-            </p>
-            <p className="text-blue-200 text-sm leading-relaxed mb-3">
-              Mantido pelo{" "}
-              <span className="text-white font-medium">Centro de Teaching & Learning</span> da UFRGS.
-            </p>
-            <a
-              href="https://www.ufrgs.br"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm text-ufrgs-gold hover:text-ufrgs-gold-light transition-colors"
-            >
-              UFRGS <ExternalLink className="w-3 h-3" />
-            </a>
+            </nav>
           </div>
         </div>
+      </div>
 
-        <div className="border-t border-ufrgs-blue/40 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2">
-          <p className="text-blue-300 text-sm">
-            © {new Date().getFullYear()} Engenharia de Produção – UFRGS. Conteúdo aberto para fins educacionais.
-          </p>
-          <p className="text-blue-400 text-xs">
-            Atualizado automaticamente via Google Sheets
-          </p>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+        <p className="text-xs text-gray-400">
+          © {new Date().getFullYear()} Engenharia de Produção – UFRGS. Conteúdo aberto para fins educacionais.
+        </p>
       </div>
     </footer>
   );

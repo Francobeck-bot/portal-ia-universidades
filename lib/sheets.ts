@@ -12,167 +12,163 @@ export interface Example {
   categoria: string;
   titulo: string;
   descricao: string;
+  como_fazer: string;
   universidade: string;
   ferramenta: string;
-  impacto: string;
   dificuldade: "Baixa" | "Média" | "Alta";
 }
 
-// Fallback data for when Google Sheets is not configured yet
 export const FALLBACK_TOOLS: Tool[] = [
   {
     nome: "ChatGPT",
-    tipo: "LLM Conversacional",
-    descricao: "Modelo de linguagem conversacional da OpenAI para tutoria, feedback e geração de conteúdo educacional.",
-    casos_de_uso: "Tutorbot, feedback em textos, geração de problemas, role-play, perguntas socráticas",
-    custo: "Gratuito/Plus",
+    tipo: "Tutor / Feedback",
+    descricao: "Assistente conversacional para tutoria, feedback em textos e geração de problemas.",
+    casos_de_uso: "Tutorbot, role-play, comparação humano vs. IA, revisão de textos",
+    custo: "Gratuito / Pago",
     link: "https://chat.openai.com",
-    universidades_que_recomendam: "Harvard, MIT, Stanford, Cornell",
+    universidades_que_recomendam: "Harvard, MIT, Stanford, Cornell, Princeton",
   },
   {
     nome: "Microsoft Copilot",
-    tipo: "LLM + Produtividade",
-    descricao: "Assistente de IA da Microsoft integrado ao pacote Office, ideal para criação de materiais e feedback.",
-    casos_de_uso: "Criação de materiais didáticos, feedback em textos, integração com Office 365",
+    tipo: "Criação de Conteúdo",
+    descricao: "IA integrada ao Office 365 para criar materiais de aula, rubricas e slides.",
+    casos_de_uso: "Criação de materiais, feedback em textos, integração com Word e PowerPoint",
     custo: "Gratuito para instituições",
     link: "https://copilot.microsoft.com",
     universidades_que_recomendam: "UCL, Cambridge, Imperial, Duke",
   },
   {
     nome: "Google NotebookLM",
-    tipo: "Análise de documentos",
-    descricao: "Ferramenta do Google para análise de documentos próprios: faça upload de aulas e obtenha resumos e perguntas.",
-    casos_de_uso: "Upload de aulas → resumos automáticos, perguntas de revisão, debates com o material",
+    tipo: "Tutor",
+    descricao: "Faz perguntas e debates com base nos documentos que você carrega.",
+    casos_de_uso: "Material pré-aula a partir de gravações, resumos automáticos, perguntas de revisão",
     custo: "Gratuito",
     link: "https://notebooklm.google.com",
     universidades_que_recomendam: "U. Michigan, Cambridge",
   },
   {
     nome: "Google Gemini",
-    tipo: "LLM Conversacional",
-    descricao: "Modelo de linguagem do Google com capacidades multimodais para suporte a estudantes e professores.",
-    casos_de_uso: "Geração de conteúdo, pesquisa acadêmica, suporte personalizado a estudantes",
-    custo: "Gratuito/Pro",
+    tipo: "Feedback / Criação de Conteúdo",
+    descricao: "Assistente Google para geração de conteúdo e suporte a estudantes.",
+    casos_de_uso: "Geração de conteúdo, pesquisa, suporte a dúvidas",
+    custo: "Gratuito / Pago",
     link: "https://gemini.google.com",
     universidades_que_recomendam: "U. Michigan, Cambridge",
   },
   {
     nome: "Claude (Anthropic)",
-    tipo: "LLM Conversacional",
-    descricao: "Modelo de linguagem focado em segurança e análise de textos longos, ideal para escrita acadêmica.",
-    casos_de_uso: "Análise de textos longos, feedback detalhado, escrita acadêmica, revisão de trabalhos",
-    custo: "Gratuito/Pro",
+    tipo: "Feedback",
+    descricao: "Excelente para textos longos, feedback detalhado e escrita acadêmica.",
+    casos_de_uso: "Análise de textos, feedback em trabalhos, role-play",
+    custo: "Gratuito / Pago",
     link: "https://claude.ai",
     universidades_que_recomendam: "JHU, Imperial",
   },
   {
     nome: "Perplexity AI",
-    tipo: "Busca com IA",
-    descricao: "Motor de busca com IA que cita fontes, ideal para pesquisa acadêmica com referências verificáveis.",
-    casos_de_uso: "Pesquisa com fontes citadas, análise de tópicos com contexto acadêmico",
-    custo: "Gratuito/Pro",
+    tipo: "Criação de Conteúdo",
+    descricao: "Busca com IA que cita as fontes automaticamente.",
+    casos_de_uso: "Pesquisa com fontes verificáveis, análise de dados com contexto",
+    custo: "Gratuito / Pago",
     link: "https://perplexity.ai",
     universidades_que_recomendam: "CMU",
   },
   {
-    nome: "Whisper (OpenAI)",
+    nome: "Whisper",
     tipo: "Transcrição",
-    descricao: "Modelo de transcrição automática de fala para texto, permite converter aulas gravadas em material escrito.",
-    casos_de_uso: "Transcrição de aulas para material escrito, acessibilidade, geração de legendas",
-    custo: "Gratuito (API)",
+    descricao: "Transcreve automaticamente áudio e vídeo de aulas.",
+    casos_de_uso: "Transcrição de aulas para material escrito, geração de legendas",
+    custo: "Gratuito",
     link: "https://openai.com/research/whisper",
     universidades_que_recomendam: "Múltiplas universidades",
   },
   {
     nome: "Elements of AI",
     tipo: "Literacia em IA",
-    descricao: "MOOC gratuito da Universidade de Helsinki para introdução à IA para não-especialistas. +1M usuários.",
-    casos_de_uso: "Literacia em IA para alunos e professores sem formação técnica, curso introdutório",
+    descricao: "Curso gratuito de introdução à IA para não-especialistas, com mais de 1 milhão de usuários.",
+    casos_de_uso: "Literacia básica em IA para professores e alunos",
     custo: "Gratuito",
     link: "https://www.elementsofai.com",
-    universidades_que_recomendam: "U. Helsinki",
+    universidades_que_recomendam: "University of Helsinki",
   },
 ];
 
 export const FALLBACK_EXAMPLES: Example[] = [
   {
-    categoria: "Tutoria e Suporte",
-    titulo: "Tutor Personalizado 24/7",
+    categoria: "Tutor Personalizado",
+    titulo: "Tutorbot 24/7 com o conteúdo do seu curso",
     descricao:
-      "O professor alimenta a IA com o syllabus e materiais do curso, transformando-a em um tutorbot disponível 24h. O Harvard PS2 Pal dobrou o aprendizado em um RCT com 194 alunos. A U. Michigan usa o Maizey para Gestão de Operações com resultados similares.",
-    universidade: "Harvard, U. Michigan",
-    ferramenta: "ChatGPT, Claude",
-    impacto: "2× mais aprendizagem (RCT com 194 alunos – Harvard)",
+      "Professor alimenta o ChatGPT com o syllabus e materiais da disciplina; alunos tiram dúvidas a qualquer hora sem depender do horário do professor.",
+    como_fazer:
+      "1) Reúna o syllabus e os slides da disciplina.\n2) Abra o ChatGPT e cole o conteúdo com a instrução: \"Você é um assistente de ensino desta disciplina. Responda dúvidas dos alunos com base nesse material e nunca dê respostas diretas — faça perguntas que guiem o raciocínio.\"\n3) Compartilhe o link do chat com os alunos.",
+    universidade: "Harvard / U. Michigan",
+    ferramenta: "ChatGPT",
     dificuldade: "Baixa",
   },
   {
-    categoria: "Tutoria e Suporte",
+    categoria: "Tutor Personalizado",
     titulo: "IA que Pergunta em vez de Responder",
     descricao:
-      "A IA é configurada para guiar o raciocínio com perguntas socráticas em vez de entregar respostas prontas. O aluno chega à solução por conta própria, desenvolvendo pensamento crítico. Usado na Universidade da Filadélfia e no Jill Watson da Georgia Tech.",
-    universidade: "U. Filadélfia, Georgia Tech",
-    ferramenta: "ChatGPT, Claude",
-    impacto: "Maior retenção e pensamento crítico",
+      "Em vez de dar respostas, a IA guia o aluno com perguntas que estimulam o raciocínio crítico. Método socrático implementado com um simples prompt.",
+    como_fazer:
+      "Configure o ChatGPT com o prompt: \"Quando o aluno fizer uma pergunta, não dê a resposta. Em vez disso, faça 2 ou 3 perguntas que o ajudem a chegar à resposta sozinho.\"\nUse em plantões de dúvidas ou como suporte fora do horário de aula.",
+    universidade: "Universidade da Filadélfia / Georgia Tech",
+    ferramenta: "ChatGPT",
     dificuldade: "Baixa",
   },
   {
     categoria: "Produção de Material",
     titulo: "Transcrição e Material Pré-Aula",
     descricao:
-      "O professor grava a aula → Whisper transcreve automaticamente → NotebookLM gera resumo, perguntas de revisão e pontos-chave → alunos chegam à aula mais preparados e o tempo de aula é aproveitado para discussão.",
-    universidade: "Múltiplas universidades",
-    ferramenta: "Whisper, Google NotebookLM",
-    impacto: "Maior preparação prévia dos alunos",
+      "Whisper transcreve a aula; NotebookLM gera resumo, pontos-chave e perguntas de revisão para os alunos chegarem mais preparados.",
+    como_fazer:
+      "1) Grave a aula (qualquer celular serve).\n2) Faça upload no Whisper para obter a transcrição.\n3) Cole a transcrição no NotebookLM.\n4) Peça: \"Gere um resumo com os pontos principais e 5 perguntas de revisão.\"\n5) Compartilhe com os alunos antes da próxima aula.",
+    universidade: "U. Edinburgh / Cambridge",
+    ferramenta: "Whisper + NotebookLM",
+    dificuldade: "Baixa",
+  },
+  {
+    categoria: "Avaliação e Feedback",
+    titulo: "Feedback em Rascunhos",
+    descricao:
+      "IA revisa o rascunho do aluno e aponta pontos de melhoria antes que o professor precise ver. O professor recebe versões mais polidas.",
+    como_fazer:
+      "Instrua os alunos a colar o rascunho no ChatGPT com o prompt: \"Você é um revisor acadêmico. Aponte os 3 principais pontos de melhoria deste texto em relação a clareza, argumentação e estrutura. Não reescreva — apenas aponte o que melhorar.\"",
+    universidade: "Harvard / JHU / CMU",
+    ferramenta: "ChatGPT",
     dificuldade: "Baixa",
   },
   {
     categoria: "Simulação e Prática",
-    titulo: "Role-play e Simulação de Cenários",
+    titulo: "Role-play e Simulação",
     descricao:
-      "A IA assume o papel de cliente, auditor, paciente ou stakeholder para que o aluno pratique situações reais antes de enfrentá-las. A NUS (Singapura) usa amplamente em cursos de Direito e Saúde.",
-    universidade: "NUS (National University of Singapore)",
-    ferramenta: "ChatGPT, Claude",
-    impacto: "Prática segura antes de situações reais",
-    dificuldade: "Média",
-  },
-  {
-    categoria: "Avaliação e Feedback",
-    titulo: "Feedback Inicial em Textos Acadêmicos",
-    descricao:
-      "O aluno submete um rascunho para a IA antes de enviar ao professor. A IA aponta problemas de estrutura, argumentação e clareza. O professor recebe uma versão mais polida e pode focar em feedback de nível mais alto.",
-    universidade: "Harvard, JHU, CMU",
-    ferramenta: "ChatGPT, Claude",
-    impacto: "Textos finais de maior qualidade",
+      "IA assume o papel de cliente, fornecedor, auditor ou stakeholder para o aluno praticar antes de situações reais.",
+    como_fazer:
+      "Configure o ChatGPT: \"Você é um gerente de produção insatisfeito com atrasos na entrega. O aluno vai tentar negociar contigo. Seja realista e exigente.\"\nUse antes de visitas técnicas, estágios ou apresentações.",
+    universidade: "NUS / Imperial",
+    ferramenta: "ChatGPT",
     dificuldade: "Baixa",
   },
   {
-    categoria: "Avaliação e Feedback",
+    categoria: "Pensamento Crítico",
     titulo: "Comparação Humano vs. IA",
     descricao:
-      "O aluno resolve um exercício ou escreve um texto sozinho. Depois pede à IA para resolver o mesmo problema e compara os dois resultados, identificando diferenças, erros e pontos de melhoria. Usado em Princeton.",
-    universidade: "Princeton",
-    ferramenta: "ChatGPT, Gemini",
-    impacto: "Desenvolvimento de senso crítico sobre IA",
-    dificuldade: "Baixa",
-  },
-  {
-    categoria: "Tutoria e Suporte",
-    titulo: "Nivelador de Habilidades Técnicas",
-    descricao:
-      "A IA ajuda alunos a superar barreiras de pré-requisitos: um aluno de MBA aprende análise de dados sem saber Python, com a IA gerando o código e explicando o raciocínio passo a passo. Reduz desigualdades de background.",
-    universidade: "Harvard Business School",
-    ferramenta: "ChatGPT, Copilot",
-    impacto: "Redução de barreiras de entrada em disciplinas técnicas",
+      "Aluno faz o exercício sozinho, depois pede para a IA fazer o mesmo e compara — desenvolvendo senso crítico sobre as capacidades e limitações da IA.",
+    como_fazer:
+      "1) Aluno resolve o problema (análise de processo, diagnóstico, proposta de melhoria).\n2) Pede para o ChatGPT resolver o mesmo problema.\n3) Compara as duas respostas e escreve um parágrafo sobre as diferenças, o que a IA acertou, errou e o que só ele sabia por estar no contexto.",
+    universidade: "Princeton / Cornell",
+    ferramenta: "ChatGPT",
     dificuldade: "Baixa",
   },
   {
     categoria: "Avaliação e Feedback",
-    titulo: "Redesign de Avaliações à Prova de IA",
+    titulo: "Redesign de Avaliações",
     descricao:
-      "Antes de aplicar uma prova ou trabalho, o professor testa com ChatGPT. Se a IA resolver trivialmente, a avaliação é redesenhada para exigir síntese, julgamento ou evidência de processo — habilidades que a IA não substitui.",
-    universidade: "MIT, Cornell, U. Toronto",
+      "Professor testa a prova ou trabalho com ChatGPT antes de aplicar; se a IA resolver trivialmente, é hora de redesenhar.",
+    como_fazer:
+      "Cole a prova no ChatGPT e peça: \"Resolva essa avaliação da melhor forma possível.\"\nSe a resposta for boa, adicione elementos que a IA não consegue replicar: reflexão sobre experiência de campo, análise de dados específicos da turma, defesa oral das escolhas.",
+    universidade: "MIT / Cornell / U. Toronto",
     ferramenta: "ChatGPT",
-    impacto: "Avaliações mais robustas e significativas",
     dificuldade: "Baixa",
   },
 ];
@@ -213,7 +209,6 @@ export async function fetchTools(sheetUrl?: string): Promise<Tool[]> {
   if (!sheetUrl || sheetUrl.includes("SEU_ID")) {
     return FALLBACK_TOOLS;
   }
-
   try {
     const res = await fetch(sheetUrl, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -231,7 +226,6 @@ export async function fetchExamples(sheetUrl?: string): Promise<Example[]> {
   if (!sheetUrl || sheetUrl.includes("SEU_ID")) {
     return FALLBACK_EXAMPLES;
   }
-
   try {
     const res = await fetch(sheetUrl, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);

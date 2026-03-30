@@ -1,149 +1,103 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Wrench, Lightbulb, Globe } from "lucide-react";
+import { ArrowRight, BookOpen, Wrench, Lightbulb } from "lucide-react";
 
-/* ---------- tiny floating-particle canvas ---------- */
-function ParticleCanvas() {
-  const ref = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const resize = () => {
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    type P = { x: number; y: number; r: number; vx: number; vy: number; alpha: number };
-    const particles: P[] = Array.from({ length: 60 }, () => ({
-      x:     Math.random() * canvas.width,
-      y:     Math.random() * canvas.height,
-      r:     Math.random() * 2 + 0.5,
-      vx:    (Math.random() - 0.5) * 0.3,
-      vy:    -(Math.random() * 0.4 + 0.1),
-      alpha: Math.random() * 0.5 + 0.1,
-    }));
-
-    let raf: number;
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.y < -4)  p.y = canvas.height + 4;
-        if (p.x < -4)  p.x = canvas.width  + 4;
-        if (p.x > canvas.width + 4) p.x = -4;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-        ctx.fill();
-      });
-      raf = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  return <canvas ref={ref} className="absolute inset-0 w-full h-full pointer-events-none" />;
-}
-
-/* ---------- quick-nav cards ---------- */
 const quickLinks = [
-  { href: "/diretrizes",   Icon: BookOpen,  label: "Diretrizes",        sub: "Uso responsável" },
-  { href: "/ferramentas",  Icon: Wrench,    label: "Ferramentas",       sub: "Catálogo de IA" },
-  { href: "/exemplos",     Icon: Lightbulb, label: "Exemplos",          sub: "Casos práticos" },
-  { href: "/benchmarking", Icon: Globe,     label: "Benchmarking",      sub: "Top universidades" },
+  { href: "/diretrizes",  Icon: BookOpen,  label: "Diretrizes",      sub: "Uso responsável" },
+  { href: "/ferramentas", Icon: Wrench,    label: "Ferramentas",     sub: "Catálogo de IA" },
+  { href: "/exemplos",    Icon: Lightbulb, label: "Exemplos de Uso", sub: "Casos práticos" },
 ];
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden hero-bg min-h-[88vh] flex flex-col justify-center">
+    <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #004aad 0%, #0a2f6e 45%, #5de0e6 100%)" }}>
 
-      {/* animated blobs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="blob-a absolute -top-32 -left-32 w-[520px] h-[520px]
-                        rounded-full bg-blue-600/20 blur-3xl" />
-        <div className="blob-b absolute bottom-0 right-0 w-[480px] h-[480px]
-                        rounded-full bg-indigo-500/20 blur-3xl" />
-        <div className="blob-c absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                        w-[600px] h-[300px] rounded-full bg-ufrgs-blue/10 blur-3xl" />
-      </div>
-
-      {/* particle canvas */}
-      <ParticleCanvas />
-
-      {/* grid overlay */}
+      {/* Grid overlay */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        className="absolute inset-0 pointer-events-none opacity-10"
         style={{
           backgroundImage:
-            "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)",
-          backgroundSize: "60px 60px",
+            "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
         }}
       />
 
-      {/* content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+      {/* Neon glow orbs */}
+      <div
+        className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(93,224,230,0.35) 0%, transparent 70%)",
+          transform: "translate(20%, -20%)",
+        }}
+      />
+      <div
+        className="absolute bottom-0 left-0 w-[400px] h-[400px] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(0,74,173,0.5) 0%, transparent 70%)",
+          transform: "translate(-30%, 30%)",
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         <div className="max-w-3xl">
 
-          {/* pill badge */}
-          <div className="glass-pill mb-6">
-            <span className="w-2 h-2 bg-ufrgs-gold rounded-full animate-pulse" />
-            Disciplina PEP · Engenharia de Produção · UFRGS
+          {/* Label pill */}
+          <div className="inline-flex items-center gap-2 mb-6 border border-white/20 rounded-full
+                           px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/70">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#5de0e6] animate-pulse" />
+            Engenharia de Produção · UFRGS · 2025
           </div>
 
-          {/* headline */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight mb-6 text-white">
+          {/* Headline */}
+          <h1 className="text-5xl md:text-7xl font-black leading-[1.02] tracking-tight text-white mb-6">
             Inteligência
             <br />
             Artificial
             <br />
-            <span className="text-ufrgs-gold">no Ensino</span>
+            <span style={{ color: "#5de0e6" }}>no Ensino</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-blue-100/90 leading-relaxed mb-10 max-w-2xl">
-            Recursos práticos e baseados em evidências para professores e alunos de
-            Engenharia de Produção usarem IA de forma responsável — inspirados nas
-            melhores universidades do mundo.
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl font-normal">
+            Recursos práticos e baseados em evidências para professores e alunos
+            usarem IA de forma responsável — inspirados nas melhores universidades do mundo.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-wrap gap-4 mb-16">
-            <Link href="/diretrizes" className="btn-gold inline-flex items-center gap-2">
+          <div className="flex flex-wrap gap-3 mb-14">
+            <Link
+              href="/diretrizes"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-sm
+                         text-[#004aad] transition-all duration-200 hover:scale-105"
+              style={{ background: "#5de0e6", boxShadow: "0 0 20px rgba(93,224,230,0.5)" }}
+            >
               Ver Diretrizes <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link href="/benchmarking" className="btn-ghost inline-flex items-center gap-2">
-              Benchmarking Global
+            <Link
+              href="/ferramentas"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-sm
+                         text-white border-2 border-white/30 hover:border-[#5de0e6]
+                         hover:text-[#5de0e6] transition-all duration-200"
+            >
+              Explorar Ferramentas
             </Link>
           </div>
 
-          {/* quick-nav strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {/* Quick nav */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {quickLinks.map(({ href, Icon, label, sub }) => (
               <Link
                 key={href}
                 href={href}
                 className="group flex items-center gap-3 bg-white/10 hover:bg-white/20
-                           backdrop-blur-sm border border-white/15 hover:border-white/30
+                           backdrop-blur-sm border border-white/15 hover:border-[#5de0e6]/60
                            rounded-xl px-4 py-3 transition-all duration-200"
               >
-                <div className="bg-white/10 p-2 rounded-lg group-hover:bg-ufrgs-gold/20 transition-colors">
-                  <Icon className="w-4 h-4 text-white group-hover:text-ufrgs-gold transition-colors" />
+                <div className="bg-white/10 group-hover:bg-[#5de0e6]/20 p-2 rounded-lg transition-colors">
+                  <Icon className="w-4 h-4 text-white group-hover:text-[#5de0e6] transition-colors" />
                 </div>
                 <div className="leading-tight">
-                  <p className="text-white text-sm font-semibold">{label}</p>
-                  <p className="text-white/60 text-xs">{sub}</p>
+                  <p className="text-white text-sm font-bold">{label}</p>
+                  <p className="text-white/50 text-xs">{sub}</p>
                 </div>
               </Link>
             ))}
@@ -151,10 +105,10 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* wave bottom */}
+      {/* Bottom wave */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0 80V40C240 0 480 0 720 40C960 80 1200 80 1440 40V80H0Z" fill="#f8faff" />
+        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0 60V30C360 0 720 0 1080 30C1260 45 1380 50 1440 30V60H0Z" fill="white" />
         </svg>
       </div>
     </section>
