@@ -16,16 +16,21 @@
     @apply font-body text-gray-900 bg-white antialiased;
   }
 
-  /* Montserrat heavy weights precisam de tracking negativo para não parecerem espaçadas demais */
   h1, h2, h3, h4, h5 {
     @apply font-display;
-    letter-spacing: -0.025em;
   }
 
-  /* Body text: sem tracking apertado */
-  p, li, span, td {
-    letter-spacing: 0em;
-  }
+  /* H1 grandes: tracking bem negativo (editorial) */
+  h1 { letter-spacing: -0.03em; }
+
+  /* H2 seções: levemente negativo */
+  h2 { letter-spacing: -0.015em; }
+
+  /* H3 cards: quase normal */
+  h3 { letter-spacing: -0.005em; }
+
+  /* Body e labels: sem compressão */
+  p, li { letter-spacing: 0em; line-height: 1.65; }
 }
 
 @keyframes fade-in-up {
@@ -101,7 +106,6 @@
   /* Section helpers */
   .section-title {
     @apply text-3xl md:text-4xl font-black text-gray-900 mb-4;
-    letter-spacing: -0.03em;
   }
   .section-sub {
     @apply text-lg text-gray-500 leading-relaxed;

@@ -9,7 +9,7 @@ const quickLinks = [
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #004aad 0%, #0a2f6e 45%, #5de0e6 100%)" }}>
+    <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #004aad 0%, #5de0e6 100%)" }}>
 
       {/* Grid overlay */}
       <div
@@ -49,8 +49,7 @@ export default function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-5xl md:text-7xl font-black leading-[1.02] text-white mb-6"
-              style={{ letterSpacing: "-0.04em" }}>
+          <h1 className="text-5xl md:text-7xl font-black leading-[1.02] text-white mb-6">
             Inteligência
             <br />
             Artificial
