@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -11,18 +12,22 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
 
             {/* Brand */}
-            <div className="flex items-center gap-3">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                style={{ background: "linear-gradient(135deg, #004aad, #5de0e6)" }}
-              >
-                <span className="text-white font-black text-xs">IA</span>
-              </div>
-              <div>
-                <p className="font-black text-sm text-gray-900">IA no Ensino – EP UFRGS</p>
-                <p className="text-xs text-gray-500 mt-0.5">
+            <div className="flex items-center gap-4">
+              <Image src="/logo-ufrgs.jpg" alt="UFRGS" width={48} height={48} className="object-contain shrink-0" />
+              <div className="w-px h-8 bg-gray-200 shrink-0" />
+              <Image src="/logo-ep.png" alt="Engenharia de Produção UFRGS" width={116} height={35} className="object-contain shrink-0" />
+              <div className="w-px h-8 bg-gray-200 shrink-0 hidden md:block" />
+              <div className="hidden md:block">
+                <p className="text-xs text-gray-500">
                   Portal mantido pela COMGRAD do curso de Engenharia de Produção
                 </p>
+                <a
+                  href="mailto:comgrad_engpro@ufrgs.br"
+                  className="text-xs font-medium transition-colors"
+                  style={{ color: "#004aad" }}
+                >
+                  comgrad_engpro@ufrgs.br
+                </a>
               </div>
             </div>
 
