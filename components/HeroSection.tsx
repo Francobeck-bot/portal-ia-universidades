@@ -49,12 +49,12 @@ export default function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-5xl md:text-7xl font-black leading-[1.02] text-white mb-6">
+          <h1 className="text-5xl md:text-7xl font-black leading-[1.02] text-white mb-6" style={{ letterSpacing: "0.01em" }}>
             Inteligência
             <br />
             Artificial
             <br />
-            <span style={{ color: "#5de0e6" }}>no Ensino</span>
+            <span style={{ color: "#5de0e6" }}>no Ensino Superior</span>
           </h1>
 
           <p className="text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl font-normal">

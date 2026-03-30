@@ -41,7 +41,7 @@ export default function Header() {
               <span className="text-white font-black text-xs">IA</span>
             </div>
             <span className="font-black text-sm text-gray-900 tracking-tight">
-              IA no Ensino <span className="text-gray-400 font-normal">· EP UFRGS</span>
+              IA no Ensino <span className="text-gray-400 font-normal">· Engenharia de Produção UFRGS</span>
             </span>
           </Link>
 
