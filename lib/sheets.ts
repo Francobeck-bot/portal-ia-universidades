@@ -90,6 +90,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito / Pago",
     link: "https://chat.openai.com",
     universidades_que_recomendam: "Harvard, MIT, Stanford, Cornell, Princeton",
+    video_url: "",
   },
   {
     nome: "Microsoft Copilot",
@@ -99,6 +100,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito para instituições",
     link: "https://copilot.microsoft.com",
     universidades_que_recomendam: "UCL, Cambridge, Imperial, Duke",
+    video_url: "",
   },
   {
     nome: "Google NotebookLM",
@@ -108,6 +110,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito",
     link: "https://notebooklm.google.com",
     universidades_que_recomendam: "U. Michigan, Cambridge",
+    video_url: "",
   },
   {
     nome: "Google Gemini",
@@ -117,6 +120,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito / Pago",
     link: "https://gemini.google.com",
     universidades_que_recomendam: "U. Michigan, Cambridge",
+    video_url: "",
   },
   {
     nome: "Claude (Anthropic)",
@@ -126,6 +130,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito / Pago",
     link: "https://claude.ai",
     universidades_que_recomendam: "JHU, Imperial",
+    video_url: "",
   },
   {
     nome: "Perplexity AI",
@@ -135,6 +140,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito / Pago",
     link: "https://perplexity.ai",
     universidades_que_recomendam: "CMU",
+    video_url: "",
   },
   {
     nome: "Whisper",
@@ -144,6 +150,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito",
     link: "https://openai.com/research/whisper",
     universidades_que_recomendam: "Múltiplas universidades",
+    video_url: "",
   },
   {
     nome: "Elements of AI",
@@ -153,6 +160,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito",
     link: "https://www.elementsofai.com",
     universidades_que_recomendam: "University of Helsinki",
+    video_url: "",
   },
 ];
 
