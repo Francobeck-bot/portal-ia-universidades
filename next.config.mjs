@@ -2,7 +2,12 @@
 
 const nextConfig = {
   images: {
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+      },
+    ],
   },
 };
 
