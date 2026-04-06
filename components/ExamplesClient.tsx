@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, SearchX } from "lucide-react";
 import type { Example } from "@/lib/sheets";
 
 const difficultyConfig: Record<string, { label: string; bg: string; color: string }> = {
@@ -17,7 +17,7 @@ function ExampleCard({ example }: { example: Example }) {
   const diff = difficultyConfig[example.dificuldade] ?? difficultyConfig["Baixa"];
 
   return (
-    <div className="card overflow-hidden" style={{ borderTop: "2px solid #5de0e640" }}>
+    <div className="card overflow-hidden" style={{ borderTop: "3px solid #5de0e670" }}>
       <div className="p-6">
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
@@ -34,7 +34,7 @@ function ExampleCard({ example }: { example: Example }) {
         <p className="text-gray-500 text-sm leading-relaxed mb-4">{example.descricao}</p>
 
         {/* Meta */}
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400 mb-4 font-medium">
+        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 mb-4 font-medium">
           {example.universidade && (
             <span>
               <strong className="text-gray-600">Instituição:</strong> {example.universidade}
@@ -106,7 +106,7 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className="px-4 py-1.5 text-sm font-bold rounded-full border transition-all duration-150"
+            className="px-5 py-2.5 text-sm font-bold rounded-full border transition-all duration-150"
             style={
               selectedCategory === cat
                 ? {
@@ -128,8 +128,10 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">
-          <p className="font-bold">Nenhum exemplo encontrado</p>
+        <div className="text-center py-20 text-gray-400">
+          <SearchX className="w-10 h-10 mx-auto mb-3 opacity-40" />
+          <p className="font-bold text-gray-500">Nenhum exemplo nesta categoria</p>
+          <p className="text-sm mt-1">Tente selecionar "Todas" para ver todos os exemplos.</p>
         </div>
       ) : (
         <div className="space-y-10">

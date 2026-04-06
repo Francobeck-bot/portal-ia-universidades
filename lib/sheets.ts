@@ -68,6 +68,7 @@ export interface Tool {
   custo: string;
   link: string;
   universidades_que_recomendam: string;
+  video_url: string;
 }
 
 export interface Example {

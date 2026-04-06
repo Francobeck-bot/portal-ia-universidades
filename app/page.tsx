@@ -117,7 +117,7 @@ export default function HomePage() {
             <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
               Por que usar IA no ensino?
             </h2>
-            <p className="text-white/60 text-lg max-w-xl">
+            <p className="text-white/80 text-lg max-w-xl">
               Números reais de pesquisas nas melhores universidades, para quem ainda tem dúvidas.
             </p>
           </div>
@@ -149,10 +149,10 @@ export default function HomePage() {
                 >
                   {label}
                 </div>
-                <div className="text-xs mb-5 font-medium" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <div className="text-xs mb-5 font-medium" style={{ color: "rgba(255,255,255,0.65)" }}>
                   {source}
                 </div>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.88)" }}>
                   {detail}
                 </p>
               </div>

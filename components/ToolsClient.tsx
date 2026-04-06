@@ -1,8 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, SearchX, PlayCircle } from "lucide-react";
+import Image from "next/image";
 import type { Tool } from "@/lib/sheets";
+
+function getYouTubeThumbnail(url: string): string | null {
+  if (!url?.trim()) return null;
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  if (!match) return null;
+  return `https://img.youtube.com/vi/${match[1]}/mqdefault.jpg`;
+}
 
 function getCostBadge(custo: string): { label: string; bg: string; color: string } {
   const c = custo.toLowerCase();
@@ -34,7 +42,7 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
           <button
             key={type}
             onClick={() => setSelectedType(type)}
-            className="px-4 py-1.5 text-sm font-bold rounded-full border transition-all duration-150"
+            className="px-5 py-2.5 text-sm font-bold rounded-full border transition-all duration-150"
             style={
               selectedType === type
                 ? {
@@ -62,8 +70,10 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">
-          <p className="font-bold">Nenhuma ferramenta encontrada</p>
+        <div className="text-center py-20 text-gray-400">
+          <SearchX className="w-10 h-10 mx-auto mb-3 opacity-40" />
+          <p className="font-bold text-gray-500">Nenhuma ferramenta nesta categoria</p>
+          <p className="text-sm mt-1">Tente selecionar "Todos" para ver o catálogo completo.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -72,8 +82,8 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
             return (
               <div
                 key={i}
-                className="card card-hover p-6 flex flex-col"
-                style={{ borderTop: "2px solid #5de0e640" }}
+                className="card card-hover p-7 flex flex-col"
+                style={{ borderTop: "3px solid #5de0e670" }}
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-3">
@@ -124,6 +134,36 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
                     <p className="text-xs text-gray-500">{tool.universidades_que_recomendam}</p>
                   </div>
                 )}
+
+                {/* Video tutorial */}
+                {(() => {
+                  const thumb = getYouTubeThumbnail(tool.video_url);
+                  return thumb ? (
+                    <div className="mb-4">
+                      <p className="text-xs font-black text-gray-400 uppercase tracking-wide mb-2">
+                        Tutorial em vídeo
+                      </p>
+                      <a
+                        href={tool.video_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block relative rounded-lg overflow-hidden group/video"
+                      >
+                        <Image
+                          src={thumb}
+                          alt={`Tutorial: ${tool.nome}`}
+                          width={320}
+                          height={180}
+                          className="w-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center
+                                        opacity-0 group-hover/video:opacity-100 transition-opacity duration-200">
+                          <PlayCircle className="w-10 h-10 text-white drop-shadow-lg" />
+                        </div>
+                      </a>
+                    </div>
+                  ) : null;
+                })()}
 
                 {/* CTA */}
                 <a

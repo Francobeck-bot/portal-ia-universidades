@@ -43,6 +43,14 @@
   50%       { box-shadow: 0 0 32px rgba(93, 224, 230, 0.8); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @layer utilities {
   .animate-fade-up { animation: fade-in-up 0.5s ease both; }
 
@@ -95,7 +103,10 @@
   .btn-neon {
     @apply bg-[#5de0e6] text-[#004aad] font-bold px-6 py-2.5 rounded-lg
            text-sm transition-all duration-200 inline-flex items-center gap-2;
-    animation: glow-pulse 2.5s ease-in-out infinite;
+    box-shadow: 0 0 16px rgba(93, 224, 230, 0.4);
+  }
+  .btn-neon:hover {
+    animation: glow-pulse 1.5s ease-in-out infinite;
   }
 
   /* Badges */

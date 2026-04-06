@@ -57,7 +57,7 @@ export default function HeroSection() {
             <span style={{ color: "#5de0e6" }}>no Ensino Superior</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl font-normal">
+          <p className="text-lg md:text-xl text-white/85 leading-relaxed mb-10 max-w-xl font-normal">
             Recursos práticos e baseados em evidências para professores e alunos
             usarem IA de forma responsável, inspirados nas melhores universidades do mundo.
           </p>
