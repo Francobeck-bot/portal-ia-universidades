@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -20,11 +20,11 @@
     @apply font-display;
   }
 
-  /* Montserrat Black em tamanhos grandes: levemente comprimido */
-  h1 { letter-spacing: -0.02em; }
+  /* Syne ExtraBold em tamanhos grandes */
+  h1 { letter-spacing: -0.01em; }
 
-  /* Seções: mínimo, quase imperceptível */
-  h2 { letter-spacing: -0.01em; }
+  /* Seções */
+  h2 { letter-spacing: -0.005em; }
 
   /* Cards e subtítulos: normal */
   h3, h4, h5 { letter-spacing: 0em; }
@@ -102,11 +102,8 @@
   }
   .btn-neon {
     @apply bg-[#5de0e6] text-[#004aad] font-bold px-6 py-2.5 rounded-lg
-           text-sm transition-all duration-200 inline-flex items-center gap-2;
-    box-shadow: 0 0 16px rgba(93, 224, 230, 0.4);
-  }
-  .btn-neon:hover {
-    animation: glow-pulse 1.5s ease-in-out infinite;
+           text-sm transition-all duration-200 inline-flex items-center gap-2
+           hover:shadow-md hover:brightness-105;
   }
 
   /* Badges */
@@ -123,6 +120,7 @@
   }
   .section-label {
     @apply inline-flex items-center gap-1.5 text-xs font-bold
-           uppercase tracking-widest mb-3 gradient-text;
+           uppercase tracking-widest mb-3;
+    color: #004aad;
   }
 }

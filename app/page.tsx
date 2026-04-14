@@ -115,7 +115,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── STATS ────────────────────────────────── */}
-      <section style={{ background: "linear-gradient(135deg, #004aad 0%, #5de0e6 100%)" }}>
+      <section style={{ background: "#004aad" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="mb-12">
             <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-3"

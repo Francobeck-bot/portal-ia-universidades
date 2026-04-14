@@ -21,21 +21,6 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Neon glow orbs */}
-      <div
-        className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(93,224,230,0.35) 0%, transparent 70%)",
-          transform: "translate(20%, -20%)",
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-[400px] h-[400px] pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(0,74,173,0.5) 0%, transparent 70%)",
-          transform: "translate(-30%, 30%)",
-        }}
-      />
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -44,7 +29,6 @@ export default function HeroSection() {
           {/* Label pill */}
           <div className="inline-flex items-center gap-2 mb-6 border border-white/20 rounded-full
                            px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white/70">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#5de0e6] animate-pulse" />
             Engenharia de Produção · UFRGS · 2025
           </div>
 
@@ -68,7 +52,7 @@ export default function HeroSection() {
               href="/diretrizes"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-sm
                          text-[#004aad] transition-all duration-200 hover:scale-105"
-              style={{ background: "#5de0e6", boxShadow: "0 0 20px rgba(93,224,230,0.5)" }}
+              style={{ background: "#5de0e6" }}
             >
               Ver Diretrizes <ArrowRight className="w-4 h-4" />
             </Link>

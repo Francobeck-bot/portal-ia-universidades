@@ -16,9 +16,9 @@ const config: Config = {
         "grad-end":    "#5de0e6",
       },
       fontFamily: {
-        display: ["Montserrat", "system-ui", "sans-serif"],
+        display: ["Syne", "system-ui", "sans-serif"],
         body:    ["Inter", "system-ui", "sans-serif"],
-        sans:    ["Montserrat", "Inter", "system-ui", "sans-serif"],
+        sans:    ["Inter", "system-ui", "sans-serif"],
       },
     },
   },
