@@ -22,7 +22,7 @@ function getCostBadge(custo: string): { label: string; bg: string; color: string
   return { label: custo, bg: "#f3f4f6", color: "#4b5563" };
 }
 
-const FILTER_TYPES = ["Todos", "Tutor", "Feedback", "Criação de Conteúdo", "Transcrição", "Literacia em IA"];
+const FILTER_TYPES = ["Todos", "Tutoria", "Criação de Conteúdo", "Feedback", "Produtividade", "Gerenciamento de informações", "Pesquisa"];
 
 function matchesType(toolTipo: string, filter: string): boolean {
   if (filter === "Todos") return true;

@@ -7,6 +7,7 @@ export interface Principle {
 export interface SyllabusModel {
   tipo: string;     // "Restritivo" | "Misto" | "Aberto"
   texto: string;
+  texto_completo: string;
 }
 
 export const FALLBACK_PRINCIPLES: Principle[] = [
@@ -21,14 +22,17 @@ export const FALLBACK_SYLLABUS: SyllabusModel[] = [
   {
     tipo: "Restritivo",
     texto: "O uso de ferramentas de IA generativa não é permitido nesta disciplina. Todo trabalho deve ser de autoria própria do estudante.",
+    texto_completo: "",
   },
   {
     tipo: "Misto",
     texto: "Ferramentas de IA podem ser usadas como apoio ao processo de aprendizagem, desde que seu uso seja declarado e o trabalho final reflita a compreensão própria do estudante. Indique no trabalho quais ferramentas utilizou e como.",
+    texto_completo: "",
   },
   {
     tipo: "Aberto",
     texto: "O uso de IA é encorajado nesta disciplina como parte da preparação para o mercado de trabalho. O estudante deve documentar seu processo, incluindo os prompts utilizados e uma análise crítica dos resultados gerados.",
+    texto_completo: "",
   },
 ];
 

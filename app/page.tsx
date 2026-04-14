@@ -1,6 +1,10 @@
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import { ArrowRight, BookOpen, Wrench, Lightbulb } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
+import { fetchTools, fetchExamples } from "@/lib/sheets";
+import { SHEETS_CONFIG } from "@/lib/config";
 
 const stats = [
   {
@@ -26,37 +30,42 @@ const stats = [
   },
 ];
 
-const pages = [
-  {
-    href: "/diretrizes",
-    Icon: BookOpen,
-    title: "Diretrizes",
-    description:
-      "5 princípios para uso responsável e 3 modelos prontos de política de IA para o syllabus.",
-    tag: "Para professores",
-    accent: "#004aad",
-  },
-  {
-    href: "/ferramentas",
-    Icon: Wrench,
-    title: "Ferramentas",
-    description:
-      "Catálogo curado de ferramentas recomendadas por Harvard, MIT, Imperial e outras.",
-    tag: "8 ferramentas",
-    accent: "#5de0e6",
-  },
-  {
-    href: "/exemplos",
-    Icon: Lightbulb,
-    title: "Exemplos de Uso",
-    description:
-      "Casos práticos reais com instruções de como implementar na sua disciplina hoje.",
-    tag: "7 exemplos",
-    accent: "#004aad",
-  },
-];
+export default async function HomePage() {
+  const [tools, examples] = await Promise.all([
+    fetchTools(SHEETS_CONFIG.toolsSheetUrl),
+    fetchExamples(SHEETS_CONFIG.examplesSheetUrl),
+  ]);
 
-export default function HomePage() {
+  const pages = [
+    {
+      href: "/diretrizes",
+      Icon: BookOpen,
+      title: "Diretrizes",
+      description:
+        "5 princípios para uso responsável e 3 modelos prontos de política de IA para o syllabus.",
+      tag: "Para professores",
+      accent: "#004aad",
+    },
+    {
+      href: "/ferramentas",
+      Icon: Wrench,
+      title: "Ferramentas",
+      description:
+        "Catálogo curado de ferramentas recomendadas por Harvard, MIT, Imperial e outras.",
+      tag: `${tools.length} ferramentas`,
+      accent: "#5de0e6",
+    },
+    {
+      href: "/exemplos",
+      Icon: Lightbulb,
+      title: "Exemplos de Uso",
+      description:
+        "Casos práticos reais com instruções de como implementar na sua disciplina hoje.",
+      tag: `${examples.length} exemplos`,
+      accent: "#004aad",
+    },
+  ];
+
   return (
     <div className="bg-white">
 
