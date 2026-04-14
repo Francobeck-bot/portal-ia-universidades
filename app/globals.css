@@ -13,11 +13,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --grad-start: #004aad;
-    --grad-end:   #5de0e6;
-  }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -30,9 +25,10 @@
     font-weight: normal;
   }
 
-  h1 { letter-spacing: -0.01em; }
-  h2 { letter-spacing: 0em; }
-  h3, h4, h5 { letter-spacing: 0em; }
+  /* OPTIBakerDanmarkOne precisa de tracking positivo — letras naturalmente apertadas */
+  h1 { letter-spacing: 0.03em; }
+  h2 { letter-spacing: 0.04em; }
+  h3, h4, h5 { letter-spacing: 0.03em; }
 
   p, li { letter-spacing: 0em; line-height: 1.65; }
 }
@@ -52,22 +48,6 @@
 
 @layer utilities {
   .animate-fade-up { animation: fade-in-up 0.5s ease both; }
-
-  .gradient-bg {
-    background: linear-gradient(135deg, #004aad 0%, #5de0e6 100%);
-  }
-  .gradient-bg-r {
-    background: linear-gradient(135deg, #5de0e6 0%, #004aad 100%);
-  }
-  .gradient-text {
-    background: linear-gradient(135deg, #004aad 0%, #5de0e6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .gradient-border {
-    border-image: linear-gradient(135deg, #004aad, #5de0e6) 1;
-  }
 }
 
 @layer components {
@@ -79,23 +59,33 @@
     @apply hover:border-gray-300 hover:shadow-md;
   }
 
-  /* Buttons */
+  /* Buttons — sem azul, escuro neutro */
   .btn-primary {
-    @apply gradient-bg text-white font-semibold px-6 py-2.5 rounded-lg
+    @apply text-white font-semibold px-6 py-2.5 rounded-lg
            text-sm transition-all duration-200 inline-flex items-center gap-2
-           hover:opacity-90 hover:shadow-lg;
+           hover:opacity-80;
+    background: #111827;
     font-family: 'Inter', system-ui, sans-serif;
   }
   .btn-outline {
-    @apply border-2 border-[#004aad] text-[#004aad] hover:gradient-bg hover:text-white
-           font-semibold px-6 py-2.5 rounded-lg text-sm transition-all duration-200
-           inline-flex items-center gap-2;
+    @apply font-semibold px-6 py-2.5 rounded-lg text-sm transition-all duration-200
+           inline-flex items-center gap-2 border-2;
+    border-color: #374151;
+    color: #374151;
     font-family: 'Inter', system-ui, sans-serif;
   }
+  .btn-outline:hover {
+    background: #111827;
+    color: white;
+    border-color: #111827;
+  }
   .btn-neon {
-    @apply bg-[#5de0e6] text-[#004aad] font-bold px-6 py-2.5 rounded-lg
+    @apply font-bold px-6 py-2.5 rounded-lg
            text-sm transition-all duration-200 inline-flex items-center gap-2
-           hover:shadow-md hover:brightness-105;
+           hover:shadow-md;
+    background: #f3f4f4;
+    color: #111827;
+    border: 1px solid #d1d5db;
     font-family: 'Inter', system-ui, sans-serif;
   }
 
@@ -116,7 +106,7 @@
   .section-label {
     @apply inline-flex items-center gap-1.5 text-xs font-bold
            uppercase tracking-widest mb-3;
-    color: #004aad;
+    color: #6b7280;
     font-family: 'Inter', system-ui, sans-serif;
   }
 }

@@ -5,7 +5,7 @@ export default function HeroSection() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ minHeight: "78vh", background: "#12181f" }}
+      style={{ minHeight: "62vh", background: "#12181f" }}
     >
       {/* Background photo */}
       <div
@@ -27,7 +27,7 @@ export default function HeroSection() {
       <div
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
                     flex flex-col justify-end pb-16 md:pb-24"
-        style={{ minHeight: "78vh" }}
+        style={{ minHeight: "62vh" }}
       >
         {/* Eyebrow label */}
         <p
@@ -49,7 +49,7 @@ export default function HeroSection() {
               Inteligência
               <br />Artificial
               <br />
-              <span style={{ color: "#5de0e6" }}>no Ensino Superior</span>
+              <span style={{ color: "rgba(255,255,255,0.65)" }}>no Ensino Superior</span>
             </h1>
           </div>
 
