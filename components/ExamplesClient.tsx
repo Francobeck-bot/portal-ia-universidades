@@ -1,162 +1,323 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp, SearchX } from "lucide-react";
+import { SearchX } from "lucide-react";
 import type { Example } from "@/lib/sheets";
 
-const difficultyConfig: Record<string, { label: string; bg: string; color: string }> = {
-  Baixa: { label: "Baixa", bg: "#dcfce7", color: "#15803d" },
-  Média: { label: "Média", bg: "#fef9c3", color: "#854d0e" },
-  Alta:  { label: "Alta",  bg: "#fee2e2", color: "#b91c1c" },
+// ── Category color system ─────────────────────────────────────
+const CAT_COLORS: Record<string, { bg: string; fg: string; accent: string }> = {
+  "Tutor Personalizado":   { bg: "#EEF2FF", fg: "#3730A3", accent: "#4F46E5" },
+  "Produção de Material":  { bg: "#FEF3F2", fg: "#9F1239", accent: "#E11D48" },
+  "Avaliação e Feedback":  { bg: "#ECFDF5", fg: "#065F46", accent: "#059669" },
+  "Simulação e Prática":   { bg: "#FEF9C3", fg: "#713F12", accent: "#CA8A04" },
+  "Pensamento Crítico":    { bg: "#FDF4FF", fg: "#6B21A8", accent: "#9333EA" },
 };
+// Fallback rotation for any category not in the map
+const FALLBACK = [
+  { bg: "#EEF2FF", fg: "#3730A3", accent: "#4F46E5" },
+  { bg: "#FEF3F2", fg: "#9F1239", accent: "#E11D48" },
+  { bg: "#ECFDF5", fg: "#065F46", accent: "#059669" },
+  { bg: "#FEF9C3", fg: "#713F12", accent: "#CA8A04" },
+  { bg: "#FDF4FF", fg: "#6B21A8", accent: "#9333EA" },
+];
 
-const ALL = "Todas";
+// ── Step parser ───────────────────────────────────────────────
+function parseSteps(text: string): string[] {
+  if (!text?.trim()) return [];
+  // "1. ...\n2. ..."
+  if (/^\d+\./m.test(text)) {
+    return text
+      .split(/\n(?=\d+\.)/)
+      .map(s => s.replace(/^\d+\.\s*/, "").trim())
+      .filter(Boolean);
+  }
+  // "— ..."
+  if (text.includes("—")) {
+    return text.split(/\n—/).map(s => s.replace(/^—\s*/, "").trim()).filter(Boolean);
+  }
+  // Newline fallback
+  return text.split(/\n+/).map(s => s.trim()).filter(Boolean);
+}
 
-function ExampleCard({ example }: { example: Example }) {
-  const [open, setOpen] = useState(false);
-  const diff = difficultyConfig[example.dificuldade] ?? difficultyConfig["Baixa"];
+// ── Example card ──────────────────────────────────────────────
+function ExampleCard({
+  example, color, isOpen, onToggle,
+}: {
+  example: Example;
+  color: { bg: string; fg: string; accent: string };
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const [hover, setHover] = useState(false);
+  const steps = parseSteps(example.como_fazer);
 
   return (
-    <div className="card overflow-hidden" style={{ borderTop: "3px solid #5de0e670" }}>
-      <div className="p-6">
-        {/* Header */}
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <h3 className="font-black text-gray-900 text-base leading-snug">{example.titulo}</h3>
-          <span
-            className="badge shrink-0 text-xs font-bold"
-            style={{ background: diff.bg, color: diff.color }}
-          >
-            {diff.label}
-          </span>
-        </div>
-
-        {/* Description */}
-        <p className="text-gray-500 text-sm leading-relaxed mb-4">{example.descricao}</p>
-
-        {/* Meta */}
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 mb-4 font-medium">
-          {example.universidade && (
-            <span>
-              <strong className="text-gray-600">Instituição:</strong> {example.universidade}
-            </span>
-          )}
-          {example.ferramenta && (
-            <span>
-              <strong className="text-gray-600">Ferramenta:</strong> {example.ferramenta}
-            </span>
-          )}
-        </div>
-
-        {/* Toggle */}
-        {example.como_fazer && (
-          <button
-            onClick={() => setOpen(!open)}
-            className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors"
-            style={{ color: open ? "#004aad" : "#5de0e6" }}
-          >
-            {open ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            Como fazer na prática
-          </button>
-        )}
+    <article
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        background: "var(--surface)",
+        border: `1px solid ${hover ? color.accent : "var(--hairline)"}`,
+        borderRadius: "var(--radius)",
+        overflow: "hidden",
+        display: "flex", flexDirection: "column",
+        transition: "transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease",
+        transform: hover ? "translateY(-3px)" : "translateY(0)",
+        boxShadow: hover
+          ? "0 12px 28px rgba(15,23,42,0.10)"
+          : "0 1px 2px rgba(15,23,42,0.04)",
+      }}
+    >
+      {/* Colored cover */}
+      <div style={{
+        background: color.accent,
+        padding: "32px 24px 28px",
+        position: "relative", overflow: "hidden",
+      }}>
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "radial-gradient(ellipse at top right, rgba(255,255,255,0.22), transparent 60%)",
+          pointerEvents: "none",
+        }} />
+        <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.75)", position: "relative" }}>
+          Esforço · {example.dificuldade}
+        </span>
+        <h3 className="display" style={{
+          fontSize: 24, color: "#fff",
+          letterSpacing: "-0.01em", lineHeight: 1.15,
+          marginTop: 10, position: "relative",
+        }}>
+          {example.titulo}
+        </h3>
       </div>
 
-      {/* Expanded */}
-      {open && example.como_fazer && (
-        <div
-          className="border-t px-6 py-5"
-          style={{
-            background: "linear-gradient(135deg, #004aad06, #5de0e610)",
-            borderColor: "#5de0e640",
-          }}
-        >
-          <p
-            className="text-xs font-black uppercase tracking-widest mb-3"
-            style={{ color: "#004aad" }}
-          >
-            Passo a passo
-          </p>
-          <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-            {example.como_fazer}
-          </div>
+      {/* Body */}
+      <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 14 }}>
+        <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)" }}>
+          {example.descricao}
+        </p>
+
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {example.ferramenta && (
+            <span style={{
+              fontSize: 11, padding: "4px 10px",
+              background: color.bg, color: color.fg,
+              borderRadius: 4, fontWeight: 500,
+            }}>
+              {example.ferramenta}
+            </span>
+          )}
+          {example.universidade && (
+            <span style={{
+              fontSize: 11, padding: "4px 10px",
+              background: "#f4f5f6", color: "var(--muted)",
+              borderRadius: 4,
+            }}>
+              {example.universidade}
+            </span>
+          )}
         </div>
+      </div>
+
+      {/* Expand toggle */}
+      {example.como_fazer && (
+        <>
+          <button
+            onClick={onToggle}
+            style={{
+              marginTop: "auto",
+              width: "100%",
+              padding: "14px 24px",
+              background: "#fafbfc",
+              border: 0,
+              borderTop: "1px solid var(--hairline-soft)",
+              cursor: "pointer",
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+              fontSize: 13, fontWeight: 600, color: color.accent,
+              fontFamily: "var(--body)",
+              transition: "background 160ms ease",
+            }}
+            className="ex-toggle"
+          >
+            <span>Como fazer na prática</span>
+            <span style={{
+              fontSize: 20, fontWeight: 200,
+              display: "inline-block",
+              transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+              transition: "transform 220ms ease",
+            }}>+</span>
+          </button>
+
+          {/* Steps */}
+          <div style={{
+            maxHeight: isOpen ? 900 : 0,
+            overflow: "hidden",
+            transition: "max-height 380ms ease",
+            background: "#fafbfc",
+            borderTop: isOpen ? "1px solid var(--hairline-soft)" : "none",
+          }}>
+            <ol style={{
+              listStyle: "none",
+              padding: "18px 24px 22px", margin: 0,
+              display: "flex", flexDirection: "column", gap: 12,
+            }}>
+              {steps.map((s, si) => (
+                <li key={si} style={{
+                  display: "grid", gridTemplateColumns: "28px 1fr", gap: 12,
+                  fontSize: 13.5, lineHeight: 1.55, color: "var(--ink-soft)",
+                }}>
+                  <span style={{
+                    width: 24, height: 24, borderRadius: "50%",
+                    background: color.bg, color: color.fg,
+                    display: "inline-flex", alignItems: "center", justifyContent: "center",
+                    fontSize: 11, fontWeight: 700,
+                    fontFeatureSettings: '"tnum"',
+                    fontVariantNumeric: "tabular-nums",
+                    flexShrink: 0,
+                  }}>{si + 1}</span>
+                  <span>{s}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </>
       )}
-    </div>
+    </article>
   );
 }
 
+// ── Main export ───────────────────────────────────────────────
+const ALL = "Todas";
+
 export default function ExamplesClient({ examples }: { examples: Example[] }) {
-  const [selectedCategory, setSelectedCategory] = useState(ALL);
+  const [filter, setFilter] = useState(ALL);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
-  const categories = [ALL, ...Array.from(new Set(examples.map((e) => e.categoria)))];
-  const filtered = examples.filter(
-    (e) => selectedCategory === ALL || e.categoria === selectedCategory
-  );
+  const categories = Array.from(new Set(examples.map(e => e.categoria)));
+  const filterOptions = [ALL, ...categories];
 
-  const grouped: Record<string, Example[]> = {};
-  filtered.forEach((e) => {
-    if (!grouped[e.categoria]) grouped[e.categoria] = [];
-    grouped[e.categoria].push(e);
-  });
+  const byCategory = categories.map(cat => ({
+    name: cat,
+    items: examples.filter(e => e.categoria === cat),
+  }));
+
+  const visible =
+    filter === ALL ? byCategory : byCategory.filter(g => g.name === filter);
 
   return (
     <div>
-      {/* Filter tabs */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className="px-5 py-2.5 text-sm font-bold rounded-full border transition-all duration-150"
-            style={
-              selectedCategory === cat
-                ? {
-                    background: "linear-gradient(135deg, #004aad, #5de0e6)",
-                    color: "white",
-                    borderColor: "transparent",
-                    boxShadow: "0 0 12px rgba(93,224,230,0.4)",
-                  }
-                : {
-                    background: "white",
-                    color: "#6b7280",
-                    borderColor: "#e5e7eb",
-                  }
-            }
-          >
-            {cat}
-          </button>
-        ))}
+      {/* ── Sticky filter bar ── */}
+      <div style={{
+        position: "sticky", top: 64, zIndex: 10,
+        background: "var(--surface)",
+        borderBottom: "1px solid var(--hairline)",
+        margin: "0 -32px",
+      }}>
+        <div className="container-wide" style={{ padding: "0 32px" }}>
+          <div style={{
+            display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center",
+            paddingTop: 14, paddingBottom: 14,
+          }}>
+            <span className="eyebrow" style={{ marginRight: 6, flexShrink: 0 }}>Filtrar</span>
+            {filterOptions.map(cat => {
+              const active = filter === cat;
+              return (
+                <button key={cat} onClick={() => setFilter(cat)}
+                  style={{
+                    background: active ? "var(--ink)" : "transparent",
+                    color: active ? "#fff" : "var(--ink)",
+                    border: `1px solid ${active ? "var(--ink)" : "var(--hairline)"}`,
+                    borderRadius: "var(--radius)",
+                    padding: "6px 13px", cursor: "pointer",
+                    fontSize: 13, fontWeight: 500,
+                    fontFamily: "var(--body)",
+                    transition: "all 140ms ease",
+                  }}>
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
-      {filtered.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
-          <SearchX className="w-10 h-10 mx-auto mb-3 opacity-40" />
-          <p className="font-bold text-gray-500">Nenhum exemplo nesta categoria</p>
-          <p className="text-sm mt-1">Tente selecionar "Todas" para ver todos os exemplos.</p>
-        </div>
-      ) : (
-        <div className="space-y-10">
-          {Object.entries(grouped).map(([category, items]) => (
-            <div key={category}>
-              <div className="flex items-center gap-3 mb-5">
-                <div
-                  className="w-1 h-5 rounded-full"
-                  style={{ background: "linear-gradient(180deg, #004aad, #5de0e6)" }}
-                />
-                <h2 className="text-lg font-black text-gray-900">{category}</h2>
-                <span className="text-sm text-gray-400 font-medium">
-                  {items.length} {items.length === 1 ? "exemplo" : "exemplos"}
-                </span>
-              </div>
+      {/* ── Groups ── */}
+      <div style={{ paddingTop: 48, paddingBottom: 96 }}>
+        {visible.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "80px 0", color: "var(--muted)" }}>
+            <SearchX size={36} style={{ margin: "0 auto 12px", opacity: 0.4, display: "block" }} />
+            <p style={{ fontSize: 15, fontWeight: 500, color: "var(--ink-soft)" }}>
+              Nenhum exemplo nesta categoria
+            </p>
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 72 }}>
+            {visible.map((group, gi) => {
+              const color = CAT_COLORS[group.name] ?? FALLBACK[gi % FALLBACK.length];
+              return (
+                <div key={group.name}>
+                  {/* Category header */}
+                  <div style={{
+                    display: "flex", justifyContent: "space-between", alignItems: "baseline",
+                    marginBottom: 24, paddingBottom: 16,
+                    borderBottom: `2px solid ${color.accent}`,
+                  }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                      <span className="num-eyebrow" style={{ color: color.accent, fontWeight: 600 }}>
+                        {String(gi + 1).padStart(2, "0")}
+                      </span>
+                      <h2 className="display-tight" style={{
+                        fontSize: "clamp(28px, 3vw, 40px)",
+                        letterSpacing: "-0.015em", lineHeight: 1.05,
+                      }}>
+                        {group.name}
+                      </h2>
+                    </div>
+                    <span style={{
+                      display: "inline-flex", alignItems: "center", gap: 6,
+                      background: color.bg, color: color.fg,
+                      padding: "6px 12px", borderRadius: 999,
+                      fontSize: 12, fontWeight: 600,
+                    }}>
+                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: color.accent }} />
+                      {group.items.length} {group.items.length === 1 ? "exemplo" : "exemplos"}
+                    </span>
+                  </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {items.map((example, i) => (
-                  <ExampleCard key={i} example={example} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+                  {/* Cards */}
+                  <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+                    gap: 20,
+                  }} className="ex-cards-grid">
+                    {group.items.map((ex, i) => {
+                      const key = `${group.name}-${i}`;
+                      return (
+                        <ExampleCard
+                          key={key}
+                          example={ex}
+                          color={color}
+                          isOpen={expanded === key}
+                          onToggle={() =>
+                            setExpanded(expanded === key ? null : key)
+                          }
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        .ex-toggle:hover { background: var(--bg) !important; }
+        @media (max-width: 640px) {
+          .ex-cards-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }

@@ -8,36 +8,38 @@ export default async function ExemplosPage() {
   const examples = await fetchExamples(SHEETS_CONFIG.examplesSheetUrl);
 
   return (
-    <div className="bg-white">
-      {/* Page hero */}
-      <div
-        className="border-b border-gray-100"
-        style={{ background: "linear-gradient(135deg, #004aad08, #5de0e615)" }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-          <p className="section-label">Baseados em casos reais</p>
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">
-            Exemplos de Uso{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg, #004aad, #5de0e6)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              de IA no Ensino
-            </span>
+    <main style={{ background: "var(--bg)" }}>
+
+      {/* ── Page header ── */}
+      <section style={{
+        backgroundImage: "linear-gradient(180deg, rgba(8,18,32,0.45) 0%, rgba(8,18,32,0.85) 100%), url(/hero-bg.jpg)",
+        backgroundSize: "cover", backgroundPosition: "center",
+        color: "var(--on-dark)",
+      }}>
+        <div className="container-wide" style={{ padding: "72px 32px 80px" }}>
+          <span className="eyebrow" style={{ display: "block", marginBottom: 24, color: "rgba(255,255,255,0.55)" }}>
+            Baseados em casos reais
+          </span>
+          <h1 className="display-tight" style={{
+            fontSize: "clamp(44px, 5.6vw, 84px)",
+            lineHeight: 1.02, letterSpacing: "-0.02em",
+            maxWidth: 1100, color: "#fff",
+          }}>
+            Exemplos de Uso de IA no Ensino
           </h1>
-          <p className="text-lg text-gray-500 max-w-2xl">
-            Casos práticos com instruções passo a passo de como implementar na sua disciplina hoje.
-            Todos baseados em experiências reais de universidades de referência.
+          <p className="lead" style={{ maxWidth: 640, marginTop: 32, color: "rgba(255,255,255,0.72)" }}>
+            Casos práticos com instruções passo a passo de como implementar na
+            sua disciplina hoje. Todos baseados em experiências reais de
+            universidades de referência.
           </p>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* ── Examples (sticky filter bar lives inside ExamplesClient) ── */}
+      <div className="container-wide" style={{ padding: "0 32px" }}>
         <ExamplesClient examples={examples} />
       </div>
-    </div>
+
+    </main>
   );
 }

@@ -1,97 +1,58 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-
 export default function HeroSection() {
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ minHeight: "62vh", background: "#12181f" }}
-    >
-      {/* Background photo */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "url('/hero-bg.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+    <section style={{
+      position: "relative",
+      minHeight: 420,
+      backgroundImage: "linear-gradient(180deg, rgba(8,18,32,0.35) 0%, rgba(8,18,32,0.70) 100%), url(/hero-bg.jpg)",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      color: "var(--on-dark)",
+      overflow: "hidden",
+    }}>
+      <div style={{
+        maxWidth: 1440, margin: "0 auto",
+        padding: "64px 32px 72px",
+        minHeight: 420,
+        display: "grid",
+        gridTemplateColumns: "1.25fr 1fr",
+        gap: 56,
+        alignItems: "center",
+      }} className="hero-fiel-grid">
+        {/* Left: headline */}
+        <div>
+          <h1 className="display-tight" style={{
+            fontSize: "clamp(44px, 5.6vw, 84px)",
+            lineHeight: 1.02,
+            color: "#fff",
+            letterSpacing: "-0.015em",
+          }}>
+            Inteligência Artificial<br />
+            no Ensino Superior
+          </h1>
+        </div>
 
-      {/* Dark overlay */}
-      <div
-        className="absolute inset-0"
-        style={{ background: "rgba(8, 18, 32, 0.52)" }}
-      />
-
-      {/* Content — items pinned to bottom like Harvard */}
-      <div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
-                    flex flex-col justify-end pb-16 md:pb-24"
-        style={{ minHeight: "62vh" }}
-      >
-        {/* Eyebrow label */}
-        <p
-          className="text-xs font-bold uppercase tracking-widest mb-8"
-          style={{ color: "rgba(255,255,255,0.45)", fontFamily: "Inter, system-ui, sans-serif" }}
-        >
-          Engenharia de Produção · UFRGS · 2025
-        </p>
-
-        {/* Two-column editorial layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20 items-end">
-
-          {/* Left: Display heading */}
-          <div className="md:col-span-2">
-            <h1
-              className="text-white leading-[1.0]"
-              style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)" }}
-            >
-              Inteligência
-              <br />Artificial
-              <br />
-              <span style={{ color: "rgba(255,255,255,0.65)" }}>no Ensino Superior</span>
-            </h1>
-          </div>
-
-          {/* Right: Description + links */}
-          <div className="flex flex-col gap-7 pb-1">
-            <p
-              className="text-base leading-relaxed"
-              style={{ color: "rgba(255,255,255,0.65)", fontFamily: "Inter, system-ui, sans-serif" }}
-            >
-              Recursos práticos e baseados em evidências para professores e alunos
-              usarem IA de forma responsável, inspirados nas melhores universidades do mundo.
-            </p>
-
-            <div className="flex flex-col gap-4">
-              <Link
-                href="/diretrizes"
-                className="inline-flex items-center gap-2 text-sm font-semibold
-                           transition-all duration-200 self-start group"
-                style={{
-                  color: "white",
-                  fontFamily: "Inter, system-ui, sans-serif",
-                  borderBottom: "1px solid rgba(255,255,255,0.35)",
-                  paddingBottom: "2px",
-                }}
-              >
-                Ver Diretrizes <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-              <Link
-                href="/ferramentas"
-                className="inline-flex items-center gap-2 text-sm font-medium
-                           hover:text-white transition-colors duration-200 self-start"
-                style={{
-                  color: "rgba(255,255,255,0.5)",
-                  fontFamily: "Inter, system-ui, sans-serif",
-                }}
-              >
-                Explorar Ferramentas
-              </Link>
-            </div>
-          </div>
+        {/* Right: subtitle */}
+        <div style={{ maxWidth: 380 }}>
+          <p className="display" style={{
+            fontSize: "clamp(22px, 2vw, 30px)",
+            lineHeight: 1.2,
+            color: "rgba(255,255,255,0.88)",
+            letterSpacing: "-0.005em",
+          }}>
+            Recursos para docentes e alunos da UFRGS
+          </p>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-fiel-grid {
+            grid-template-columns: 1fr !important;
+            padding-top: 56px !important;
+            padding-bottom: 56px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

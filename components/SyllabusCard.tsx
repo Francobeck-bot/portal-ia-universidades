@@ -4,15 +4,15 @@ import { Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import type { SyllabusModel } from "@/lib/sheets";
 
-const STYLE_MAP: Record<string, { borderColor: string; tagBg: string; tagColor: string }> = {
-  Restritivo: { borderColor: "#ef4444", tagBg: "#fef2f2", tagColor: "#b91c1c" },
-  Misto:      { borderColor: "#f59e0b", tagBg: "#fffbeb", tagColor: "#b45309" },
-  Aberto:     { borderColor: "#5de0e6", tagBg: "#ecfeff", tagColor: "#0e7490" },
+const POLICY_STYLE: Record<string, { bar: string; dot: string; label: string }> = {
+  Restritivo: { bar: "#ef4444", dot: "#ef4444", label: "Restritivo" },
+  Misto:      { bar: "#f59e0b", dot: "#f59e0b", label: "Misto"      },
+  Aberto:     { bar: "#22c55e", dot: "#22c55e", label: "Aberto"     },
 };
 
-const DEFAULT_STYLE = { borderColor: "#5de0e6", tagBg: "#ecfeff", tagColor: "#0e7490" };
+const DEFAULT_POLICY = { bar: "#6b7280", dot: "#6b7280", label: "Outro" };
 
-function CopyButton({ text }: { text: string }) {
+function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
   function handleCopy() {
     navigator.clipboard.writeText(text).then(() => {
@@ -23,14 +23,20 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 text-xs font-medium
-                 text-gray-400 hover:text-gray-700 transition-colors"
+      style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        fontSize: 12, fontWeight: 500, letterSpacing: "0.04em",
+        color: copied ? "#22c55e" : "var(--muted)",
+        background: "none", border: "none", cursor: "pointer",
+        transition: "color 160ms ease", padding: 0,
+        fontFamily: "var(--body)",
+      }}
       title="Copiar texto"
     >
       {copied ? (
-        <><Check className="w-3.5 h-3.5 text-green-500" /><span className="text-green-500">Copiado!</span></>
+        <><Check size={13} /><span>Copiado!</span></>
       ) : (
-        <><Copy className="w-3.5 h-3.5" />Copiar</>
+        <><Copy size={13} /><span>{label}</span></>
       )}
     </button>
   );
@@ -38,65 +44,104 @@ function CopyButton({ text }: { text: string }) {
 
 export default function SyllabusCard({ model }: { model: SyllabusModel }) {
   const [expanded, setExpanded] = useState(false);
-  const style = STYLE_MAP[model.tipo] ?? DEFAULT_STYLE;
+  const style = POLICY_STYLE[model.tipo] ?? DEFAULT_POLICY;
   const hasFullText = model.texto_completo?.trim();
 
   return (
-    <div
-      className="rounded-xl bg-white border overflow-hidden"
-      style={{ borderColor: `${style.borderColor}60` }}
-    >
-      {/* Resumo */}
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <span
-            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold"
-            style={{ background: style.tagBg, color: style.tagColor }}
-          >
-            Modelo {model.tipo}
+    <div style={{
+      background: "var(--surface)",
+      border: "1px solid var(--hairline)",
+      borderRadius: "var(--radius)",
+      overflow: "hidden",
+    }}>
+      {/* 3px top bar */}
+      <div style={{ height: 3, background: style.bar }} />
+
+      {/* Main body */}
+      <div style={{ padding: "24px 28px" }}>
+
+        {/* Header row: badge + copy */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: 7,
+            fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase",
+            fontWeight: 500, fontFamily: "var(--body)",
+            color: "var(--muted)",
+          }}>
+            <span style={{
+              width: 7, height: 7, borderRadius: "50%",
+              background: style.bar, flexShrink: 0,
+            }} />
+            Modelo {style.label}
           </span>
-          <CopyButton text={model.texto} />
+          <CopyButton text={model.texto} label="Copiar texto" />
         </div>
-        <blockquote
-          className="text-gray-700 text-sm leading-relaxed italic border-l-2 pl-4"
-          style={{ borderColor: style.borderColor }}
-        >
+
+        {/* Short text with left-accent border */}
+        <blockquote style={{
+          margin: 0, padding: "2px 0 2px 16px",
+          borderLeft: `2px solid ${style.bar}`,
+          fontSize: 15, lineHeight: 1.65,
+          color: "var(--ink-soft)",
+          fontStyle: "normal",
+          fontFamily: "var(--body)",
+        }}>
           {model.texto}
         </blockquote>
 
+        {/* Expand toggle */}
         {hasFullText && (
           <button
             onClick={() => setExpanded(!expanded)}
-            className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold transition-colors"
-            style={{ color: style.tagColor }}
+            style={{
+              marginTop: 20,
+              display: "inline-flex", alignItems: "center", gap: 6,
+              fontSize: 12, letterSpacing: "0.06em",
+              fontWeight: 500, fontFamily: "var(--body)",
+              color: "var(--muted)", cursor: "pointer",
+              background: "none", border: "none", padding: 0,
+              transition: "color 160ms ease",
+            }}
           >
             {expanded ? (
-              <><ChevronUp className="w-3.5 h-3.5" />Ocultar versão completa</>
+              <><ChevronUp size={14} /><span>Ocultar versão completa</span></>
             ) : (
-              <><ChevronDown className="w-3.5 h-3.5" />Ver versão completa da política</>
+              <><ChevronDown size={14} /><span>Ver versão completa da política</span></>
             )}
           </button>
         )}
       </div>
 
-      {/* Versão completa expandível */}
+      {/* Expandable full text */}
       {hasFullText && expanded && (
-        <div
-          className="border-t px-6 py-5"
-          style={{
-            background: `${style.borderColor}08`,
-            borderColor: `${style.borderColor}30`,
-          }}
-        >
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-black uppercase tracking-widest" style={{ color: style.tagColor }}>
-              Versão completa
-            </p>
-            <CopyButton text={model.texto_completo} />
+        <div style={{
+          borderTop: "1px solid var(--hairline)",
+          padding: "20px 28px 24px",
+          background: "var(--bg)",
+        }}>
+          <div style={{
+            display: "flex", alignItems: "center",
+            justifyContent: "space-between", marginBottom: 12,
+          }}>
+            <span className="eyebrow">Versão completa</span>
+            <CopyButton text={model.texto_completo} label="Copiar completo" />
           </div>
-          <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+          <pre style={{
+            margin: 0,
+            padding: "16px 18px",
+            background: "var(--surface)",
+            border: "1px solid var(--hairline)",
+            borderRadius: "var(--radius)",
+            fontFamily: "var(--mono)",
+            fontSize: 13,
+            lineHeight: 1.7,
+            color: "var(--ink-soft)",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            overflowX: "auto",
+          }}>
             {model.texto_completo}
-          </div>
+          </pre>
         </div>
       )}
     </div>

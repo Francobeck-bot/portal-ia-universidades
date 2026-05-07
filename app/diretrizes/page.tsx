@@ -1,12 +1,19 @@
 export const dynamic = "force-dynamic";
 
-import { Eye, Brain, Target, FileText, RefreshCw, AlertTriangle } from "lucide-react";
 import { fetchPrinciples, fetchSyllabus } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";
 import SyllabusCard from "@/components/SyllabusCard";
-import type { LucideIcon } from "lucide-react";
 
-const PRINCIPLE_ICONS: LucideIcon[] = [Eye, Brain, Target, FileText, RefreshCw];
+const worldPolicies = [
+  { n: "01", uni: "Harvard University", year: "2024", stance: "Permissiva com declaração",
+    note: 'Adota framework de "disclosure obrigatório" — uso é permitido em quase toda situação, desde que declarado com prompt e ferramenta.' },
+  { n: "02", uni: "MIT", year: "2024", stance: "Caso a caso por curso",
+    note: "Política definida pelo docente em cada disciplina. Rejeita detectores de IA como evidência em processos disciplinares." },
+  { n: "03", uni: "Stanford", year: "2023", stance: "Integrada ao syllabus",
+    note: "Exige que todo plano de ensino inclua seção sobre IA. Oferece três templates institucionais análogos aos adotados aqui." },
+  { n: "04", uni: "University of Toronto", year: "2024", stance: "Contra detectores",
+    note: "Rejeita formalmente Turnitin AI e GPTZero. Investe em redesenho de avaliações com evidência de processo." },
+];
 
 export default async function DiretrizesPage() {
   const [principles, syllabusModels] = await Promise.all([
@@ -15,125 +22,160 @@ export default async function DiretrizesPage() {
   ]);
 
   return (
-    <div className="bg-white">
+    <main style={{ background: "var(--bg)" }}>
 
-      {/* Page hero */}
-      <div
-        className="border-b border-gray-100"
-        style={{ background: "linear-gradient(135deg, #004aad08, #5de0e615)" }}
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-          <p className="section-label">Para professores e alunos</p>
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">
-            Diretrizes para Uso<br />
-            <span
-              style={{
-                background: "linear-gradient(135deg, #004aad, #5de0e6)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Responsável de IA
-            </span>
+      {/* ── Page header ── */}
+      <section style={{
+        backgroundImage: "linear-gradient(180deg, rgba(8,18,32,0.45) 0%, rgba(8,18,32,0.85) 100%), url(/hero-bg.jpg)",
+        backgroundSize: "cover", backgroundPosition: "center",
+        color: "var(--on-dark)",
+      }}>
+        <div className="container-wide" style={{ padding: "88px 32px 96px" }}>
+          <h1 className="display-tight" style={{ fontSize: "clamp(44px, 5.6vw, 84px)", lineHeight: 1.02, letterSpacing: "-0.02em", maxWidth: 1100, color: "#fff" }}>
+            Diretrizes para Uso Responsável de IA
           </h1>
-          <p className="text-lg text-gray-500 max-w-2xl leading-relaxed">
-            O uso de IA no ensino superior não é uma questão de ser a favor ou contra.
-            É uma questão de como fazer de forma que realmente beneficie o aprendizado.
+          <p className="lead" style={{ maxWidth: 680, marginTop: 32, color: "rgba(255,255,255,0.72)" }}>
+            O uso de IA no ensino superior não é uma questão de ser a favor ou contra. É uma questão de como fazer de forma que realmente beneficie o aprendizado.
           </p>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
-
-        {/* ── SEÇÃO 1: Princípios ── */}
-        <section>
-          <p className="section-label">01</p>
-          <h2 className="text-2xl font-black text-gray-900 mb-2">
-            Princípios para uso responsável de IA no ensino
-          </h2>
-          <p className="text-gray-500 mb-8">
-            Cinco princípios baseados no que as melhores universidades do mundo praticam e recomendam.
-          </p>
-
-          <div className="space-y-3">
-            {principles.map((principle, i) => {
-              const Icon = PRINCIPLE_ICONS[i] ?? FileText;
-              return (
-                <div
-                  key={i}
-                  className="flex gap-5 p-6 rounded-xl border border-gray-100 hover:border-[#5de0e6]/50
-                             hover:shadow-sm transition-all duration-200 bg-white"
-                >
-                  <div className="shrink-0 mt-0.5">
-                    <div
-                      className="p-2.5 rounded-lg"
-                      style={{ background: "linear-gradient(135deg, #004aad15, #5de0e620)" }}
-                    >
-                      <Icon className="w-5 h-5" style={{ color: "#004aad" }} />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-xs font-black" style={{ color: "#5de0e6" }}>
-                        {principle.numero}
-                      </span>
-                      <h3 className="font-black text-gray-900">{principle.titulo}</h3>
-                    </div>
-                    <p className="text-gray-500 text-sm leading-relaxed">{principle.descricao}</p>
-                  </div>
-                </div>
-              );
-            })}
+      {/* ── 01 · Princípios ── */}
+      <section>
+        <div className="container-wide" style={{ padding: "80px 32px 64px" }}>
+          <div style={{ marginBottom: 40, maxWidth: 760 }}>
+            <span className="num-eyebrow" style={{ display: "block", marginBottom: 14, fontSize: 13 }}>01</span>
+            <h2 className="display-tight" style={{ fontSize: "clamp(30px, 3.4vw, 44px)", letterSpacing: "-0.015em", lineHeight: 1.08, marginBottom: 12 }}>
+              Princípios para uso responsável de IA no ensino
+            </h2>
+            <p className="lead" style={{ color: "var(--muted)" }}>
+              Cinco princípios baseados no que as melhores universidades do mundo praticam e recomendam.
+            </p>
           </div>
-        </section>
 
-        {/* ── SEÇÃO 2: Modelos de syllabus ── */}
-        <section>
-          <p className="section-label">02</p>
-          <h2 className="text-2xl font-black text-gray-900 mb-2">
-            Como comunicar sua política de IA para os alunos
-          </h2>
-          <p className="text-gray-500 mb-8">
-            Três modelos prontos para copiar e colar no syllabus do seu curso.
-          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            {principles.map((p, i) => (
+              <div key={i} style={{
+                background: "var(--surface)", border: "1px solid var(--hairline)",
+                borderRadius: "var(--radius)", padding: "24px 28px",
+                display: "grid", gridTemplateColumns: "44px 1fr", gap: 20, alignItems: "start",
+              }}>
+                <span className="num-eyebrow" style={{ fontSize: 14, color: "var(--muted)", paddingTop: 4 }}>
+                  {p.numero}
+                </span>
+                <div>
+                  <h3 className="display" style={{ fontSize: 22, letterSpacing: "-0.005em", lineHeight: 1.2, marginBottom: 8 }}>
+                    {p.titulo}
+                  </h3>
+                  <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--muted)" }}>{p.descricao}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="space-y-4">
+      {/* ── DARK · Como universidades decidem ── */}
+      <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
+        <div className="container-wide" style={{ padding: "72px 32px" }}>
+          <div style={{ marginBottom: 48 }}>
+            <h2 className="display-tight" style={{ fontSize: "clamp(28px, 3.4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#fff" }}>
+              Como as melhores universidades estão decidindo
+            </h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0, borderTop: "1px solid rgba(255,255,255,0.2)" }}
+               className="world-grid">
+            {worldPolicies.map((w, i) => (
+              <div key={w.n} style={{
+                padding: "32px 24px 32px 0",
+                paddingLeft: i > 0 ? 24 : 0,
+                borderRight: i < worldPolicies.length - 1 ? "1px solid rgba(255,255,255,0.2)" : "none",
+                display: "flex", flexDirection: "column", gap: 14, minHeight: 260,
+              }}>
+                <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)" }}>{w.n}</span>
+                <div className="display" style={{ fontSize: 22, color: "#fff", lineHeight: 1.1, letterSpacing: "-0.005em" }}>{w.uni}</div>
+                <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)", fontSize: 11 }}>{w.year}</span>
+                <div className="eyebrow" style={{ color: "rgba(255,255,255,0.7)", fontSize: 11, marginTop: 4 }}>{w.stance}</div>
+                <p style={{ fontSize: 13.5, lineHeight: 1.55, color: "rgba(255,255,255,0.72)", marginTop: "auto" }}>{w.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 02 · Modelos de política ── */}
+      <section>
+        <div className="container-wide" style={{ padding: "80px 32px 64px" }}>
+          <div style={{ marginBottom: 40, maxWidth: 760 }}>
+            <span className="num-eyebrow" style={{ display: "block", marginBottom: 14, fontSize: 13 }}>02</span>
+            <h2 className="display-tight" style={{ fontSize: "clamp(30px, 3.4vw, 44px)", letterSpacing: "-0.015em", lineHeight: 1.08, marginBottom: 12 }}>
+              Como comunicar sua política de IA para os alunos
+            </h2>
+            <p className="lead" style={{ color: "var(--muted)" }}>
+              Três modelos prontos para copiar e colar no syllabus do seu curso.
+            </p>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {syllabusModels.map((model, i) => (
               <SyllabusCard key={i} model={model} />
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ── SEÇÃO 3: Aviso ── */}
-        <section>
-          <p className="section-label">03</p>
-          <div className="rounded-xl p-6 border-2 border-amber-200 bg-amber-50">
-            <div className="flex items-start gap-4">
-              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-black text-amber-900 mb-2">
-                  Aviso importante: detectores de IA não são confiáveis
-                </h3>
-                <p className="text-amber-800 text-sm leading-relaxed mb-3">
-                  Ferramentas como <strong>Turnitin AI Detection</strong> e <strong>GPTZero</strong> apresentam
-                  altas taxas de falso-positivo e são <strong>comprovadamente enviesadas contra falantes
-                  não-nativos de inglês</strong>, acusando injustamente alunos que escreveram por conta própria.
-                </p>
-                <p className="text-amber-800 text-sm leading-relaxed mb-3">
-                  Universidades como <strong>MIT</strong> e <strong>University of Toronto</strong> rejeitam
-                  formalmente o uso dessas ferramentas como evidência em processos disciplinares.
-                </p>
-                <p className="text-amber-700 text-sm">
-                  <strong>O que funciona melhor:</strong> redesenhar avaliações para exigir evidência de
-                  processo (rascunhos, reflexões, defesas orais) e adotar declaração de uso como mecanismo
-                  de integridade acadêmica.
-                </p>
-              </div>
+      {/* ── DARK · Detectores de IA ── */}
+      <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
+        <div className="container-wide" style={{ padding: "96px 32px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.2)", marginBottom: 48 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 12 }}>
+              <span style={{ width: 20, height: 1, background: "rgba(255,255,255,0.4)" }} />
+              <span className="eyebrow" style={{ color: "rgba(255,255,255,0.55)" }}>Ponto de atenção</span>
+            </div>
+            <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)" }}>03</span>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 80, alignItems: "start" }}
+               className="detector-grid">
+            <div>
+              <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.2vw, 52px)", lineHeight: 1.02, letterSpacing: "-0.02em", color: "#fff", marginBottom: 20 }}>
+                Detectores de IA não são confiáveis.
+              </h2>
+              <p style={{ fontSize: 16, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", maxWidth: 440 }}>
+                Antes de adotar qualquer ferramenta de detecção, entenda o risco.
+              </p>
+            </div>
+            <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)" }}>
+              {[
+                { n: "01", title: "Alta taxa de falso-positivo",
+                  body: "Turnitin AI Detection e GPTZero são comprovadamente enviesados contra falantes não-nativos de inglês, acusando injustamente alunos que escreveram por conta própria." },
+                { n: "02", title: "Rejeitadas por instituições de referência",
+                  body: "Universidades como MIT e University of Toronto rejeitam formalmente o uso dessas ferramentas como evidência em processos disciplinares." },
+                { n: "03", title: "O que funciona no lugar",
+                  body: "Redesenhar avaliações para exigir evidência de processo (rascunhos, reflexões, defesas orais) e adotar declaração de uso como mecanismo de integridade acadêmica." },
+              ].map((row, i) => (
+                <div key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.2)", padding: "28px 0", display: "grid", gridTemplateColumns: "56px 1fr", gap: 20 }}>
+                  <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.45)", paddingTop: 4 }}>{row.n}</span>
+                  <div>
+                    <div className="display" style={{ fontSize: 22, color: "#fff", letterSpacing: "-0.005em", lineHeight: 1.2, marginBottom: 10 }}>{row.title}</div>
+                    <p style={{ fontSize: 14.5, lineHeight: 1.6, color: "rgba(255,255,255,0.72)" }}>{row.body}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-      </div>
-    </div>
+      <style>{`
+        @media (max-width: 768px) {
+          .world-grid { grid-template-columns: 1fr 1fr !important; }
+          .detector-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+        }
+        @media (max-width: 480px) {
+          .world-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </main>
   );
 }

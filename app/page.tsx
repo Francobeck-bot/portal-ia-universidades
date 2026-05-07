@@ -1,33 +1,17 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen, Wrench, Lightbulb } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import { fetchTools, fetchExamples } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";
 
 const stats = [
-  {
-    value: "2×",
-    label: "mais aprendizagem",
-    source: "Harvard · 2025",
-    detail:
-      "Tutor IA (PS2 Pal) gerou o dobro de aprendizagem em estudo controlado com 194 alunos de Física. O maior ganho já medido em comparação com aula ativa tradicional.",
-  },
-  {
-    value: "75–97%",
-    label: "de precisão nas respostas",
-    source: "Georgia Tech · Jill Watson",
-    detail:
-      "Assistente virtual Jill Watson responde dúvidas dos alunos 24/7 com precisão de 75 a 97%. Estudantes passaram semanas sem perceber que não era humana.",
-  },
-  {
-    value: "Simulação",
-    label: "de pacientes com IA",
-    source: "NUS · Singapura",
-    detail:
-      "Chatbot simula pacientes para estudantes de saúde praticarem anamnese e diagnóstico antes de situações reais. Usado amplamente desde 2020.",
-  },
+  { value: "2×",      label: "mais aprendizagem",        source: "Harvard · 2025",
+    detail: "Tutor IA (PS2 Pal) gerou o dobro de aprendizagem em estudo controlado com 194 alunos de Física. O maior ganho já medido em comparação com aula ativa tradicional." },
+  { value: "75–97%",  label: "de precisão nas respostas", source: "Georgia Tech · Jill Watson",
+    detail: "Assistente virtual Jill Watson responde dúvidas dos alunos 24/7 com precisão de 75 a 97%. Estudantes passaram semanas sem perceber que não era humana." },
+  { value: "Simulação", label: "de pacientes com IA",    source: "NUS · Singapura",
+    detail: "Chatbot simula pacientes para estudantes de saúde praticarem anamnese e diagnóstico antes de situações reais. Usado amplamente desde 2020." },
 ];
 
 export default async function HomePage() {
@@ -37,72 +21,66 @@ export default async function HomePage() {
   ]);
 
   const pages = [
-    {
-      href: "/diretrizes",
-      Icon: BookOpen,
-      title: "Diretrizes",
-      description:
-        "5 princípios para uso responsável e 3 modelos prontos de política de IA para o syllabus.",
-      tag: "Para professores",
-    },
-    {
-      href: "/ferramentas",
-      Icon: Wrench,
-      title: "Ferramentas",
-      description:
-        "Catálogo curado de ferramentas recomendadas por Harvard, MIT, Imperial e outras.",
-      tag: `${tools.length} ferramentas`,
-    },
-    {
-      href: "/exemplos",
-      Icon: Lightbulb,
-      title: "Exemplos de Uso",
-      description:
-        "Casos práticos reais com instruções de como implementar na sua disciplina hoje.",
-      tag: `${examples.length} exemplos`,
-    },
+    { href: "/diretrizes",  n: "01", label: "Diretrizes",
+      desc: "5 princípios para uso responsável e 3 modelos prontos de política de IA para o syllabus.",
+      tag: "Para professores" },
+    { href: "/ferramentas", n: "02", label: "Ferramentas",
+      desc: "Catálogo curado de ferramentas recomendadas por Harvard, MIT, Imperial e outras.",
+      tag: `${tools.length} ferramentas` },
+    { href: "/exemplos",    n: "03", label: "Exemplos de Uso",
+      desc: "Casos práticos reais com instruções de como implementar na sua disciplina hoje.",
+      tag: `${examples.length} exemplos` },
   ];
 
   return (
     <div>
-
-      {/* ── HERO ─────────────────────────────────── */}
+      {/* ── HERO ─────────────────────────────────────────── */}
       <HeroSection />
 
-      {/* ── NAVIGATION CARDS ─────────────────────── */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="mb-10">
-            <p className="section-label">O que você encontra aqui</p>
-            <h2 className="section-title">Tudo em um só lugar</h2>
-            <p className="section-sub max-w-xl">
-              De diretrizes a ferramentas, de casos práticos a instruções passo a passo.
-              Conteúdo baseado nas melhores universidades do mundo.
+      {/* ── NAVIGATION CARDS ─────────────────────────────── */}
+      <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)" }}>
+        <div className="container-wide" style={{ padding: "88px 32px" }}>
+          <div style={{ marginBottom: 56, maxWidth: 680 }}>
+            <span className="eyebrow" style={{ display: "block", marginBottom: 16 }}>O que você encontra aqui</span>
+            <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.4vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.02em", marginBottom: 16 }}>
+              Tudo em um só lugar
+            </h2>
+            <p className="lead" style={{ color: "var(--muted)", maxWidth: 560 }}>
+              De diretrizes a ferramentas, de casos práticos a instruções passo a passo. Conteúdo baseado nas melhores universidades do mundo.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {pages.map(({ href, Icon, title, description, tag }) => (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid var(--hairline)" }}
+               className="nav-cards-grid">
+            {pages.map((it, i) => (
               <Link
-                key={href}
-                href={href}
-                className="group card card-hover p-7 flex flex-col"
-                style={{ borderTop: "3px solid #111827" }}
+                key={it.href}
+                href={it.href}
+                style={{
+                  textAlign: "left",
+                  padding: "36px 28px 36px 0",
+                  borderRight: i < 2 ? "1px solid var(--hairline)" : "none",
+                  paddingLeft: i > 0 ? 28 : 0,
+                  display: "flex", flexDirection: "column", gap: 18,
+                  transition: "background 180ms ease",
+                }}
+                className="nav-card-item"
               >
-                <div className="flex items-start justify-between mb-5">
-                  <div className="p-2.5 rounded-lg bg-gray-100">
-                    <Icon className="w-5 h-5 text-gray-700" />
-                  </div>
-                  <span className="text-xs text-gray-400 font-semibold" style={{ fontFamily: "Inter, system-ui, sans-serif" }}>{tag}</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                  <span className="num-eyebrow">{it.n}</span>
+                  <span className="num-eyebrow" style={{ color: "var(--muted)" }}>{it.tag}</span>
                 </div>
-                <h3 className="text-gray-900 text-xl mb-2">{title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed flex-1" style={{ fontFamily: "Inter, system-ui, sans-serif" }}>{description}</p>
-                <span
-                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900
-                               group-hover:gap-3 transition-all duration-200"
-                  style={{ fontFamily: "Inter, system-ui, sans-serif" }}
-                >
-                  Acessar <ArrowRight className="w-4 h-4" />
+                <h3 className="display" style={{ fontSize: 34, letterSpacing: "-0.01em", lineHeight: 1 }}>
+                  {it.label}
+                </h3>
+                <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--muted)", maxWidth: 340 }}>
+                  {it.desc}
+                </p>
+                <span style={{ marginTop: "auto", paddingTop: 24, display: "inline-flex", alignItems: "center", gap: 10, fontSize: 14, fontWeight: 500 }}>
+                  Acessar
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
+                  </svg>
                 </span>
               </Link>
             ))}
@@ -110,49 +88,39 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── STATS ────────────────────────────────── */}
-      <section style={{ background: "#111827" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="mb-12">
-            <p
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-3"
-              style={{ color: "rgba(255,255,255,0.45)", fontFamily: "Inter, system-ui, sans-serif" }}
-            >
-              <span className="w-4 h-px bg-white/30" />
-              Evidências de universidades globais
-            </p>
-            <h2 className="text-3xl md:text-4xl text-white mb-4">
+      {/* ── STATS ─────────────────────────────────────────── */}
+      <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
+        <div className="container-wide" style={{ padding: "88px 32px" }}>
+          <div style={{ marginBottom: 56, maxWidth: 680 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+              <span style={{ width: 20, height: 1, background: "rgba(255,255,255,0.4)" }} />
+              <span className="eyebrow" style={{ color: "rgba(255,255,255,0.55)" }}>Evidências de universidades globais</span>
+            </div>
+            <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.4vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.02em", color: "#fff", marginBottom: 16 }}>
               Por que usar IA no ensino?
             </h2>
-            <p className="text-lg max-w-xl" style={{ color: "rgba(255,255,255,0.6)", fontFamily: "Inter, system-ui, sans-serif" }}>
+            <p style={{ fontSize: 18, lineHeight: 1.55, color: "rgba(255,255,255,0.65)", maxWidth: 560 }}>
               Números reais de pesquisas nas melhores universidades, para quem ainda tem dúvidas.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {stats.map(({ value, label, source, detail }, i) => (
-              <div
-                key={i}
-                className="rounded-xl p-8 border"
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  borderColor: "rgba(255,255,255,0.1)",
-                }}
-              >
-                <div className="text-5xl text-white mb-1" style={{ fontFamily: "OPTIBakerDanmarkOne, Georgia, serif", letterSpacing: "0.03em" }}>
-                  {value}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid rgba(255,255,255,0.2)" }}
+               className="stats-grid">
+            {stats.map((s, i) => (
+              <div key={i} style={{
+                padding: "40px 28px 40px 0",
+                paddingLeft: i > 0 ? 28 : 0,
+                borderRight: i < 2 ? "1px solid rgba(255,255,255,0.2)" : "none",
+                display: "flex", flexDirection: "column", gap: 16, minHeight: 280,
+              }}>
+                <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)" }}>0{i + 1}</span>
+                <div className="display-tight" style={{ fontSize: "clamp(44px, 5vw, 64px)", color: "#fff", lineHeight: 0.95, letterSpacing: "-0.015em" }}>
+                  {s.value}
                 </div>
-                <div
-                  className="text-xs font-bold mb-1 uppercase"
-                  style={{ color: "rgba(255,255,255,0.5)", letterSpacing: "0.1em", fontFamily: "Inter, system-ui, sans-serif" }}
-                >
-                  {label}
-                </div>
-                <div className="text-xs mb-5 font-medium" style={{ color: "rgba(255,255,255,0.35)", fontFamily: "Inter, system-ui, sans-serif" }}>
-                  {source}
-                </div>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.75)", fontFamily: "Inter, system-ui, sans-serif" }}>
-                  {detail}
+                <div className="eyebrow" style={{ color: "rgba(255,255,255,0.55)", marginTop: 4 }}>{s.label}</div>
+                <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)", fontSize: 11 }}>{s.source}</span>
+                <p style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(255,255,255,0.78)", marginTop: "auto" }}>
+                  {s.detail}
                 </p>
               </div>
             ))}
@@ -160,33 +128,47 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────── */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div
-            className="rounded-2xl p-10 md:p-14 flex flex-col md:flex-row
-                         md:items-center justify-between gap-8 border border-gray-200"
-            style={{ background: "#f3f4f4" }}
-          >
+      {/* ── CTA ───────────────────────────────────────────── */}
+      <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide" style={{ padding: "88px 32px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "end", borderTop: "1px solid var(--hairline)", paddingTop: 56 }}
+               className="cta-grid">
             <div>
-              <h2 className="section-title mb-2">Pronto para começar?</h2>
-              <p className="text-gray-500 max-w-md" style={{ fontFamily: "Inter, system-ui, sans-serif" }}>
-                Comece pelas diretrizes, explore as ferramentas e veja como outros
-                professores implementam IA nas disciplinas hoje.
-              </p>
+              <span className="eyebrow" style={{ display: "block", marginBottom: 20 }}>Comece por aqui</span>
+              <h2 className="display-tight" style={{ fontSize: "clamp(40px, 4.8vw, 64px)", lineHeight: 1, letterSpacing: "-0.02em", maxWidth: 520 }}>
+                Pronto para começar?
+              </h2>
             </div>
-            <div className="flex flex-wrap gap-3 shrink-0">
-              <Link href="/diretrizes" className="btn-primary">
-                Ler Diretrizes <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/ferramentas" className="btn-outline">
-                Ver Ferramentas
-              </Link>
+            <div style={{ paddingBottom: 8, maxWidth: 460 }}>
+              <p style={{ fontSize: 16, lineHeight: 1.6, color: "var(--muted)", marginBottom: 28 }}>
+                Comece pelas diretrizes, explore as ferramentas e veja como outros professores implementam IA nas disciplinas hoje.
+              </p>
+              <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+                <Link href="/diretrizes" className="btn-primary">
+                  Ler Diretrizes
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
+                  </svg>
+                </Link>
+                <Link href="/ferramentas" className="btn-outline">
+                  Ver Ferramentas
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
+      <style>{`
+        .nav-card-item:hover { background: #fafbfb; }
+        @media (max-width: 768px) {
+          .nav-cards-grid { grid-template-columns: 1fr !important; }
+          .nav-card-item { padding: 28px 0 !important; border-right: none !important; border-bottom: 1px solid var(--hairline); }
+          .stats-grid { grid-template-columns: 1fr !important; }
+          .stats-grid > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 32px 0 !important; }
+          .cta-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }

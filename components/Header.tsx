@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -15,92 +15,91 @@ const navLinks = [
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled]     = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <header
-      className={`sticky top-0 z-50 bg-white transition-shadow duration-200 border-b border-gray-100 ${
-        scrolled ? "shadow-sm" : ""
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+    <header style={{
+      position: "sticky", top: 0, zIndex: 40,
+      background: "rgba(243,244,244,0.92)",
+      backdropFilter: "saturate(140%) blur(8px)",
+      WebkitBackdropFilter: "saturate(140%) blur(8px)",
+      borderBottom: "1px solid var(--hairline)",
+    }}>
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, gap: 24 }}>
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/logo-ufrgs.png" alt="UFRGS" width={72} height={72} className="object-contain" />
-            <div className="w-px h-6 bg-gray-200" />
-            <Image src="/logo-ep.png" alt="Engenharia de Produção UFRGS" width={126} height={38} className="object-contain" />
+          {/* Logos */}
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 18 }}>
+            <Image src="/logo-ufrgs.png" alt="UFRGS" width={34} height={34} style={{ objectFit: "contain", display: "block" }} />
+            <div style={{ width: 1, height: 38, background: "var(--hairline)" }} />
+            <Image src="/logo-ep.png" alt="Engenharia de Produção UFRGS" width={110} height={33} style={{ objectFit: "contain", display: "block" }} />
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm font-semibold transition-all duration-150 relative ${
-                  pathname === link.href
-                    ? "text-transparent bg-clip-text"
-                    : "text-gray-500 hover:text-gray-900"
-                }`}
-                style={
-                  pathname === link.href
-                    ? {
-                        backgroundImage: "linear-gradient(135deg, #004aad, #5de0e6)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                      }
-                    : {}
-                }
-              >
-                {link.label}
-                {pathname === link.href && (
-                  <span
-                    className="absolute -bottom-[18px] left-0 right-0 h-0.5 rounded-full"
-                    style={{ background: "linear-gradient(135deg, #004aad, #5de0e6)" }}
-                  />
-                )}
-              </Link>
-            ))}
+          <nav style={{ display: "flex", alignItems: "center", gap: 36 }} className="hidden md:flex">
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    position: "relative",
+                    padding: "6px 0",
+                    fontSize: 14,
+                    fontWeight: active ? 500 : 400,
+                    color: active ? "var(--ink)" : "var(--muted)",
+                    letterSpacing: "0.01em",
+                    transition: "color 160ms ease",
+                  }}
+                >
+                  {link.label}
+                  {active && (
+                    <span style={{
+                      position: "absolute", left: 0, right: 0, bottom: -22,
+                      height: 2, background: "var(--ink)",
+                    }} />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden p-1.5 text-gray-500 hover:text-gray-900 transition-colors"
+            className="md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
+            style={{ background: "none", border: 0, padding: 6, cursor: "pointer", color: "var(--muted)" }}
             aria-label="Menu"
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white">
-          <nav className="px-4 py-3 space-y-0.5">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className={`block px-3 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
-                  pathname === link.href
-                    ? "bg-gradient-to-r from-[#004aad]/10 to-[#5de0e6]/10 text-[#004aad]"
-                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+        <div className="md:hidden" style={{ borderTop: "1px solid var(--hairline)", background: "var(--bg)" }}>
+          <nav style={{ padding: "12px 32px 20px", display: "flex", flexDirection: "column", gap: 2 }}>
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    padding: "10px 0",
+                    fontSize: 15,
+                    fontWeight: active ? 500 : 400,
+                    color: active ? "var(--ink)" : "var(--muted)",
+                    borderBottom: "1px solid var(--hairline-soft)",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
       )}
