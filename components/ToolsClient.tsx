@@ -27,7 +27,7 @@ const FALLBACK_PALETTE = [
 
 // ── Resolve color: case-insensitive → partial → index fallback ─
 function resolveColor(tipo: string, index: number) {
-  const primary = tipo.split(",")[0].trim().toLowerCase();
+  const primary = tipo.split(/[,;|/]/)[0].trim().toLowerCase();
 
   // Exact (normalised) match
   if (CAT_COLORS[primary]) return CAT_COLORS[primary];
@@ -65,7 +65,8 @@ const FILTER_TYPES = [
 
 // ── Helpers ───────────────────────────────────────────────────
 function getTags(tipo: string) {
-  return tipo.split(",").map(t => t.trim()).filter(Boolean);
+  if (!tipo?.trim()) return [];
+  return tipo.split(/[,;|/]/).map(t => t.trim()).filter(Boolean);
 }
 function getUseCases(casos: string) {
   return casos.split(",").map(c => c.trim()).filter(Boolean);
@@ -81,9 +82,11 @@ function getYouTubeThumbnail(url: string): string | null {
 }
 function matchesType(tipo: string, filter: string) {
   if (filter === "Todos") return true;
-  return tipo
-    .split(",")
-    .some(t => t.trim().toLowerCase() === filter.toLowerCase());
+  if (!tipo?.trim()) return false;
+  const lowerFilter = filter.toLowerCase();
+  // Split on comma, semicolon, pipe or slash — whatever the Sheet uses
+  const tags = tipo.split(/[,;|/]/).map(t => t.trim().toLowerCase()).filter(Boolean);
+  return tags.some(t => t === lowerFilter || t.includes(lowerFilter) || lowerFilter.includes(t));
 }
 
 // ── Arrow SVG ─────────────────────────────────────────────────
