@@ -4,13 +4,20 @@ import { Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import type { SyllabusModel } from "@/lib/sheets";
 
-const POLICY_STYLE: Record<string, { bar: string; dot: string; label: string }> = {
-  Restritivo: { bar: "#ef4444", dot: "#ef4444", label: "Restritivo" },
-  Misto:      { bar: "#f59e0b", dot: "#f59e0b", label: "Misto"      },
-  Aberto:     { bar: "#22c55e", dot: "#22c55e", label: "Aberto"     },
+const POLICY_STYLE: Record<string, { bar: string }> = {
+  restritivo: { bar: "#ef4444" },
+  misto:      { bar: "#f59e0b" },
+  orientado:  { bar: "#f59e0b" },
+  aberto:     { bar: "#22c55e" },
+  livre:      { bar: "#22c55e" },
+  permissivo: { bar: "#22c55e" },
 };
 
-const DEFAULT_POLICY = { bar: "#6b7280", dot: "#6b7280", label: "Outro" };
+const DEFAULT_POLICY = { bar: "#6b7280" };
+
+function resolveStyle(tipo: string) {
+  return POLICY_STYLE[tipo?.trim().toLowerCase()] ?? DEFAULT_POLICY;
+}
 
 function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
@@ -44,7 +51,7 @@ function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }
 
 export default function SyllabusCard({ model }: { model: SyllabusModel }) {
   const [expanded, setExpanded] = useState(false);
-  const style = POLICY_STYLE[model.tipo] ?? DEFAULT_POLICY;
+  const style = resolveStyle(model.tipo);
   const hasFullText = model.texto_completo?.trim();
 
   return (
@@ -72,7 +79,7 @@ export default function SyllabusCard({ model }: { model: SyllabusModel }) {
               width: 7, height: 7, borderRadius: "50%",
               background: style.bar, flexShrink: 0,
             }} />
-            Modelo {style.label}
+            Modelo {model.tipo}
           </span>
           <CopyButton text={model.texto} label="Copiar texto" />
         </div>

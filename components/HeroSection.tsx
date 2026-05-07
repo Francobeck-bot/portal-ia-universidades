@@ -39,7 +39,7 @@ export default function HeroSection() {
             color: "rgba(255,255,255,0.88)",
             letterSpacing: "-0.005em",
           }}>
-            Recursos para docentes e alunos da UFRGS
+            Recursos para docentes da UFRGS
           </p>
         </div>
       </div>
