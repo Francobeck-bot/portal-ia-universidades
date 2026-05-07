@@ -222,24 +222,24 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
       <ToolMonogram name={tool.nome} accent={color.accent} />
 
       <div style={{ padding: "24px 24px 20px", display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
-        {/* Category pills (all types) + pricing */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-            {tags.map(tag => (
-              <span key={tag} style={{
-                display: "inline-flex", alignItems: "center", gap: 5,
-                background: color.bg, color: color.fg,
-                padding: "5px 10px", borderRadius: 999,
-                fontSize: 11, fontWeight: 600, letterSpacing: "0.02em",
-                whiteSpace: "nowrap",
-              }}>
-                <span style={{ width: 5, height: 5, borderRadius: "50%", background: color.accent, flexShrink: 0 }} />
-                {tag}
-              </span>
-            ))}
-          </div>
-          <span className="num-eyebrow" style={{ fontSize: 11, flexShrink: 0, paddingTop: 6 }}>{tool.custo}</span>
+        {/* Category pills (all types) */}
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {tags.map(tag => (
+            <span key={tag} style={{
+              display: "inline-flex", alignItems: "center", gap: 5,
+              background: color.bg, color: color.fg,
+              padding: "5px 10px", borderRadius: 999,
+              fontSize: 11, fontWeight: 600, letterSpacing: "0.02em",
+              whiteSpace: "nowrap",
+            }}>
+              <span style={{ width: 5, height: 5, borderRadius: "50%", background: color.accent, flexShrink: 0 }} />
+              {tag}
+            </span>
+          ))}
         </div>
+
+        {/* Pricing */}
+        <span className="num-eyebrow" style={{ fontSize: 11 }}>{tool.custo}</span>
 
         {/* Name */}
         <h3 style={{
