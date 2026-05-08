@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { fetchReferences } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";
-import ReferencesClient from "@/components/ReferencesClient";
+import ReferencesTable from "@/components/ReferencesClient";
 
 export default async function ReferenciasPage() {
   const references = await fetchReferences(SHEETS_CONFIG.referencesSheetUrl);
@@ -11,42 +11,42 @@ export default async function ReferenciasPage() {
   return (
     <main style={{ background: "var(--bg)" }}>
 
-      {/* ── Page header ── */}
+      {/* ── Hero ── */}
       <section style={{
-        backgroundImage: "linear-gradient(180deg, rgba(8,18,32,0.45) 0%, rgba(8,18,32,0.85) 100%), url(/hero-bg.jpg)",
+        backgroundImage: "linear-gradient(180deg, rgba(8,18,32,0.55) 0%, rgba(8,18,32,0.88) 100%), url(/hero-bg.jpg)",
         backgroundSize: "cover", backgroundPosition: "center",
         color: "var(--on-dark)",
+        minHeight: 320,
+        display: "flex", flexDirection: "column", justifyContent: "flex-end",
       }}>
-        <div className="container-wide" style={{ padding: "72px 32px 80px" }}>
+        <div className="container-wide" style={{ padding: "32px 32px 56px" }}>
           <Link href="/" style={{
             display: "inline-flex", alignItems: "center", gap: 8,
-            fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase",
-            color: "rgba(255,255,255,0.5)", textDecoration: "none",
-            marginBottom: 28, fontFamily: "var(--body)",
-          }}>
-            ← Voltar ao início
+            fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
+            color: "rgba(255,255,255,0.45)", textDecoration: "none",
+            marginBottom: 32, fontFamily: "var(--body)",
+            transition: "color 160ms ease",
+          }} className="ref-back-link">
+            ← Voltar para o início
           </Link>
-          <span className="eyebrow" style={{ display: "block", marginBottom: 20, color: "rgba(255,255,255,0.55)" }}>
-            {references.length} fontes indexadas
-          </span>
           <h1 className="display-tight" style={{
-            fontSize: "clamp(44px, 5.6vw, 84px)",
-            lineHeight: 1.02, letterSpacing: "-0.02em",
-            maxWidth: 1100, color: "#fff",
+            fontSize: "clamp(56px, 7vw, 100px)",
+            lineHeight: 0.96, letterSpacing: "-0.025em",
+            color: "#fff", fontWeight: 400,
           }}>
             Referências
           </h1>
-          <p className="lead" style={{ maxWidth: 600, marginTop: 28, color: "rgba(255,255,255,0.72)" }}>
-            Diretrizes, guias e centros de recursos das principais universidades do mundo
-            que embasam as recomendações deste portal.
-          </p>
         </div>
       </section>
 
       {/* ── Table ── */}
-      <div className="container-wide" style={{ padding: "0 32px" }}>
-        <ReferencesClient references={references} />
+      <div className="container-wide" style={{ padding: "0 32px 96px" }}>
+        <ReferencesTable references={references} />
       </div>
+
+      <style>{`
+        .ref-back-link:hover { color: rgba(255,255,255,0.75) !important; }
+      `}</style>
 
     </main>
   );
