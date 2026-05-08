@@ -42,6 +42,14 @@ function resolveColor(tipo: string, index: number) {
   return FALLBACK_PALETTE[index % FALLBACK_PALETTE.length];
 }
 
+// ── Logo images for known tools (replaces monogram cover) ────────
+const TOOL_LOGOS: Record<string, string> = {
+  "ChatGPT":            "/logos/chatgpt.png",
+  "Microsoft Copilot":  "/logos/copilot-logo.png",
+  "Claude (Anthropic)": "/logos/Claude_AI_logo.svg.png",
+  "Google NotebookLM":  "/logos/NotebookLM_logo.svg.png",
+};
+
 // ── Display label & size per tool name (for the cover monogram) ─
 const TOOL_COVER: Record<string, { label: string; fontSize: number }> = {
   "ChatGPT":             { label: "ChatGPT",    fontSize: 80 },
@@ -100,6 +108,26 @@ function Arrow() {
 
 // ── Colored cover with tool name ──────────────────────────────
 function ToolMonogram({ name, accent }: { name: string; accent: string }) {
+  const logoSrc = TOOL_LOGOS[name];
+  if (logoSrc) {
+    return (
+      <div style={{
+        height: 140, background: "#fff",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        position: "relative", overflow: "hidden", padding: "0 32px",
+        borderBottom: "1px solid var(--hairline)",
+      }}>
+        <Image
+          src={logoSrc}
+          alt={name}
+          width={180}
+          height={90}
+          style={{ objectFit: "contain", maxHeight: 80, maxWidth: 180 }}
+        />
+      </div>
+    );
+  }
+
   const cfg = TOOL_COVER[name] ?? {
     label: name.replace(/\(.*?\)/g, "").trim(),
     fontSize: name.length > 10 ? 48 : name.length > 7 ? 60 : 80,
