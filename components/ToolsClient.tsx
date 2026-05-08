@@ -251,7 +251,7 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
         </h3>
 
         {/* Description */}
-        <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)" }}>
+        <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)", whiteSpace: "pre-line" }}>
           {tool.descricao}
         </p>
       </div>

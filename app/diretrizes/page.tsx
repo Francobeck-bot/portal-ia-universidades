@@ -67,7 +67,7 @@ export default async function DiretrizesPage() {
                   <h3 className="display" style={{ fontSize: 22, letterSpacing: "-0.005em", lineHeight: 1.2, marginBottom: 8 }}>
                     {p.titulo}
                   </h3>
-                  <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--muted)" }}>{p.descricao}</p>
+                  <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--muted)", whiteSpace: "pre-line" }}>{p.descricao}</p>
                 </div>
               </div>
             ))}
