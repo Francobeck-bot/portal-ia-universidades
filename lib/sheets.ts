@@ -249,32 +249,57 @@ export const FALLBACK_EXAMPLES: Example[] = [
 ];
 
 function parseCSV(csv: string): Record<string, string>[] {
-  const lines = csv.trim().split("\n");
-  if (lines.length < 2) return [];
+  // Normalise line endings then parse character-by-character so that
+  // quoted fields containing newlines are handled correctly.
+  const text = csv.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
 
-  const headers = lines[0].split(",").map((h) => h.trim().replace(/^"|"$/g, "").trim());
+  const rows: string[][] = [];
+  let currentRow: string[] = [];
+  let currentField = "";
+  let inQuotes = false;
 
-  return lines.slice(1).map((line) => {
-    const values: string[] = [];
-    let inQuotes = false;
-    let current = "";
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
 
-    for (let i = 0; i < line.length; i++) {
-      const char = line[i];
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === "," && !inQuotes) {
-        values.push(current.trim());
-        current = "";
+    if (ch === '"') {
+      if (inQuotes && text[i + 1] === '"') {
+        // Escaped double-quote inside a quoted field ("")
+        currentField += '"';
+        i++;
       } else {
-        current += char;
+        inQuotes = !inQuotes;
       }
+    } else if (ch === "," && !inQuotes) {
+      currentRow.push(currentField);
+      currentField = "";
+    } else if (ch === "\n" && !inQuotes) {
+      // End of row — only when we are NOT inside a quoted field
+      currentRow.push(currentField);
+      currentField = "";
+      if (currentRow.some((f) => f.trim())) rows.push(currentRow);
+      currentRow = [];
+    } else {
+      currentField += ch;
     }
-    values.push(current.trim());
+  }
 
+  // Flush the last field / row
+  currentRow.push(currentField);
+  if (currentRow.some((f) => f.trim())) rows.push(currentRow);
+
+  if (rows.length < 2) return [];
+
+  const headers = rows[0].map((h) => h.trim().replace(/^"|"$/g, "").trim());
+
+  return rows.slice(1).map((rowValues) => {
     const obj: Record<string, string> = {};
-    headers.forEach((header, i) => {
-      obj[header] = (values[i] || "").replace(/^"|"$/g, "").trim();
+    headers.forEach((header, idx) => {
+      let val = (rowValues[idx] ?? "").trim();
+      // Strip surrounding CSV quotes and unescape doubled quotes
+      if (val.startsWith('"') && val.endsWith('"')) {
+        val = val.slice(1, -1).replace(/""/g, '"');
+      }
+      obj[header] = val;
     });
     return obj;
   });
