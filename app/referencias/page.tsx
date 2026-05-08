@@ -13,41 +13,40 @@ export default async function ReferenciasPage() {
 
       {/* ── Hero ── */}
       <section style={{
-        backgroundImage: "linear-gradient(180deg, rgba(8,18,32,0.55) 0%, rgba(8,18,32,0.88) 100%), url(/hero-bg.jpg)",
+        backgroundImage: "linear-gradient(180deg, rgba(8,18,32,0.5) 0%, rgba(8,18,32,0.9) 100%), url(/hero-bg.jpg)",
         backgroundSize: "cover", backgroundPosition: "center",
+        minHeight: 380,
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+        textAlign: "center",
         color: "var(--on-dark)",
-        minHeight: 320,
-        display: "flex", flexDirection: "column", justifyContent: "flex-end",
+        position: "relative",
       }}>
-        <div className="container-wide" style={{ padding: "32px 32px 56px" }}>
-          <Link href="/" style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
-            color: "rgba(255,255,255,0.45)", textDecoration: "none",
-            marginBottom: 32, fontFamily: "var(--body)",
-            transition: "color 160ms ease",
-          }} className="ref-back-link">
-            ← Voltar para o início
-          </Link>
-          <h1 className="display-tight" style={{
-            fontSize: "clamp(56px, 7vw, 100px)",
-            lineHeight: 0.96, letterSpacing: "-0.025em",
-            color: "#fff", fontWeight: 400,
-          }}>
-            Referências
-          </h1>
-        </div>
+        <Link href="/" style={{
+          position: "absolute", top: 32,
+          fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
+          color: "rgba(255,255,255,0.45)", textDecoration: "none",
+          fontFamily: "var(--body)", display: "inline-flex", alignItems: "center", gap: 8,
+        }} className="ref-back">
+          ← Voltar para o início
+        </Link>
+        <h1 className="display-tight" style={{
+          fontSize: "clamp(64px, 9vw, 120px)",
+          lineHeight: 0.95, letterSpacing: "-0.03em",
+          color: "#fff", fontWeight: 400,
+        }}>
+          Referências
+        </h1>
       </section>
 
       {/* ── Table ── */}
-      <div className="container-wide" style={{ padding: "0 32px 96px" }}>
+      <div style={{ overflowX: "auto" }}>
         <ReferencesTable references={references} />
       </div>
 
       <style>{`
-        .ref-back-link:hover { color: rgba(255,255,255,0.75) !important; }
+        .ref-back:hover { color: rgba(255,255,255,0.75) !important; }
       `}</style>
-
     </main>
   );
 }
