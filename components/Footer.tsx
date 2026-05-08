@@ -59,9 +59,9 @@ export default function Footer() {
             </span>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               <li>
-                <a href="#" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)" }} className="footer-link">
+                <Link href="/referencias" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)" }} className="footer-link">
                   Referências
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

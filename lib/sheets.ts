@@ -347,3 +347,37 @@ export async function fetchExamples(sheetUrl?: string): Promise<Example[]> {
     return FALLBACK_EXAMPLES;
   }
 }
+
+// ── References ────────────────────────────────────────────────────────────────
+
+export interface Reference {
+  numero: string;
+  universidade: string;   // "Universidade / Fonte"
+  pais: string;           // "País"
+  tipo: string;           // "Tipo de Fonte"
+  descricao: string;      // "Descrição"
+  link: string;           // "Link"
+}
+
+export const FALLBACK_REFERENCES: Reference[] = [
+  { numero: "1", universidade: "Stanford University", pais: "EUA", tipo: "Guia pedagógico para docentes", descricao: "Stanford Teaching Commons – AI Teaching Guide", link: "https://teachingcommons.stanford.edu/teaching-guides/artificial-intelligence-teaching" },
+  { numero: "2", universidade: "Harvard University",  pais: "EUA", tipo: "Recursos pedagógicos para docentes", descricao: "Harvard AI – Teaching Resources", link: "https://www.harvard.edu/ai/teaching-resources/" },
+  { numero: "3", universidade: "MIT",                 pais: "EUA", tipo: "Guia de design de curso com GenAI", descricao: "MIT TLL – GenAI Your Course", link: "https://tll.mit.edu/teaching-resources/course-design/gen-ai-your-course/" },
+];
+
+export async function fetchReferences(sheetUrl?: string): Promise<Reference[]> {
+  if (!sheetUrl || sheetUrl.includes("SEU_ID")) return FALLBACK_REFERENCES;
+  try {
+    const res = await fetch(sheetUrl, { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const valid = (rows as unknown as Reference[]).filter(
+      (r) => r.universidade?.trim() && r.link?.trim()
+    );
+    return valid.length > 0 ? valid : FALLBACK_REFERENCES;
+  } catch {
+    console.warn("Could not fetch references from Google Sheets, using fallback data.");
+    return FALLBACK_REFERENCES;
+  }
+}
