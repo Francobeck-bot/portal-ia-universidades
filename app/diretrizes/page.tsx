@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { fetchPrinciples, fetchSyllabus } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";
 import SyllabusCard from "@/components/SyllabusCard";
+import PrincipleCard from "@/components/PrincipleCard";
 
 const worldPolicies = [
   { n: "01", uni: "Harvard University", year: "2024", stance: "Permissiva com declaração",
@@ -55,21 +56,7 @@ export default async function DiretrizesPage() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {principles.map((p, i) => (
-              <div key={i} style={{
-                background: "var(--surface)", border: "1px solid var(--hairline)",
-                borderRadius: "var(--radius)", padding: "24px 28px",
-                display: "grid", gridTemplateColumns: "44px 1fr", gap: 20, alignItems: "start",
-              }}>
-                <span className="num-eyebrow" style={{ fontSize: 14, color: "var(--muted)", paddingTop: 4 }}>
-                  {p.numero}
-                </span>
-                <div>
-                  <h3 className="display" style={{ fontSize: 22, letterSpacing: "-0.005em", lineHeight: 1.2, marginBottom: 8 }}>
-                    {p.titulo}
-                  </h3>
-                  <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--muted)", whiteSpace: "pre-line" }}>{p.descricao}</p>
-                </div>
-              </div>
+              <PrincipleCard key={i} p={p} />
             ))}
           </div>
         </div>

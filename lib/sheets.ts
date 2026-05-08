@@ -2,6 +2,7 @@ export interface Principle {
   numero: string;   // "01" a "05"
   titulo: string;
   descricao: string;
+  descricao_completa?: string;
 }
 
 export interface SyllabusModel {
