@@ -48,6 +48,10 @@ const TOOL_LOGOS: Record<string, string> = {
   "Microsoft Copilot":  "/logos/copilot-logo.png",
   "Claude (Anthropic)": "/logos/Claude_AI_logo.svg.png",
   "Google NotebookLM":  "/logos/NotebookLM_logo.svg.png",
+  "Google Gemini":      "/logos/Google-Gemini-Logo.jpg",
+  "Perplexity AI":      "/logos/Perplexity_AI_logo.svg.png",
+  "Gamma":              "/logos/gamma ai logo.jpg",
+  "Google AI Studio":   "/logos/google ai studio.png",
 };
 
 // ── Display label & size per tool name (for the cover monogram) ─
