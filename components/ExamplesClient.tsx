@@ -93,13 +93,9 @@ function ExampleCard({
 
       {/* Body */}
       <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {example.descricao.split("\n").filter(Boolean).map((para, i) => (
-            <p key={i} style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)", margin: 0 }}>
-              {para}
-            </p>
-          ))}
-        </div>
+        <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)", margin: 0, whiteSpace: "pre-line" }}>
+          {example.descricao}
+        </p>
 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {example.ferramenta && (
