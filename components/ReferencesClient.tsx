@@ -105,14 +105,13 @@ export default function ReferencesTable({ references }: { references: Reference[
                   rel="noopener noreferrer"
                   className="ref-link-btn"
                   style={{
-                    display: "inline-flex", alignItems: "center", justifyContent: "center",
-                    width: 36, height: 36, borderRadius: "50%",
-                    background: "var(--ink)", color: "#fff",
-                    textDecoration: "none", flexShrink: 0,
-                    transition: "transform 150ms ease, background 150ms ease",
+                    display: "inline-flex", alignItems: "center", gap: 5,
+                    fontSize: 12, fontWeight: 600, color: "var(--ink)",
+                    textDecoration: "none",
+                    transition: "opacity 150ms ease",
                   }}
                 >
-                  <ArrowIcon />
+                  Acessar <ArrowIcon />
                 </a>
               )}
             </td>
@@ -122,7 +121,7 @@ export default function ReferencesTable({ references }: { references: Reference[
 
       <style>{`
         .ref-row:hover { background: rgba(0,0,0,0.025); }
-        .ref-link-btn:hover { transform: scale(1.1); background: #111 !important; }
+        .ref-link-btn:hover { opacity: 0.6; }
         @media (max-width: 860px) {
           table { min-width: 0 !important; }
           .ref-col-tipo, .ref-col-pais { display: none; }
