@@ -372,9 +372,19 @@ export async function fetchReferences(sheetUrl?: string): Promise<Reference[]> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
     const rows = parseCSV(csv);
-    const valid = (rows as unknown as Reference[]).filter(
-      (r) => r.universidade?.trim() && r.link?.trim()
-    );
+
+    // Map raw CSV column names (Portuguese headers with spaces/accents)
+    // to the interface field names used in the component.
+    const mapped: Reference[] = rows.map((row) => ({
+      numero:       (row["numero"]               ?? row["Numero"]              ?? "").trim(),
+      universidade: (row["Universidade / Fonte"] ?? row["universidade"]        ?? row["Universidade"] ?? "").trim(),
+      pais:         (row["País"]                 ?? row["Pais"]                ?? row["pais"]         ?? "").trim(),
+      tipo:         (row["Tipo de Fonte"]         ?? row["tipo"]               ?? row["Tipo"]          ?? "").trim(),
+      descricao:    (row["Descrição"]             ?? row["Descricao"]          ?? row["descricao"]     ?? row["Descrição"] ?? "").trim(),
+      link:         (row["Link"]                  ?? row["link"]               ?? "").trim(),
+    }));
+
+    const valid = mapped.filter((r) => r.universidade && r.link);
     return valid.length > 0 ? valid : FALLBACK_REFERENCES;
   } catch {
     console.warn("Could not fetch references from Google Sheets, using fallback data.");
