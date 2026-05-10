@@ -30,7 +30,7 @@ export default function Header() {
 
           {/* Logos */}
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 18 }}>
-            <Image src="/logo-ufrgs.png" alt="UFRGS" width={34} height={34} style={{ objectFit: "contain", display: "block" }} />
+            <Image src="/logo-ufrgs.png" alt="UFRGS" width={52} height={52} style={{ objectFit: "contain", display: "block" }} />
             <div style={{ width: 1, height: 38, background: "var(--hairline)" }} />
             <Image src="/logo-ep.png" alt="Engenharia de Produção UFRGS" width={110} height={33} style={{ objectFit: "contain", display: "block" }} />
           </Link>
