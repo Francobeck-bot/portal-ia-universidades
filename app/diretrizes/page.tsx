@@ -43,7 +43,7 @@ export default async function DiretrizesPage() {
 
       {/* ── 01 · Princípios ── */}
       <section>
-        <div className="container-wide" style={{ padding: "80px 32px 64px" }}>
+        <div className="container-wide dir-section" style={{ padding: "80px 32px 64px" }}>
           <div style={{ marginBottom: 40, maxWidth: 760 }}>
             <span className="num-eyebrow" style={{ display: "block", marginBottom: 14, fontSize: 13 }}>01</span>
             <h2 className="display-tight" style={{ fontSize: "clamp(30px, 3.4vw, 44px)", letterSpacing: "-0.015em", lineHeight: 1.08, marginBottom: 12 }}>
@@ -64,7 +64,7 @@ export default async function DiretrizesPage() {
 
       {/* ── 02 · Modelos de política ── */}
       <section>
-        <div className="container-wide" style={{ padding: "80px 32px 64px" }}>
+        <div className="container-wide dir-section" style={{ padding: "80px 32px 64px" }}>
           <div style={{ marginBottom: 40, maxWidth: 760 }}>
             <span className="num-eyebrow" style={{ display: "block", marginBottom: 14, fontSize: 13 }}>02</span>
             <h2 className="display-tight" style={{ fontSize: "clamp(30px, 3.4vw, 44px)", letterSpacing: "-0.015em", lineHeight: 1.08, marginBottom: 12 }}>
@@ -85,7 +85,7 @@ export default async function DiretrizesPage() {
 
       {/* ── DARK · Como universidades decidem ── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
-        <div className="container-wide" style={{ padding: "72px 32px" }}>
+        <div className="container-wide dir-section-dark" style={{ padding: "72px 32px" }}>
           <div style={{ marginBottom: 48 }}>
             <h2 className="display-tight" style={{ fontSize: "clamp(28px, 3.4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#fff" }}>
               Como as melhores universidades estão decidindo
@@ -113,7 +113,7 @@ export default async function DiretrizesPage() {
 
       {/* ── DARK · Detectores de IA ── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
-        <div className="container-wide" style={{ padding: "96px 32px" }}>
+        <div className="container-wide dir-section-dark" style={{ padding: "96px 32px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.2)", marginBottom: 48 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 12 }}>
               <span style={{ width: 20, height: 1, background: "rgba(255,255,255,0.4)" }} />
@@ -158,6 +158,8 @@ export default async function DiretrizesPage() {
         @media (max-width: 768px) {
           .world-grid { grid-template-columns: 1fr 1fr !important; }
           .detector-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .dir-section { padding: 48px 20px !important; }
+          .dir-section-dark { padding: 48px 20px !important; }
         }
         @media (max-width: 480px) {
           .world-grid { grid-template-columns: 1fr !important; }

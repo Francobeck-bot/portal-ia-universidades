@@ -346,23 +346,25 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
   return (
     <div>
       {/* ── Sticky filter bar ── */}
-      <div style={{
+      <div className="tools-filter-wrap" style={{
         position: "sticky", top: 64, zIndex: 10,
         background: "var(--surface)",
         borderBottom: "1px solid var(--hairline)",
         margin: "0 -32px",
       }}>
-        <div className="container-wide" style={{ padding: "0 32px" }}>
+        <div style={{ padding: "0 32px" }}>
           <div style={{
-            display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center",
+            display: "flex", gap: 8, alignItems: "center",
             paddingTop: 14, paddingBottom: 14,
-          }}>
+            overflowX: "auto", WebkitOverflowScrolling: "touch" as const,
+          }} className="filter-scroll">
             <span className="eyebrow" style={{ marginRight: 6, flexShrink: 0 }}>Filtrar</span>
             {FILTER_TYPES.map(type => {
               const active = selectedType === type;
               return (
                 <button key={type} onClick={() => setSelectedType(type)}
                   style={{
+                    flexShrink: 0,
                     background: active ? "var(--ink)" : "transparent",
                     color: active ? "#fff" : "var(--ink)",
                     border: `1px solid ${active ? "var(--ink)" : "var(--hairline)"}`,
@@ -395,7 +397,7 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
         ) : (
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
             gap: 24,
           }} className="tools-grid">
             {filtered.map((tool, i) => (
@@ -407,7 +409,10 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
 
       <style>{`
         .tool-link:hover { gap: 12px !important; }
+        .filter-scroll { scrollbar-width: none; }
+        .filter-scroll::-webkit-scrollbar { display: none; }
         @media (max-width: 640px) {
+          .tools-filter-wrap { margin: 0 -20px !important; }
           .tools-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>

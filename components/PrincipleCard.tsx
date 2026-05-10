@@ -57,10 +57,10 @@ export default function PrincipleCard({ p }: { p: Principle }) {
 
       {/* Expandable full text */}
       {hasMore && expanded && (
-        <div style={{
+        <div className="principle-expanded" style={{
           borderTop: "1px solid var(--hairline)",
           padding: "20px 28px 24px",
-          paddingLeft: `calc(28px + 44px + 20px)`, /* align with text column */
+          paddingLeft: `calc(28px + 44px + 20px)`,
           background: "var(--bg)",
         }}>
           <p style={{
@@ -72,6 +72,11 @@ export default function PrincipleCard({ p }: { p: Principle }) {
           </p>
         </div>
       )}
+      <style>{`
+        @media (max-width: 640px) {
+          .principle-expanded { padding-left: 28px !important; }
+        }
+      `}</style>
     </div>
   );
 }

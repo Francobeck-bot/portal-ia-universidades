@@ -184,6 +184,12 @@
   .btn-outline:hover { background: var(--ink); color: #fff; }
 }
 
+/* ── Mobile base ────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  body { overflow-x: hidden; }
+  .container-wide, .container { padding-left: 20px !important; padding-right: 20px !important; }
+}
+
 /* ── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }

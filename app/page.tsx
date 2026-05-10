@@ -39,7 +39,7 @@ export default async function HomePage() {
 
       {/* ── NAVIGATION CARDS ─────────────────────────────── */}
       <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)" }}>
-        <div className="container-wide" style={{ padding: "88px 32px" }}>
+        <div className="container-wide home-section" style={{ padding: "88px 32px" }}>
           <div style={{ marginBottom: 56, maxWidth: 680 }}>
             <span className="eyebrow" style={{ display: "block", marginBottom: 16 }}>O que você encontra aqui</span>
             <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.4vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.02em", marginBottom: 16 }}>
@@ -90,7 +90,7 @@ export default async function HomePage() {
 
       {/* ── STATS ─────────────────────────────────────────── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
-        <div className="container-wide" style={{ padding: "88px 32px" }}>
+        <div className="container-wide home-section-stats" style={{ padding: "88px 32px" }}>
           <div style={{ marginBottom: 56, maxWidth: 680 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
               <span style={{ width: 20, height: 1, background: "rgba(255,255,255,0.4)" }} />
@@ -162,11 +162,19 @@ export default async function HomePage() {
       <style>{`
         .nav-card-item:hover { background: #fafbfb; }
         @media (max-width: 768px) {
-          .nav-cards-grid { grid-template-columns: 1fr !important; }
-          .nav-card-item { padding: 28px 0 !important; border-right: none !important; border-bottom: 1px solid var(--hairline); }
+          .nav-cards-grid { grid-template-columns: 1fr 1fr !important; }
+          .nav-card-item { padding: 24px 16px 24px 0 !important; border-bottom: 1px solid var(--hairline); }
+          .nav-card-item:nth-child(odd) { border-right: 1px solid var(--hairline) !important; }
+          .nav-card-item:nth-child(even) { border-right: none !important; padding-left: 16px !important; padding-right: 0 !important; }
           .stats-grid { grid-template-columns: 1fr !important; }
           .stats-grid > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 32px 0 !important; }
-          .cta-grid { grid-template-columns: 1fr !important; }
+          .cta-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .home-section { padding: 56px 20px !important; }
+          .home-section-stats { padding: 56px 20px !important; }
+        }
+        @media (max-width: 440px) {
+          .nav-cards-grid { grid-template-columns: 1fr !important; }
+          .nav-card-item { border-right: none !important; padding: 24px 0 !important; }
         }
       `}</style>
     </div>

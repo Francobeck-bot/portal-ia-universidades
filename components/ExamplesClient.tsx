@@ -207,23 +207,25 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
   return (
     <div>
       {/* ── Sticky filter bar ── */}
-      <div style={{
+      <div className="ex-filter-wrap" style={{
         position: "sticky", top: 64, zIndex: 10,
         background: "var(--surface)",
         borderBottom: "1px solid var(--hairline)",
         margin: "0 -32px",
       }}>
-        <div className="container-wide" style={{ padding: "0 32px" }}>
+        <div style={{ padding: "0 32px" }}>
           <div style={{
-            display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center",
+            display: "flex", gap: 8, alignItems: "center",
             paddingTop: 14, paddingBottom: 14,
-          }}>
+            overflowX: "auto", WebkitOverflowScrolling: "touch" as const,
+          }} className="filter-scroll">
             <span className="eyebrow" style={{ marginRight: 6, flexShrink: 0 }}>Filtrar</span>
             {filterOptions.map(cat => {
               const active = filter === cat;
               return (
                 <button key={cat} onClick={() => setFilter(cat)}
                   style={{
+                    flexShrink: 0,
                     background: active ? "var(--ink)" : "transparent",
                     color: active ? "#fff" : "var(--ink)",
                     border: `1px solid ${active ? "var(--ink)" : "var(--hairline)"}`,
@@ -287,7 +289,7 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
                   {/* Cards */}
                   <div style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
                     gap: 20,
                   }} className="ex-cards-grid">
                     {group.items.map((ex, i) => {
@@ -314,7 +316,10 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
 
       <style>{`
         .ex-toggle:hover { background: var(--bg) !important; }
+        .filter-scroll { scrollbar-width: none; }
+        .filter-scroll::-webkit-scrollbar { display: none; }
         @media (max-width: 640px) {
+          .ex-filter-wrap { margin: 0 -20px !important; }
           .ex-cards-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
