@@ -51,7 +51,11 @@ const TOOL_LOGOS: Record<string, string> = {
   "Google Gemini":      "/logos/Google-Gemini-Logo.jpg",
   "Perplexity AI":      "/logos/Perplexity_AI_logo.svg.png",
   "Gamma":              "/logos/gamma ai logo.jpg",
-  "Google AI Studio":   "/logos/google ai studio.png",
+  "Google AI Studio":   "/logos/google ai studio logo.jpg",
+  "Elicit":             "/logos/elicit ai logo.png",
+  "Granola":            "/logos/granola ai logo.avif",
+  "Manus AI":           "/logos/manus ai logo.png",
+  "Teachy":             "/logos/teachy ai logo.svg",
 };
 
 // ── Display label & size per tool name (for the cover monogram) ─
