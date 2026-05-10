@@ -179,12 +179,6 @@ function TutorialBlock({
           borderBottom: open ? "1px solid var(--hairline-soft)" : "none",
         }}
       >
-        <span style={{
-          width: 32, height: 32, borderRadius: "50%",
-          background: accent, color: "#fff",
-          display: "inline-flex", alignItems: "center", justifyContent: "center",
-          fontSize: 11, flexShrink: 0,
-        }}>▶</span>
         <span style={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
           <span className="eyebrow" style={{ fontSize: 10, color: accent }}>Tutorial em vídeo</span>
           <span style={{ fontSize: 13, fontWeight: 500, color: "var(--ink)" }}>
@@ -225,10 +219,13 @@ function TutorialBlock({
   );
 }
 
+// ── Single card color (uniform across all tools) ──────────────
+const CARD_COLOR = { bg: "#EEF2FF", fg: "#3730A3", accent: "#4F46E5" };
+
 // ── Modern Card ───────────────────────────────────────────────
 function ModernCard({ tool, index }: { tool: Tool; index: number }) {
   const [hover, setHover] = useState(false);
-  const color = resolveColor(tool.tipo, index);
+  const color = CARD_COLOR;
   const tags = getTags(tool.tipo);
   const useCases = getUseCases(tool.casos_de_uso);
   const recommendedBy = getRecommendedBy(tool.universidades_que_recomendam);
