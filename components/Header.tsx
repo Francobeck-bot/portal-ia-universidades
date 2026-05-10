@@ -36,7 +36,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav style={{ display: "flex", alignItems: "center", gap: 36 }} className="hidden md:flex">
+          <nav className="header-desktop-nav" style={{ display: "flex", alignItems: "center", gap: 36 }}>
             {navLinks.map((link) => {
               const active = pathname === link.href;
               return (
@@ -51,6 +51,7 @@ export default function Header() {
                     color: active ? "var(--ink)" : "var(--muted)",
                     letterSpacing: "0.01em",
                     transition: "color 160ms ease",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {link.label}
@@ -67,7 +68,7 @@ export default function Header() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden"
+            className="header-mobile-toggle"
             onClick={() => setMobileOpen(!mobileOpen)}
             style={{ background: "none", border: 0, padding: 6, cursor: "pointer", color: "var(--muted)" }}
             aria-label="Menu"
@@ -77,9 +78,18 @@ export default function Header() {
         </div>
       </div>
 
+      <style>{`
+        .header-desktop-nav { display: flex; }
+        .header-mobile-toggle { display: none; }
+        @media (max-width: 768px) {
+          .header-desktop-nav { display: none; }
+          .header-mobile-toggle { display: block; }
+        }
+      `}</style>
+
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="md:hidden" style={{ borderTop: "1px solid var(--hairline)", background: "var(--bg)" }}>
+        <div style={{ borderTop: "1px solid var(--hairline)", background: "var(--bg)" }}>
           <nav style={{ padding: "12px 32px 20px", display: "flex", flexDirection: "column", gap: 2 }}>
             {navLinks.map((link) => {
               const active = pathname === link.href;

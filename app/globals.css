@@ -184,10 +184,27 @@
   .btn-outline:hover { background: var(--ink); color: #fff; }
 }
 
+/* ── Page grids (defined here so media queries can override without !important) */
+.nav-cards-grid  { grid-template-columns: repeat(3, 1fr); }
+.stats-grid      { grid-template-columns: repeat(3, 1fr); }
+.cta-grid        { grid-template-columns: 1fr 1fr; }
+
 /* ── Mobile base ────────────────────────────────────────────── */
-@media (max-width: 640px) {
-  body { overflow-x: hidden; }
-  .container-wide, .container { padding-left: 20px !important; padding-right: 20px !important; }
+html, body { overflow-x: hidden; max-width: 100vw; }
+
+@media (max-width: 768px) {
+  .nav-cards-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid     { grid-template-columns: 1fr; }
+  .cta-grid       { grid-template-columns: 1fr; gap: 32px !important; }
+  .container-wide, .container { padding-left: 20px; padding-right: 20px; }
+  .home-section   { padding: 52px 20px !important; }
+  .home-section-stats { padding: 52px 20px !important; }
+  .dir-section    { padding: 48px 20px !important; }
+  .dir-section-dark { padding: 48px 20px !important; }
+}
+
+@media (max-width: 440px) {
+  .nav-cards-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────── */

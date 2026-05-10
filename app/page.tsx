@@ -50,7 +50,7 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid var(--hairline)" }}
+          <div style={{ display: "grid", gap: 0, borderTop: "1px solid var(--hairline)" }}
                className="nav-cards-grid">
             {pages.map((it, i) => (
               <Link
@@ -104,7 +104,7 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, borderTop: "1px solid rgba(255,255,255,0.2)" }}
+          <div style={{ display: "grid", gap: 0, borderTop: "1px solid rgba(255,255,255,0.2)" }}
                className="stats-grid">
             {stats.map((s, i) => (
               <div key={i} style={{
@@ -131,7 +131,7 @@ export default async function HomePage() {
       {/* ── CTA ───────────────────────────────────────────── */}
       <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)" }}>
         <div className="container-wide" style={{ padding: "88px 32px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "end", borderTop: "1px solid var(--hairline)", paddingTop: 56 }}
+          <div style={{ display: "grid", gap: 64, alignItems: "end", borderTop: "1px solid var(--hairline)", paddingTop: 56 }}
                className="cta-grid">
             <div>
               <span className="eyebrow" style={{ display: "block", marginBottom: 20 }}>Comece por aqui</span>
@@ -162,19 +162,13 @@ export default async function HomePage() {
       <style>{`
         .nav-card-item:hover { background: #fafbfb; }
         @media (max-width: 768px) {
-          .nav-cards-grid { grid-template-columns: 1fr 1fr !important; }
-          .nav-card-item { padding: 24px 16px 24px 0 !important; border-bottom: 1px solid var(--hairline); }
+          .nav-card-item { padding: 24px 12px 24px 0 !important; border-bottom: 1px solid var(--hairline); }
           .nav-card-item:nth-child(odd) { border-right: 1px solid var(--hairline) !important; }
-          .nav-card-item:nth-child(even) { border-right: none !important; padding-left: 16px !important; padding-right: 0 !important; }
-          .stats-grid { grid-template-columns: 1fr !important; }
-          .stats-grid > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 32px 0 !important; }
-          .cta-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
-          .home-section { padding: 56px 20px !important; }
-          .home-section-stats { padding: 56px 20px !important; }
+          .nav-card-item:nth-child(even) { border-right: none !important; padding-left: 12px !important; padding-right: 0 !important; }
+          .stats-grid > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 28px 0 !important; }
         }
         @media (max-width: 440px) {
-          .nav-cards-grid { grid-template-columns: 1fr !important; }
-          .nav-card-item { border-right: none !important; padding: 24px 0 !important; }
+          .nav-card-item { border-right: none !important; padding: 22px 0 !important; }
         }
       `}</style>
     </div>
