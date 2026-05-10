@@ -62,6 +62,27 @@ export default async function DiretrizesPage() {
         </div>
       </section>
 
+      {/* ── 02 · Modelos de política ── */}
+      <section>
+        <div className="container-wide" style={{ padding: "80px 32px 64px" }}>
+          <div style={{ marginBottom: 40, maxWidth: 760 }}>
+            <span className="num-eyebrow" style={{ display: "block", marginBottom: 14, fontSize: 13 }}>02</span>
+            <h2 className="display-tight" style={{ fontSize: "clamp(30px, 3.4vw, 44px)", letterSpacing: "-0.015em", lineHeight: 1.08, marginBottom: 12 }}>
+              Como comunicar sua política de IA para os alunos
+            </h2>
+            <p className="lead" style={{ color: "var(--muted)" }}>
+              Três modelos prontos para copiar e colar no syllabus do seu curso.
+            </p>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {syllabusModels.map((model, i) => (
+              <SyllabusCard key={i} model={model} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── DARK · Como universidades decidem ── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
         <div className="container-wide" style={{ padding: "72px 32px" }}>
@@ -85,27 +106,6 @@ export default async function DiretrizesPage() {
                 <div className="eyebrow" style={{ color: "rgba(255,255,255,0.7)", fontSize: 11, marginTop: 4 }}>{w.stance}</div>
                 <p style={{ fontSize: 13.5, lineHeight: 1.55, color: "rgba(255,255,255,0.72)", marginTop: "auto" }}>{w.note}</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 02 · Modelos de política ── */}
-      <section>
-        <div className="container-wide" style={{ padding: "80px 32px 64px" }}>
-          <div style={{ marginBottom: 40, maxWidth: 760 }}>
-            <span className="num-eyebrow" style={{ display: "block", marginBottom: 14, fontSize: 13 }}>02</span>
-            <h2 className="display-tight" style={{ fontSize: "clamp(30px, 3.4vw, 44px)", letterSpacing: "-0.015em", lineHeight: 1.08, marginBottom: 12 }}>
-              Como comunicar sua política de IA para os alunos
-            </h2>
-            <p className="lead" style={{ color: "var(--muted)" }}>
-              Três modelos prontos para copiar e colar no syllabus do seu curso.
-            </p>
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {syllabusModels.map((model, i) => (
-              <SyllabusCard key={i} model={model} />
             ))}
           </div>
         </div>
