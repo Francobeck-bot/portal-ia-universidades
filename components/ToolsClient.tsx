@@ -368,6 +368,15 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
       <ToolMonogram name={tool.nome} accent={color.accent} />
 
       <div className="tool-card-body" style={{ padding: "18px 20px 14px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
+        {/* Name — focal point */}
+        <h3 className="tool-name" style={{
+          fontFamily: "var(--display)", fontSize: 38,
+          letterSpacing: "-0.02em", lineHeight: 1.0,
+          color: "var(--ink)", fontWeight: 400,
+        }}>
+          {tool.nome}
+        </h3>
+
         {/* Category pills */}
         <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           {tags.map(tag => (
@@ -383,15 +392,6 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
             </span>
           ))}
         </div>
-
-        {/* Name — focal point */}
-        <h3 className="tool-name" style={{
-          fontFamily: "var(--display)", fontSize: 38,
-          letterSpacing: "-0.02em", lineHeight: 1.0,
-          color: "var(--ink)", fontWeight: 400,
-        }}>
-          {tool.nome}
-        </h3>
 
         {/* Short description */}
         <p className="tool-desc" style={{
