@@ -105,7 +105,7 @@ function Arrow() {
 }
 
 // ── Logo / monogram cover ─────────────────────────────────────
-function ToolMonogram({ name, accent, height = 110 }: { name: string; accent: string; height?: number }) {
+function ToolMonogram({ name, accent, height = 80 }: { name: string; accent: string; height?: number }) {
   const logoSrc = TOOL_LOGOS[name];
   if (logoSrc) {
     return (
@@ -118,7 +118,7 @@ function ToolMonogram({ name, accent, height = 110 }: { name: string; accent: st
         <Image
           src={logoSrc} alt={name}
           width={180} height={90}
-          style={{ objectFit: "contain", maxHeight: 64, maxWidth: 180 }}
+          style={{ objectFit: "contain", maxHeight: 45, maxWidth: 126 }}
         />
       </div>
     );
@@ -372,13 +372,13 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
         <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           {tags.map(tag => (
             <span key={tag} style={{
-              display: "inline-flex", alignItems: "center", gap: 4,
+              display: "inline-flex", alignItems: "center", gap: 3,
               background: color.bg, color: color.fg,
-              padding: "2px 7px", borderRadius: 999,
-              fontSize: 10, fontWeight: 600, letterSpacing: "0.02em",
+              padding: "1px 5px", borderRadius: 999,
+              fontSize: 9, fontWeight: 600, letterSpacing: "0.02em",
               whiteSpace: "nowrap",
             }}>
-              <span style={{ width: 4, height: 4, borderRadius: "50%", background: color.accent, flexShrink: 0 }} />
+              <span style={{ width: 3, height: 3, borderRadius: "50%", background: color.accent, flexShrink: 0 }} />
               {tag}
             </span>
           ))}
@@ -386,8 +386,8 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
 
         {/* Name — focal point */}
         <h3 className="tool-name" style={{
-          fontFamily: "var(--display)", fontSize: 28,
-          letterSpacing: "-0.015em", lineHeight: 1.1,
+          fontFamily: "var(--display)", fontSize: 38,
+          letterSpacing: "-0.02em", lineHeight: 1.0,
           color: "var(--ink)", fontWeight: 400,
         }}>
           {tool.nome}
