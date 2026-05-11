@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { SearchX } from "lucide-react";
+import { useState, useEffect } from "react";
+import { SearchX, X } from "lucide-react";
 import Image from "next/image";
 import type { Tool } from "@/lib/sheets";
 
@@ -226,8 +226,117 @@ function TutorialBlock({
 // ── Single card color (uniform across all tools) ──────────────
 const CARD_COLOR = { bg: "#EEF2FF", fg: "#3730A3", accent: "#4F46E5" };
 
+// ── Tool detail modal (mobile only) ──────────────────────────
+function ToolModal({ tool, onClose }: { tool: Tool; onClose: () => void }) {
+  const color = CARD_COLOR;
+  const tags = getTags(tool.tipo);
+  const useCases = getUseCases(tool.casos_de_uso);
+  const recommendedBy = getRecommendedBy(tool.universidades_que_recomendam);
+  const hasVideo = !!tool.video_url?.trim();
+
+  useEffect(() => {
+    const scrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
+  return (
+    <div onClick={onClose} style={{
+      position: "fixed", inset: 0, zIndex: 1000,
+      background: "rgba(10,15,25,0.6)",
+      display: "flex", alignItems: "flex-end", justifyContent: "center",
+      backdropFilter: "blur(3px)",
+    }}>
+      <div onClick={e => e.stopPropagation()} style={{
+        background: "var(--surface)",
+        width: "100%", maxWidth: 560,
+        maxHeight: "90vh", overflowY: "auto",
+        borderRadius: "14px 14px 0 0",
+        boxShadow: "0 -8px 48px rgba(0,0,0,0.3)",
+        overscrollBehavior: "contain",
+      }}>
+        {/* Header */}
+        <div style={{
+          position: "sticky", top: 0, zIndex: 1,
+          background: "var(--surface)", borderBottom: "1px solid var(--hairline)",
+          padding: "14px 20px", display: "flex", justifyContent: "space-between", alignItems: "center",
+        }}>
+          <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+            {tags.map(tag => (
+              <span key={tag} style={{
+                background: color.bg, color: color.fg,
+                padding: "3px 8px", borderRadius: 999,
+                fontSize: 10, fontWeight: 600, letterSpacing: "0.02em",
+              }}>{tag}</span>
+            ))}
+          </div>
+          <button onClick={onClose} style={{ background: "transparent", border: 0, cursor: "pointer", color: "var(--muted)", padding: 4, display: "flex" }}>
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Logo */}
+        <ToolMonogram name={tool.nome} accent={color.accent} />
+
+        <div style={{ padding: "22px 24px 36px" }}>
+          <span className="num-eyebrow" style={{ display: "block", marginBottom: 8 }}>{tool.custo}</span>
+          <h2 style={{ fontFamily: "var(--display)", fontSize: 34, letterSpacing: "-0.015em", lineHeight: 1.05, color: "var(--ink)", marginBottom: 16 }}>
+            {tool.nome}
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.65, color: "var(--muted)", marginBottom: 24, whiteSpace: "pre-line" }}>
+            {tool.descricao}
+          </p>
+
+          {useCases.length > 0 && (
+            <div style={{ marginBottom: 20 }}>
+              <span className="eyebrow" style={{ display: "block", marginBottom: 10, fontSize: 10 }}>Casos de uso</span>
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                {useCases.map(u => (
+                  <span key={u} style={{ fontSize: 12, padding: "4px 10px", background: "var(--bg)", border: "1px solid var(--hairline)", borderRadius: "var(--radius)", color: "var(--ink-soft)" }}>{u}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {recommendedBy.length > 0 && (
+            <div style={{ marginBottom: 24 }}>
+              <span className="eyebrow" style={{ display: "block", marginBottom: 6, fontSize: 10 }}>Recomendado por</span>
+              <p style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.5 }}>{recommendedBy.join(" · ")}</p>
+            </div>
+          )}
+
+          {hasVideo && (
+            <div style={{ marginBottom: 24 }}>
+              <TutorialBlock nome={tool.nome} videoUrl={tool.video_url} accent={color.accent} colorBg={color.bg} />
+            </div>
+          )}
+
+          <a href={tool.link} target="_blank" rel="noopener noreferrer" style={{
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
+            background: color.accent, color: "#fff",
+            padding: "15px 24px", borderRadius: "var(--radius)",
+            fontSize: 14, fontWeight: 600, textDecoration: "none",
+          }}>
+            Acessar ferramenta <Arrow />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Modern Card ───────────────────────────────────────────────
-function ModernCard({ tool, index }: { tool: Tool; index: number }) {
+function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore: () => void }) {
   const [hover, setHover] = useState(false);
   const color = CARD_COLOR;
   const tags = getTags(tool.tipo);
@@ -314,14 +423,14 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
         </div>
       )}
 
-      {/* Tutorial */}
-      <TutorialBlock
-        nome={tool.nome} videoUrl={tool.video_url}
-        accent={color.accent} colorBg={color.bg}
-      />
-
-      {/* Acessar */}
-      <div style={{ padding: "14px 24px", borderTop: "1px solid var(--hairline-soft)" }}>
+      {/* Tutorial + Acessar — visíveis no desktop, ocultos no mobile */}
+      <div className="card-desktop-only">
+        <TutorialBlock
+          nome={tool.nome} videoUrl={tool.video_url}
+          accent={color.accent} colorBg={color.bg}
+        />
+      </div>
+      <div className="card-desktop-only" style={{ padding: "14px 24px", borderTop: "1px solid var(--hairline-soft)" }}>
         <a
           href={tool.link} target="_blank" rel="noopener noreferrer"
           className="tool-link"
@@ -334,6 +443,18 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
           Acessar ferramenta <Arrow />
         </a>
       </div>
+
+      {/* Mais informações — visível só no mobile */}
+      <div className="card-mobile-cta" style={{ display: "none", padding: "11px 12px", borderTop: "1px solid var(--hairline-soft)" }}>
+        <button onClick={onMore} style={{
+          fontSize: 12, fontWeight: 600, color: color.accent,
+          display: "inline-flex", alignItems: "center", gap: 6,
+          background: "transparent", border: 0, cursor: "pointer",
+          fontFamily: "var(--body)", padding: 0,
+        }}>
+          Mais informações <Arrow />
+        </button>
+      </div>
     </article>
   );
 }
@@ -342,6 +463,7 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
 export default function ToolsClient({ tools }: { tools: Tool[] }) {
   const [selectedType, setSelectedType] = useState("Todos");
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [activeTool, setActiveTool] = useState<Tool | null>(null);
 
   const filtered = tools.filter(t => matchesType(t.tipo, selectedType));
 
@@ -424,11 +546,15 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
             gap: 24,
           }} className="tools-grid">
             {filtered.map((tool, i) => (
-              <ModernCard key={tool.nome} tool={tool} index={i} />
+              <ModernCard key={tool.nome} tool={tool} index={i} onMore={() => setActiveTool(tool)} />
             ))}
           </div>
         )}
       </div>
+
+      {activeTool && (
+        <ToolModal tool={activeTool} onClose={() => setActiveTool(null)} />
+      )}
 
       <style>{`
         .tool-link:hover { gap: 12px !important; }
@@ -444,10 +570,12 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
 
           /* Cards compactos */
           .tool-card > div:first-child { height: 80px !important; }
-          .tool-card-body { padding: 10px 10px 8px !important; gap: 8px !important; }
-          .tool-card-body h3 { font-size: 16px !important; line-height: 1.1 !important; }
-          .tool-card-body p { font-size: 12px !important; }
+          .tool-card-body { padding: 10px 10px 6px !important; gap: 6px !important; }
+          .tool-card-body h3 { font-size: 18px !important; line-height: 1.05 !important; }
+          .tool-card-body p { font-size: 11px !important; -webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
           .tool-card-usecases, .tool-card-recby { display: none !important; }
+          .card-desktop-only { display: none !important; }
+          .card-mobile-cta { display: block !important; }
 
           /* Botão filtros */
           .filter-toggle-btn {
