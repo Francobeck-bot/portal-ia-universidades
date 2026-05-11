@@ -569,26 +569,25 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
           /* 2 colunas */
           .tools-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
 
-          /* Logos — redução por ferramenta */
-          .tool-card > div:first-child { height: 56px !important; }
-          .tool-card > div:first-child img { max-height: 34px !important; max-width: 110px !important; }
-          .tool-card[data-tool="Google Gemini"] > div:first-child { height: 72px !important; }
-          .tool-card[data-tool="Google Gemini"] > div:first-child img { max-height: 54px !important; }
-          .tool-card[data-tool="Teachy"] > div:first-child { height: 80px !important; }
-          .tool-card[data-tool="Teachy"] > div:first-child img { max-height: 64px !important; }
+          /* Logos — caixa igual para todos, só reduz a imagem dentro */
+          .tool-card > div:first-child { height: 80px !important; }
+          .tool-card > div:first-child img { max-height: 56px !important; max-width: 126px !important; }
+          .tool-card[data-tool="Google Gemini"] > div:first-child img { max-height: 72px !important; }
+          .tool-card[data-tool="Teachy"] > div:first-child img { max-height: 80px !important; max-width: 180px !important; }
 
           /* Cards compactos */
           .tool-card-body { padding: 10px 10px 6px !important; gap: 5px !important; }
 
-          /* Nome em destaque — grande e no topo */
-          .tool-card-body h3 { order: -1 !important; font-size: 30px !important; line-height: 0.95 !important; margin-bottom: 4px !important; }
+          /* Nome em destaque — no topo */
+          .tool-card-body h3 { order: -1 !important; font-size: 26px !important; line-height: 0.95 !important; margin-bottom: 4px !important; }
 
           /* Pills muito menores */
           .tool-card-pills { gap: 3px !important; }
           .tool-card-pills > span { font-size: 7px !important; padding: 1px 4px !important; gap: 2px !important; letter-spacing: 0 !important; }
           .tool-card-pills > span > span { width: 3px !important; height: 3px !important; }
 
-          .tool-card-body p { font-size: 11px !important; -webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+          /* Esconde descrição no card — aparece só no popup */
+          .tool-card-body p { display: none !important; }
           .tool-card-usecases, .tool-card-recby { display: none !important; }
           .card-desktop-only { display: none !important; }
           .card-mobile-cta { display: block !important; }
