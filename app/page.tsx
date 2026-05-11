@@ -39,8 +39,8 @@ export default async function HomePage() {
 
       {/* ── NAVIGATION CARDS ─────────────────────────────── */}
       <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)" }}>
-        <div className="container-wide home-section" style={{ padding: "64px 32px" }}>
-          <div style={{ marginBottom: 40, maxWidth: 680 }}>
+        <div className="container-wide home-section" style={{ padding: "88px 32px" }}>
+          <div style={{ marginBottom: 56, maxWidth: 680 }}>
             <span className="eyebrow" style={{ display: "block", marginBottom: 16 }}>O que você encontra aqui</span>
             <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.4vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.02em", marginBottom: 16 }}>
               Tudo em um só lugar
@@ -90,8 +90,8 @@ export default async function HomePage() {
 
       {/* ── STATS ─────────────────────────────────────────── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
-        <div className="container-wide home-section-stats" style={{ padding: "64px 32px" }}>
-          <div style={{ marginBottom: 40, maxWidth: 680 }}>
+        <div className="container-wide home-section-stats" style={{ padding: "88px 32px" }}>
+          <div style={{ marginBottom: 56, maxWidth: 680 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
               <span style={{ width: 20, height: 1, background: "rgba(255,255,255,0.4)" }} />
               <span className="eyebrow" style={{ color: "rgba(255,255,255,0.55)" }}>Evidências de universidades globais</span>
@@ -130,8 +130,8 @@ export default async function HomePage() {
 
       {/* ── CTA ───────────────────────────────────────────── */}
       <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)" }}>
-        <div className="container-wide" style={{ padding: "64px 32px" }}>
-          <div style={{ display: "grid", borderTop: "1px solid var(--hairline)", paddingTop: 40 }}
+        <div className="container-wide" style={{ padding: "88px 32px" }}>
+          <div style={{ display: "grid", borderTop: "1px solid var(--hairline)", paddingTop: 56 }}
                className="cta-grid">
             <div>
               <span className="eyebrow" style={{ display: "block", marginBottom: 20 }}>Comece por aqui</span>
