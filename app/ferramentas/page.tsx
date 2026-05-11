@@ -18,7 +18,7 @@ export default async function FerramentasPage() {
       }}>
         <div className="container-wide" style={{ padding: "72px 32px 80px" }}>
           <span className="eyebrow" style={{ display: "block", marginBottom: 24, color: "rgba(255,255,255,0.55)" }}>
-            Catálogo curado · {tools.length} ferramentas
+            {tools.length} ferramentas
           </span>
           <h1 className="display-tight" style={{
             fontSize: "clamp(44px, 5.6vw, 84px)",
