@@ -51,8 +51,8 @@ export default function HeroSection() {
             min-height: 0 !important;
             padding-top: 34px !important;
             padding-bottom: 34px !important;
-            padding-left: 20px !important;
-            padding-right: 20px !important;
+            padding-left: 26px !important;
+            padding-right: 26px !important;
           }
           .hero-section h1 { font-size: 50px !important; }
         }
