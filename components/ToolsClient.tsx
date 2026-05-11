@@ -46,7 +46,7 @@ function resolveColor(tipo: string, index: number) {
 const TOOL_LOGOS: Record<string, string> = {
   "ChatGPT":            "/logos/chatgpt.png",
   "Microsoft Copilot":  "/logos/copilot-logo.png",
-  "Claude (Anthropic)": "/logos/Claude_AI_logo.svg.png",
+  "Claude":             "/logos/Claude_AI_logo.svg.png",
   "Google NotebookLM":  "/logos/NotebookLM_logo.svg.png",
   "Google Gemini":      "/logos/Google-Gemini-Logo.jpg",
   "Perplexity AI":      "/logos/Perplexity_AI_logo.svg.png",
@@ -62,7 +62,7 @@ const TOOL_LOGOS: Record<string, string> = {
 const TOOL_COVER: Record<string, { label: string; fontSize: number }> = {
   "ChatGPT":             { label: "ChatGPT",    fontSize: 80 },
   "Microsoft Copilot":   { label: "Copilot",    fontSize: 80 },
-  "Claude (Anthropic)":  { label: "Claude",     fontSize: 80 },
+  "Claude":              { label: "Claude",     fontSize: 80 },
   "Google NotebookLM":   { label: "NotebookLM", fontSize: 50 },
   "Google Gemini":       { label: "Gemini",     fontSize: 70 },
   "Google AI Studio":    { label: "Ai Studio",  fontSize: 60 },
