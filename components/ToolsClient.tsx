@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { SearchX, X } from "lucide-react";
+import { useState } from "react";
+import { SearchX } from "lucide-react";
 import Image from "next/image";
 import type { Tool } from "@/lib/sheets";
 
@@ -15,6 +15,7 @@ const CAT_COLORS: Record<string, { bg: string; fg: string; accent: string }> = {
   "pesquisa":                     { bg: "#FDF4FF", fg: "#6B21A8", accent: "#9333EA" },
 };
 
+// Index-based fallback palette so every card always gets a vivid color
 const FALLBACK_PALETTE = [
   { bg: "#EEF2FF", fg: "#3730A3", accent: "#4F46E5" },
   { bg: "#FEF3F2", fg: "#9F1239", accent: "#E11D48" },
@@ -24,17 +25,24 @@ const FALLBACK_PALETTE = [
   { bg: "#EFF6FF", fg: "#1E40AF", accent: "#3B82F6" },
 ];
 
+// ── Resolve color: case-insensitive → partial → index fallback ─
 function resolveColor(tipo: string, index: number) {
   const primary = tipo.split(/[,;|/]/)[0].trim().toLowerCase();
+
+  // Exact (normalised) match
   if (CAT_COLORS[primary]) return CAT_COLORS[primary];
+
+  // Partial: tipo contains the key or key contains tipo
   const partial = Object.entries(CAT_COLORS).find(([key]) =>
     primary.includes(key) || key.includes(primary)
   );
   if (partial) return partial[1];
+
+  // Guaranteed vivid fallback by card position
   return FALLBACK_PALETTE[index % FALLBACK_PALETTE.length];
 }
 
-// ── Logo images ───────────────────────────────────────────────
+// ── Logo images for known tools (replaces monogram cover) ────────
 const TOOL_LOGOS: Record<string, string> = {
   "ChatGPT":            "/logos/chatgpt.png",
   "Microsoft Copilot":  "/logos/copilot-logo.png",
@@ -50,6 +58,7 @@ const TOOL_LOGOS: Record<string, string> = {
   "Teachy":             "/logos/teachy ai logo.svg",
 };
 
+// ── Display label & size per tool name (for the cover monogram) ─
 const TOOL_COVER: Record<string, { label: string; fontSize: number }> = {
   "ChatGPT":             { label: "ChatGPT",    fontSize: 80 },
   "Microsoft Copilot":   { label: "Copilot",    fontSize: 80 },
@@ -91,6 +100,7 @@ function matchesType(tipo: string, filter: string) {
   if (filter === "Todos") return true;
   if (!tipo?.trim()) return false;
   const lowerFilter = filter.toLowerCase();
+  // Split on comma, semicolon, pipe or slash — whatever the Sheet uses
   const tags = tipo.split(/[,;|/]/).map(t => t.trim().toLowerCase()).filter(Boolean);
   return tags.some(t => t === lowerFilter || t.includes(lowerFilter) || lowerFilter.includes(t));
 }
@@ -104,34 +114,37 @@ function Arrow() {
   );
 }
 
-// ── Logo / monogram cover ─────────────────────────────────────
-function ToolMonogram({ name, accent, height = 80 }: { name: string; accent: string; height?: number }) {
+// ── Colored cover with tool name ──────────────────────────────
+function ToolMonogram({ name, accent }: { name: string; accent: string }) {
   const logoSrc = TOOL_LOGOS[name];
   if (logoSrc) {
     return (
       <div style={{
-        height, background: "#fff",
+        height: 140, background: "#fff",
         display: "flex", alignItems: "center", justifyContent: "center",
-        position: "relative", overflow: "hidden", padding: "0 24px",
+        position: "relative", overflow: "hidden", padding: "0 32px",
         borderBottom: "1px solid var(--hairline)",
       }}>
         <Image
-          src={logoSrc} alt={name}
-          width={180} height={90}
-          style={{ objectFit: "contain", maxHeight: 45, maxWidth: 126 }}
+          src={logoSrc}
+          alt={name}
+          width={180}
+          height={90}
+          style={{ objectFit: "contain", maxHeight: 80, maxWidth: 180 }}
         />
       </div>
     );
   }
+
   const cfg = TOOL_COVER[name] ?? {
     label: name.replace(/\(.*?\)/g, "").trim(),
-    fontSize: name.length > 10 ? 40 : name.length > 7 ? 52 : 64,
+    fontSize: name.length > 10 ? 48 : name.length > 7 ? 60 : 80,
   };
   return (
     <div style={{
-      height, background: accent,
+      height: 140, background: accent,
       display: "flex", alignItems: "center", justifyContent: "center",
-      position: "relative", overflow: "hidden", padding: "0 16px",
+      position: "relative", overflow: "hidden", padding: "0 20px",
     }}>
       <span className="display" style={{
         fontSize: cfg.fontSize, color: "#fff",
@@ -146,22 +159,28 @@ function ToolMonogram({ name, accent, height = 80 }: { name: string; accent: str
   );
 }
 
-// ── Tutorial block (used in modal) ────────────────────────────
-function TutorialBlock({ nome, videoUrl, accent, colorBg }: {
+// ── Tutorial expand block ─────────────────────────────────────
+function TutorialBlock({
+  nome, videoUrl, accent, colorBg,
+}: {
   nome: string; videoUrl: string; accent: string; colorBg: string;
 }) {
   const [open, setOpen] = useState(false);
   const thumb = getYouTubeThumbnail(videoUrl);
 
   return (
-    <div style={{ borderTop: "1px solid var(--hairline-soft)" }}>
+    <div style={{ borderTop: "1px solid var(--hairline-soft)", marginTop: "auto" }}>
       <button
         onClick={() => setOpen(v => !v)}
         style={{
-          width: "100%", display: "flex", alignItems: "center", gap: 12,
-          padding: "14px 0",
-          background: "transparent", border: 0, cursor: "pointer", textAlign: "left",
+          width: "100%",
+          display: "flex", alignItems: "center", gap: 12,
+          padding: "14px 24px",
+          background: open ? colorBg : "#fafbfc",
+          border: 0, cursor: "pointer", textAlign: "left",
+          transition: "background 180ms ease",
           fontFamily: "var(--body)",
+          borderBottom: open ? "1px solid var(--hairline-soft)" : "none",
         }}
       >
         <span style={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
@@ -176,7 +195,7 @@ function TutorialBlock({ nome, videoUrl, accent, colorBg }: {
       </button>
 
       {open && (
-        <div style={{ paddingBottom: 16 }}>
+        <div style={{ padding: "16px 24px 20px", background: colorBg }}>
           {thumb ? (
             <a href={videoUrl} target="_blank" rel="noopener noreferrer"
               style={{ display: "block", borderRadius: "var(--radius)", overflow: "hidden", border: "1px solid rgba(0,0,0,0.08)" }}>
@@ -191,10 +210,10 @@ function TutorialBlock({ nome, videoUrl, accent, colorBg }: {
               border: "1px solid rgba(0,0,0,0.08)",
             }}>
               <div style={{ position: "absolute", inset: 0, backgroundImage: "repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0 2px, transparent 2px 14px)" }} />
-              <div style={{ position: "absolute", left: 16, top: 14, fontFamily: "var(--display)", fontSize: 18, color: "rgba(255,255,255,0.92)" }}>{nome}</div>
-              <div style={{ position: "absolute", left: 16, bottom: 14, fontSize: 10, color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em", textTransform: "uppercase" }}>Em breve</div>
+              <div style={{ position: "absolute", left: 20, top: 18, fontFamily: "var(--display)", fontSize: 22, color: "rgba(255,255,255,0.92)", letterSpacing: "-0.01em" }}>{nome}</div>
+              <div style={{ position: "absolute", left: 20, bottom: 16, fontSize: 11, color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em", textTransform: "uppercase" }}>Em breve</div>
               <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ width: 48, height: 48, borderRadius: "50%", background: "rgba(255,255,255,0.95)", display: "inline-flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 24px rgba(0,0,0,0.4)", color: accent, fontSize: 16, paddingLeft: 3 }}>▶</div>
+                <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(255,255,255,0.95)", display: "inline-flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 24px rgba(0,0,0,0.4)", color: accent, fontSize: 18, paddingLeft: 3 }}>▶</div>
               </div>
             </div>
           )}
@@ -204,167 +223,27 @@ function TutorialBlock({ nome, videoUrl, accent, colorBg }: {
   );
 }
 
-// ── Card color ────────────────────────────────────────────────
+// ── Single card color (uniform across all tools) ──────────────
 const CARD_COLOR = { bg: "#EEF2FF", fg: "#3730A3", accent: "#4F46E5" };
 
-// ── Tool detail modal ─────────────────────────────────────────
-function ToolModal({ tool, onClose }: { tool: Tool; onClose: () => void }) {
+// ── Modern Card ───────────────────────────────────────────────
+function ModernCard({ tool, index }: { tool: Tool; index: number }) {
+  const [hover, setHover] = useState(false);
   const color = CARD_COLOR;
   const tags = getTags(tool.tipo);
   const useCases = getUseCases(tool.casos_de_uso);
   const recommendedBy = getRecommendedBy(tool.universidades_que_recomendam);
-  const hasVideo = !!tool.video_url?.trim();
-
-  useEffect(() => {
-    const scrollY = window.scrollY;
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = "100%";
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      window.scrollTo(0, scrollY);
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      style={{
-        position: "fixed", inset: 0, zIndex: 1000,
-        background: "rgba(10,15,25,0.6)",
-        display: "flex", alignItems: "flex-end", justifyContent: "center",
-        backdropFilter: "blur(3px)",
-      }}
-      onClick={onClose}
-    >
-      <div
-        style={{
-          background: "var(--surface)",
-          width: "100%", maxWidth: 560,
-          maxHeight: "90vh", overflowY: "auto",
-          borderRadius: "14px 14px 0 0",
-          boxShadow: "0 -8px 48px rgba(0,0,0,0.3)",
-          overscrollBehavior: "contain",
-        }}
-        onClick={e => e.stopPropagation()}
-      >
-        {/* Sticky header */}
-        <div style={{
-          position: "sticky", top: 0, zIndex: 1,
-          background: "var(--surface)",
-          borderBottom: "1px solid var(--hairline)",
-          padding: "14px 20px",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-        }}>
-          <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-            {tags.map(tag => (
-              <span key={tag} style={{
-                background: color.bg, color: color.fg,
-                padding: "3px 8px", borderRadius: 999,
-                fontSize: 10, fontWeight: 600, letterSpacing: "0.02em",
-              }}>{tag}</span>
-            ))}
-          </div>
-          <button
-            onClick={onClose}
-            style={{ background: "transparent", border: 0, cursor: "pointer", color: "var(--muted)", padding: 4, display: "flex", borderRadius: 6 }}
-          >
-            <X size={18} />
-          </button>
-        </div>
-
-        {/* Logo */}
-        <ToolMonogram name={tool.nome} accent={color.accent} height={140} />
-
-        {/* Content */}
-        <div style={{ padding: "22px 24px 36px" }}>
-          <span className="num-eyebrow" style={{ display: "block", marginBottom: 8 }}>{tool.custo}</span>
-          <h2 style={{
-            fontFamily: "var(--display)", fontSize: 34,
-            letterSpacing: "-0.015em", lineHeight: 1.05,
-            color: "var(--ink)", marginBottom: 16,
-          }}>{tool.nome}</h2>
-
-          <p style={{ fontSize: 15, lineHeight: 1.65, color: "var(--muted)", marginBottom: 24, whiteSpace: "pre-line" }}>
-            {tool.descricao}
-          </p>
-
-          {useCases.length > 0 && (
-            <div style={{ marginBottom: 20 }}>
-              <span className="eyebrow" style={{ display: "block", marginBottom: 10, fontSize: 10 }}>Casos de uso</span>
-              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                {useCases.map(u => (
-                  <span key={u} style={{
-                    fontSize: 12, padding: "4px 10px",
-                    background: "var(--bg)", border: "1px solid var(--hairline)",
-                    borderRadius: "var(--radius)", color: "var(--ink-soft)",
-                  }}>{u}</span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {recommendedBy.length > 0 && (
-            <div style={{ marginBottom: 24 }}>
-              <span className="eyebrow" style={{ display: "block", marginBottom: 6, fontSize: 10 }}>Recomendado por</span>
-              <p style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.5 }}>
-                {recommendedBy.join(" · ")}
-              </p>
-            </div>
-          )}
-
-          {hasVideo && (
-            <div style={{ marginBottom: 24 }}>
-              <TutorialBlock
-                nome={tool.nome} videoUrl={tool.video_url}
-                accent={color.accent} colorBg={color.bg}
-              />
-            </div>
-          )}
-
-          <a
-            href={tool.link} target="_blank" rel="noopener noreferrer"
-            style={{
-              display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
-              background: color.accent, color: "#fff",
-              padding: "15px 24px", borderRadius: "var(--radius)",
-              fontSize: 14, fontWeight: 600, textDecoration: "none",
-              transition: "opacity 160ms ease",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "0.88")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-          >
-            Acessar ferramenta <Arrow />
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Simplified card ───────────────────────────────────────────
-function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore: () => void }) {
-  const [hover, setHover] = useState(false);
-  const color = CARD_COLOR;
-  const tags = getTags(tool.tipo);
 
   return (
     <article
-      className="tool-card"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={onMore}
       style={{
         background: "var(--surface)",
         border: `1px solid ${hover ? color.accent : "var(--hairline)"}`,
         borderRadius: "var(--radius)",
         overflow: "hidden",
         display: "flex", flexDirection: "column",
-        cursor: "pointer",
         transition: "transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease",
         transform: hover ? "translateY(-4px)" : "translateY(0)",
         boxShadow: hover
@@ -372,54 +251,87 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
           : "0 1px 2px rgba(15,23,42,0.04)",
       }}
     >
+      {/* Colored cover */}
       <ToolMonogram name={tool.nome} accent={color.accent} />
 
-      <div className="tool-card-body" style={{ padding: "18px 20px 14px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
-        {/* Name — focal point */}
-        <h3 className="tool-name" style={{
-          fontFamily: "var(--display)", fontSize: 52,
-          letterSpacing: "-0.02em", lineHeight: 0.95,
-          color: "var(--ink)", fontWeight: 400,
-          marginBottom: 8,
-        }}>
-          {tool.nome}
-        </h3>
-
-        {/* Category pills */}
-        <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+      <div style={{ padding: "24px 24px 20px", display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
+        {/* Category pills (all types) */}
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {tags.map(tag => (
             <span key={tag} style={{
-              display: "inline-flex", alignItems: "center", gap: 3,
+              display: "inline-flex", alignItems: "center", gap: 5,
               background: color.bg, color: color.fg,
-              padding: "1px 4px", borderRadius: 999,
-              fontSize: 8, fontWeight: 600, letterSpacing: "0.02em",
+              padding: "5px 10px", borderRadius: 999,
+              fontSize: 11, fontWeight: 600, letterSpacing: "0.02em",
               whiteSpace: "nowrap",
             }}>
-              <span style={{ width: 3, height: 3, borderRadius: "50%", background: color.accent, flexShrink: 0 }} />
+              <span style={{ width: 5, height: 5, borderRadius: "50%", background: color.accent, flexShrink: 0 }} />
               {tag}
             </span>
           ))}
         </div>
 
-        {/* Short description */}
-        <p className="tool-desc" style={{
-          fontSize: 13, lineHeight: 1.55, color: "var(--muted)",
-          display: "-webkit-box", WebkitLineClamp: 3,
-          WebkitBoxOrient: "vertical" as const, overflow: "hidden",
+        {/* Pricing */}
+        <span className="num-eyebrow" style={{ fontSize: 11 }}>{tool.custo}</span>
+
+        {/* Name */}
+        <h3 style={{
+          fontFamily: "var(--display)", fontSize: 28,
+          letterSpacing: "-0.015em", lineHeight: 1.1,
+          color: "var(--ink)", fontWeight: 400,
         }}>
+          {tool.nome}
+        </h3>
+
+        {/* Description */}
+        <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)", whiteSpace: "pre-line" }}>
           {tool.descricao}
         </p>
       </div>
 
-      {/* Footer */}
-      <div style={{ padding: "11px 20px", borderTop: "1px solid var(--hairline-soft)" }}>
-        <span className="tool-link" style={{
-          fontSize: 13, fontWeight: 600, color: color.accent,
-          display: "inline-flex", alignItems: "center", gap: 7,
-          transition: "gap 160ms ease",
-        }}>
-          Mais informações <Arrow />
-        </span>
+      {/* Use cases */}
+      <div style={{ borderTop: "1px solid var(--hairline-soft)", padding: "16px 24px", background: "#fafbfc" }}>
+        <span className="eyebrow" style={{ display: "block", marginBottom: 10, fontSize: 10 }}>Casos de uso</span>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {useCases.map(u => (
+            <span key={u} style={{
+              fontSize: 12, padding: "4px 10px",
+              background: "#fff", border: "1px solid var(--hairline)",
+              borderRadius: "var(--radius)", color: "var(--ink-soft)",
+            }}>{u}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Recommended by */}
+      {recommendedBy.length > 0 && (
+        <div style={{ padding: "14px 24px", borderTop: "1px solid var(--hairline-soft)", background: "#fafbfc" }}>
+          <span className="eyebrow" style={{ display: "block", marginBottom: 6, fontSize: 10 }}>Recomendado por</span>
+          <p style={{ fontSize: 12.5, color: "var(--muted)", lineHeight: 1.5 }}>
+            {recommendedBy.join(" · ")}
+          </p>
+        </div>
+      )}
+
+      {/* Tutorial */}
+      <TutorialBlock
+        nome={tool.nome} videoUrl={tool.video_url}
+        accent={color.accent} colorBg={color.bg}
+      />
+
+      {/* Acessar */}
+      <div style={{ padding: "14px 24px", borderTop: "1px solid var(--hairline-soft)" }}>
+        <a
+          href={tool.link} target="_blank" rel="noopener noreferrer"
+          className="tool-link"
+          style={{
+            fontSize: 13, fontWeight: 600, color: color.accent,
+            display: "inline-flex", alignItems: "center", gap: 8,
+            textDecoration: "none", transition: "gap 160ms ease",
+          }}
+        >
+          Acessar ferramenta <Arrow />
+        </a>
       </div>
     </article>
   );
@@ -428,8 +340,6 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
 // ── Main export ───────────────────────────────────────────────
 export default function ToolsClient({ tools }: { tools: Tool[] }) {
   const [selectedType, setSelectedType] = useState("Todos");
-  const [filtersOpen, setFiltersOpen] = useState(false);
-  const [activeTool, setActiveTool] = useState<Tool | null>(null);
 
   const filtered = tools.filter(t => matchesType(t.tipo, selectedType));
 
@@ -443,37 +353,16 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
         margin: "0 -32px",
       }}>
         <div style={{ padding: "0 32px" }}>
-          {/* Mobile: toggle button */}
-          <button
-            className="filter-toggle-btn"
-            onClick={() => setFiltersOpen(v => !v)}
-            style={{ display: "none" }}
-          >
-            <span className="eyebrow">
-              Filtros{selectedType !== "Todos" ? ` · ${selectedType}` : ""}
-            </span>
-            <span style={{
-              display: "inline-block", fontSize: 14, color: "var(--muted)",
-              transition: "transform 200ms ease",
-              transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)",
-            }}>▾</span>
-          </button>
-
-          {/* Filter pills — desktop always visible, mobile toggleable */}
-          <div
-            className={`filter-pills-row filter-scroll${filtersOpen ? " filter-pills-open" : ""}`}
-            style={{
-              display: "flex", gap: 8, alignItems: "center",
-              paddingTop: 14, paddingBottom: 14,
-              overflowX: "auto", WebkitOverflowScrolling: "touch" as const,
-            }}
-          >
-            <span className="eyebrow filter-label" style={{ marginRight: 6, flexShrink: 0 }}>Filtrar</span>
+          <div style={{
+            display: "flex", gap: 8, alignItems: "center",
+            paddingTop: 14, paddingBottom: 14,
+            overflowX: "auto", WebkitOverflowScrolling: "touch" as const,
+          }} className="filter-scroll">
+            <span className="eyebrow" style={{ marginRight: 6, flexShrink: 0 }}>Filtrar</span>
             {FILTER_TYPES.map(type => {
               const active = selectedType === type;
               return (
-                <button key={type}
-                  onClick={() => { setSelectedType(type); setFiltersOpen(false); }}
+                <button key={type} onClick={() => setSelectedType(type)}
                   style={{
                     flexShrink: 0,
                     background: active ? "var(--ink)" : "transparent",
@@ -508,51 +397,23 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
         ) : (
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
             gap: 24,
           }} className="tools-grid">
             {filtered.map((tool, i) => (
-              <ModernCard key={tool.nome} tool={tool} index={i} onMore={() => setActiveTool(tool)} />
+              <ModernCard key={tool.nome} tool={tool} index={i} />
             ))}
           </div>
         )}
       </div>
 
-      {/* ── Modal ── */}
-      {activeTool && (
-        <ToolModal tool={activeTool} onClose={() => setActiveTool(null)} />
-      )}
-
       <style>{`
         .tool-link:hover { gap: 12px !important; }
         .filter-scroll { scrollbar-width: none; }
         .filter-scroll::-webkit-scrollbar { display: none; }
-
         @media (max-width: 640px) {
-          .tools-filter-wrap { margin: 0 -23px !important; }
-          .tools-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
-
-          /* Compact card for 2-col */
-          .tool-card > div:first-child { height: 72px !important; }
-          .tool-card-body { padding: 10px 10px 8px !important; gap: 8px !important; }
-          .tool-name { font-size: 16px !important; }
-          .tool-desc { display: none !important; }
-          .tool-card > div:last-child { padding: 9px 10px !important; }
-
-          /* Filter toggle */
-          .filter-toggle-btn {
-            display: flex !important; width: 100%;
-            justify-content: space-between; align-items: center;
-            padding: 14px 0; background: transparent; border: 0;
-            cursor: pointer; font-family: var(--body);
-          }
-          .filter-pills-row { display: none !important; }
-          .filter-pills-row.filter-pills-open {
-            display: flex !important; flex-wrap: wrap !important;
-            overflow-x: visible !important;
-            padding-top: 4px !important; padding-bottom: 14px !important;
-          }
-          .filter-label { display: none !important; }
+          .tools-filter-wrap { margin: 0 -20px !important; }
+          .tools-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>
