@@ -1,6 +1,6 @@
 export default function HeroSection() {
   return (
-    <section style={{
+    <section className="hero-section" style={{
       position: "relative",
       minHeight: 420,
       backgroundImage: "linear-gradient(180deg, rgba(8,18,32,0.35) 0%, rgba(8,18,32,0.70) 100%), url(/hero-bg.jpg)",
@@ -45,10 +45,12 @@ export default function HeroSection() {
 
       <style>{`
         @media (max-width: 768px) {
+          .hero-section { min-height: 0 !important; }
           .hero-fiel-grid {
             grid-template-columns: 1fr !important;
-            padding-top: 32px !important;
-            padding-bottom: 32px !important;
+            min-height: 0 !important;
+            padding-top: 24px !important;
+            padding-bottom: 28px !important;
           }
         }
       `}</style>
