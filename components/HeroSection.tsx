@@ -2,7 +2,7 @@ export default function HeroSection() {
   return (
     <section style={{
       position: "relative",
-      minHeight: 420,
+      minHeight: 280,
       backgroundImage: "linear-gradient(180deg, rgba(8,18,32,0.35) 0%, rgba(8,18,32,0.70) 100%), url(/hero-bg.jpg)",
       backgroundSize: "cover",
       backgroundPosition: "center",
@@ -11,10 +11,10 @@ export default function HeroSection() {
     }}>
       <div style={{
         maxWidth: 1440, margin: "0 auto",
-        padding: "64px 32px 72px",
-        minHeight: 420,
+        padding: "44px 32px 52px",
+        minHeight: 280,
         display: "grid",
-        gap: 56,
+        gap: 40,
         alignItems: "center",
       }} className="hero-fiel-grid">
         {/* Left: headline */}
@@ -47,8 +47,8 @@ export default function HeroSection() {
         @media (max-width: 768px) {
           .hero-fiel-grid {
             grid-template-columns: 1fr !important;
-            padding-top: 56px !important;
-            padding-bottom: 56px !important;
+            padding-top: 32px !important;
+            padding-bottom: 32px !important;
           }
         }
       `}</style>
