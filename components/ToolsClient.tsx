@@ -370,9 +370,9 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
       <div className="tool-card-body" style={{ padding: "18px 20px 14px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
         {/* Name — focal point */}
         <h3 className="tool-name" style={{
-          fontFamily: "var(--display)", fontSize: 38,
-          letterSpacing: "-0.02em", lineHeight: 1.0,
-          color: "var(--ink)", fontWeight: 400,
+          fontFamily: "var(--body)", fontSize: 44,
+          letterSpacing: "-0.03em", lineHeight: 0.95,
+          color: "var(--ink)", fontWeight: 700,
         }}>
           {tool.nome}
         </h3>
