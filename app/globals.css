@@ -184,7 +184,7 @@
   .btn-outline:hover { background: var(--ink); color: #fff; }
 }
 
-/* ── Page grids (defined here so media queries can override without !important) */
+/* ── Page grids ── */
 .nav-cards-grid  { grid-template-columns: repeat(3, 1fr); }
 .stats-grid      { grid-template-columns: repeat(3, 1fr); }
 .cta-grid        { grid-template-columns: 1fr 1fr; }
@@ -193,18 +193,28 @@
 html, body { overflow-x: hidden; max-width: 100vw; }
 
 @media (max-width: 768px) {
-  .nav-cards-grid { grid-template-columns: 1fr 1fr; }
-  .stats-grid     { grid-template-columns: 1fr; }
-  .cta-grid       { grid-template-columns: 1fr; gap: 32px !important; }
-  .container-wide, .container { padding-left: 20px; padding-right: 20px; }
-  .home-section   { padding: 52px 20px !important; }
-  .home-section-stats { padding: 52px 20px !important; }
-  .dir-section    { padding: 48px 20px !important; }
-  .dir-section-dark { padding: 48px 20px !important; }
-}
+  /* Grids mantêm colunas — só reduzimos padding e fonte */
+  .container-wide, .container { padding-left: 16px; padding-right: 16px; }
+  .home-section        { padding: 40px 16px !important; }
+  .home-section-stats  { padding: 40px 16px !important; }
+  .dir-section         { padding: 40px 16px !important; }
+  .dir-section-dark    { padding: 40px 16px !important; }
+  .cta-grid            { gap: 24px !important; }
 
-@media (max-width: 440px) {
-  .nav-cards-grid { grid-template-columns: 1fr; }
+  /* Nav cards — fontes menores */
+  .nav-card-item { padding: 16px 8px 16px 0 !important; }
+  .nav-card-item:nth-child(even) { padding-left: 8px !important; }
+  .nav-card-item h3 { font-size: 18px !important; }
+  .nav-card-item p  { font-size: 11px !important; line-height: 1.45 !important; }
+  .nav-card-item > a > span:last-child { font-size: 11px !important; }
+
+  /* Stats — números menores */
+  .stats-grid > div { padding: 20px 8px 20px 0 !important; }
+  .stats-grid > div:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.15) !important; }
+  .stats-grid .display-tight { font-size: 28px !important; line-height: 1 !important; }
+  .stats-grid .eyebrow { font-size: 8px !important; letter-spacing: 0.1em !important; }
+  .stats-grid p { font-size: 10px !important; line-height: 1.4 !important; }
+  .stats-grid .num-eyebrow { font-size: 9px !important; }
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────── */

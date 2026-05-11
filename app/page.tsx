@@ -161,15 +161,6 @@ export default async function HomePage() {
 
       <style>{`
         .nav-card-item:hover { background: #fafbfb; }
-        @media (max-width: 768px) {
-          .nav-card-item { padding: 24px 12px 24px 0 !important; border-bottom: 1px solid var(--hairline); }
-          .nav-card-item:nth-child(odd) { border-right: 1px solid var(--hairline) !important; }
-          .nav-card-item:nth-child(even) { border-right: none !important; padding-left: 12px !important; padding-right: 0 !important; }
-          .stats-grid > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 28px 0 !important; }
-        }
-        @media (max-width: 440px) {
-          .nav-card-item { border-right: none !important; padding: 22px 0 !important; }
-        }
       `}</style>
     </div>
   );
