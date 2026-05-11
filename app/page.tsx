@@ -67,8 +67,8 @@ export default async function HomePage() {
                 className="nav-card-item"
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                  <span className="num-eyebrow">{it.n}</span>
-                  <span className="num-eyebrow" style={{ color: "var(--muted)" }}>{it.tag}</span>
+                  <span className="num-eyebrow" style={{ flexShrink: 0 }}>{it.n}</span>
+                  <span className="num-eyebrow" style={{ color: "var(--muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginLeft: 4 }}>{it.tag}</span>
                 </div>
                 <h3 className="display" style={{ fontSize: "clamp(13px, 4.5vw, 34px)", letterSpacing: "-0.01em", lineHeight: 1 }}>
                   {it.label}
@@ -131,11 +131,11 @@ export default async function HomePage() {
       {/* ── CTA ───────────────────────────────────────────── */}
       <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)" }}>
         <div className="container-wide" style={{ padding: "88px 32px" }}>
-          <div style={{ display: "grid", gap: 64, alignItems: "end", borderTop: "1px solid var(--hairline)", paddingTop: 56 }}
+          <div style={{ display: "grid", borderTop: "1px solid var(--hairline)", paddingTop: 56 }}
                className="cta-grid">
             <div>
               <span className="eyebrow" style={{ display: "block", marginBottom: 20 }}>Comece por aqui</span>
-              <h2 className="display-tight" style={{ fontSize: "clamp(40px, 4.8vw, 64px)", lineHeight: 1, letterSpacing: "-0.02em", maxWidth: 520 }}>
+              <h2 className="display-tight" style={{ fontSize: "clamp(20px, 4.8vw, 64px)", lineHeight: 1, letterSpacing: "-0.02em", maxWidth: 520 }}>
                 Pronto para começar?
               </h2>
             </div>

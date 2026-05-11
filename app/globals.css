@@ -187,7 +187,7 @@
 /* ── Page grids ── */
 .nav-cards-grid  { grid-template-columns: repeat(3, 1fr); }
 .stats-grid      { grid-template-columns: repeat(3, 1fr); }
-.cta-grid        { grid-template-columns: 1fr 1fr; }
+.cta-grid        { grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
 .world-grid      { grid-template-columns: repeat(4, 1fr); }
 .detector-grid   { grid-template-columns: 1fr 1.4fr; gap: 80px; }
 .hero-fiel-grid  { grid-template-columns: 1.25fr 1fr; }
@@ -202,7 +202,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .home-section-stats  { padding: 40px 16px !important; }
   .dir-section         { padding: 40px 16px !important; }
   .dir-section-dark    { padding: 40px 16px !important; }
-  .cta-grid            { gap: 24px !important; }
+  .cta-grid            { gap: 24px !important; align-items: start !important; }
 
   /* Nav cards — fontes menores */
   .nav-card-item { padding: 16px 8px 16px 0 !important; }
