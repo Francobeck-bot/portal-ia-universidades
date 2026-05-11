@@ -38,7 +38,7 @@ export default function HeroSection() {
             color: "rgba(255,255,255,0.88)",
             letterSpacing: "-0.005em",
           }}>
-            Recursos para docentes da UFRGS
+            Recursos para docentes
           </p>
         </div>
       </div>
@@ -49,9 +49,10 @@ export default function HeroSection() {
           .hero-fiel-grid {
             grid-template-columns: 1fr !important;
             min-height: 0 !important;
-            padding-top: 24px !important;
-            padding-bottom: 28px !important;
+            padding-top: 34px !important;
+            padding-bottom: 34px !important;
           }
+          .hero-section h1 { font-size: 50px !important; }
         }
       `}</style>
     </section>

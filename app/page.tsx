@@ -93,13 +93,12 @@ export default async function HomePage() {
         <div className="container-wide home-section-stats" style={{ padding: "88px 32px" }}>
           <div style={{ marginBottom: 56, maxWidth: 680 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-              <span style={{ width: 20, height: 1, background: "rgba(255,255,255,0.4)" }} />
               <span className="eyebrow" style={{ color: "rgba(255,255,255,0.55)" }}>Evidências de universidades globais</span>
             </div>
             <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.4vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.02em", color: "#fff", marginBottom: 16 }}>
               Por que usar IA no ensino?
             </h2>
-            <p style={{ fontSize: 18, lineHeight: 1.55, color: "rgba(255,255,255,0.65)", maxWidth: 560 }}>
+            <p className="stats-lead" style={{ fontSize: 18, lineHeight: 1.55, color: "rgba(255,255,255,0.65)", maxWidth: 560 }}>
               Números reais de pesquisas nas melhores universidades, para quem ainda tem dúvidas.
             </p>
           </div>
@@ -119,7 +118,7 @@ export default async function HomePage() {
                 </div>
                 <div className="eyebrow" style={{ color: "rgba(255,255,255,0.55)", marginTop: 4 }}>{s.label}</div>
                 <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)", fontSize: 11 }}>{s.source}</span>
-                <p style={{ fontSize: "clamp(8px, 1.8vw, 14px)", lineHeight: 1.55, color: "rgba(255,255,255,0.78)", marginTop: "auto" }}>
+                <p style={{ fontSize: "clamp(13px, 1.8vw, 14px)", lineHeight: 1.55, color: "rgba(255,255,255,0.78)", marginTop: "auto" }}>
                   {s.detail}
                 </p>
               </div>
@@ -130,7 +129,7 @@ export default async function HomePage() {
 
       {/* ── CTA ───────────────────────────────────────────── */}
       <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)" }}>
-        <div className="container-wide" style={{ padding: "88px 32px" }}>
+        <div className="container-wide cta-container" style={{ padding: "88px 32px" }}>
           <div style={{ display: "grid", borderTop: "1px solid var(--hairline)", paddingTop: 56 }}
                className="cta-grid">
             <div>

@@ -230,6 +230,14 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   }
   .stats-grid > div:last-child { border-bottom: none !important; }
   .stats-grid .display-tight { font-size: 44px !important; line-height: 0.95 !important; }
+
+  /* Lead text sizes */
+  .lead       { font-size: 15px !important; }
+  .stats-lead { font-size: 15px !important; }
+
+  /* CTA section — remove excess whitespace */
+  .cta-container { padding-top: 40px !important; padding-bottom: 40px !important; }
+  .cta-grid       { padding-top: 28px !important; }
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────── */
