@@ -216,11 +216,17 @@ function ToolModal({ tool, onClose }: { tool: Tool; onClose: () => void }) {
   const hasVideo = !!tool.video_url?.trim();
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY);
       window.removeEventListener("keydown", onKey);
     };
   }, [onClose]);
@@ -242,6 +248,7 @@ function ToolModal({ tool, onClose }: { tool: Tool; onClose: () => void }) {
           maxHeight: "90vh", overflowY: "auto",
           borderRadius: "14px 14px 0 0",
           boxShadow: "0 -8px 48px rgba(0,0,0,0.3)",
+          overscrollBehavior: "contain",
         }}
         onClick={e => e.stopPropagation()}
       >
@@ -370,9 +377,10 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
       <div className="tool-card-body" style={{ padding: "18px 20px 14px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
         {/* Name — focal point */}
         <h3 className="tool-name" style={{
-          fontFamily: "var(--body)", fontSize: 44,
-          letterSpacing: "-0.03em", lineHeight: 0.95,
-          color: "var(--ink)", fontWeight: 700,
+          fontFamily: "var(--display)", fontSize: 52,
+          letterSpacing: "-0.02em", lineHeight: 0.95,
+          color: "var(--ink)", fontWeight: 400,
+          marginBottom: 8,
         }}>
           {tool.nome}
         </h3>
@@ -383,8 +391,8 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
             <span key={tag} style={{
               display: "inline-flex", alignItems: "center", gap: 3,
               background: color.bg, color: color.fg,
-              padding: "1px 5px", borderRadius: 999,
-              fontSize: 9, fontWeight: 600, letterSpacing: "0.02em",
+              padding: "1px 4px", borderRadius: 999,
+              fontSize: 8, fontWeight: 600, letterSpacing: "0.02em",
               whiteSpace: "nowrap",
             }}>
               <span style={{ width: 3, height: 3, borderRadius: "50%", background: color.accent, flexShrink: 0 }} />
