@@ -70,10 +70,10 @@ export default async function HomePage() {
                   <span className="num-eyebrow">{it.n}</span>
                   <span className="num-eyebrow" style={{ color: "var(--muted)" }}>{it.tag}</span>
                 </div>
-                <h3 className="display" style={{ fontSize: 34, letterSpacing: "-0.01em", lineHeight: 1 }}>
+                <h3 className="display" style={{ fontSize: "clamp(13px, 4.5vw, 34px)", letterSpacing: "-0.01em", lineHeight: 1 }}>
                   {it.label}
                 </h3>
-                <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--muted)", maxWidth: 340 }}>
+                <p style={{ fontSize: "clamp(9px, 2vw, 15px)", lineHeight: 1.6, color: "var(--muted)", maxWidth: 340 }}>
                   {it.desc}
                 </p>
                 <span style={{ marginTop: "auto", paddingTop: 24, display: "inline-flex", alignItems: "center", gap: 10, fontSize: 14, fontWeight: 500 }}>
@@ -114,12 +114,12 @@ export default async function HomePage() {
                 display: "flex", flexDirection: "column", gap: 16, minHeight: 280,
               }}>
                 <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)" }}>0{i + 1}</span>
-                <div className="display-tight" style={{ fontSize: "clamp(44px, 5vw, 64px)", color: "#fff", lineHeight: 0.95, letterSpacing: "-0.015em" }}>
+                <div className="display-tight" style={{ fontSize: "clamp(14px, 5vw, 64px)", color: "#fff", lineHeight: 0.95, letterSpacing: "-0.015em" }}>
                   {s.value}
                 </div>
                 <div className="eyebrow" style={{ color: "rgba(255,255,255,0.55)", marginTop: 4 }}>{s.label}</div>
                 <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)", fontSize: 11 }}>{s.source}</span>
-                <p style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(255,255,255,0.78)", marginTop: "auto" }}>
+                <p style={{ fontSize: "clamp(8px, 1.8vw, 14px)", lineHeight: 1.55, color: "rgba(255,255,255,0.78)", marginTop: "auto" }}>
                   {s.detail}
                 </p>
               </div>

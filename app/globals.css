@@ -188,6 +188,9 @@
 .nav-cards-grid  { grid-template-columns: repeat(3, 1fr); }
 .stats-grid      { grid-template-columns: repeat(3, 1fr); }
 .cta-grid        { grid-template-columns: 1fr 1fr; }
+.world-grid      { grid-template-columns: repeat(4, 1fr); }
+.detector-grid   { grid-template-columns: 1fr 1.4fr; gap: 80px; }
+.hero-fiel-grid  { grid-template-columns: 1.25fr 1fr; }
 
 /* ── Mobile base ────────────────────────────────────────────── */
 html, body { overflow-x: hidden; max-width: 100vw; }

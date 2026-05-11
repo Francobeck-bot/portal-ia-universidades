@@ -14,7 +14,6 @@ export default function HeroSection() {
         padding: "64px 32px 72px",
         minHeight: 420,
         display: "grid",
-        gridTemplateColumns: "1.25fr 1fr",
         gap: 56,
         alignItems: "center",
       }} className="hero-fiel-grid">

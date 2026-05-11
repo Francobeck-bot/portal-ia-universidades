@@ -91,7 +91,7 @@ export default async function DiretrizesPage() {
               Como as melhores universidades estão decidindo
             </h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0, borderTop: "1px solid rgba(255,255,255,0.2)" }}
+          <div style={{ display: "grid", gap: 0, borderTop: "1px solid rgba(255,255,255,0.2)" }}
                className="world-grid">
             {worldPolicies.map((w, i) => (
               <div key={w.n} style={{
@@ -101,10 +101,10 @@ export default async function DiretrizesPage() {
                 display: "flex", flexDirection: "column", gap: 14, minHeight: 260,
               }}>
                 <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)" }}>{w.n}</span>
-                <div className="display" style={{ fontSize: 22, color: "#fff", lineHeight: 1.1, letterSpacing: "-0.005em" }}>{w.uni}</div>
+                <div className="display" style={{ fontSize: "clamp(10px, 2.5vw, 22px)", color: "#fff", lineHeight: 1.1, letterSpacing: "-0.005em" }}>{w.uni}</div>
                 <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)", fontSize: 11 }}>{w.year}</span>
                 <div className="eyebrow" style={{ color: "rgba(255,255,255,0.7)", fontSize: 11, marginTop: 4 }}>{w.stance}</div>
-                <p style={{ fontSize: 13.5, lineHeight: 1.55, color: "rgba(255,255,255,0.72)", marginTop: "auto" }}>{w.note}</p>
+                <p style={{ fontSize: "clamp(8px, 1.7vw, 13.5px)", lineHeight: 1.55, color: "rgba(255,255,255,0.72)", marginTop: "auto" }}>{w.note}</p>
               </div>
             ))}
           </div>
@@ -122,7 +122,7 @@ export default async function DiretrizesPage() {
             <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)" }}>03</span>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 80, alignItems: "start" }}
+          <div style={{ display: "grid", alignItems: "start" }}
                className="detector-grid">
             <div>
               <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.2vw, 52px)", lineHeight: 1.02, letterSpacing: "-0.02em", color: "#fff", marginBottom: 20 }}>
