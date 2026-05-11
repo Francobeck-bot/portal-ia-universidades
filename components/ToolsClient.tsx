@@ -236,6 +236,7 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
 
   return (
     <article
+      className="tool-card"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
@@ -254,7 +255,7 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
       {/* Colored cover */}
       <ToolMonogram name={tool.nome} accent={color.accent} />
 
-      <div style={{ padding: "24px 24px 20px", display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
+      <div className="tool-card-body" style={{ padding: "24px 24px 20px", display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
         {/* Category pills (all types) */}
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {tags.map(tag => (
@@ -290,7 +291,7 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
       </div>
 
       {/* Use cases */}
-      <div style={{ borderTop: "1px solid var(--hairline-soft)", padding: "16px 24px", background: "#fafbfc" }}>
+      <div className="tool-card-usecases" style={{ borderTop: "1px solid var(--hairline-soft)", padding: "16px 24px", background: "#fafbfc" }}>
         <span className="eyebrow" style={{ display: "block", marginBottom: 10, fontSize: 10 }}>Casos de uso</span>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {useCases.map(u => (
@@ -305,7 +306,7 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
 
       {/* Recommended by */}
       {recommendedBy.length > 0 && (
-        <div style={{ padding: "14px 24px", borderTop: "1px solid var(--hairline-soft)", background: "#fafbfc" }}>
+        <div className="tool-card-recby" style={{ padding: "14px 24px", borderTop: "1px solid var(--hairline-soft)", background: "#fafbfc" }}>
           <span className="eyebrow" style={{ display: "block", marginBottom: 6, fontSize: 10 }}>Recomendado por</span>
           <p style={{ fontSize: 12.5, color: "var(--muted)", lineHeight: 1.5 }}>
             {recommendedBy.join(" · ")}
@@ -340,6 +341,7 @@ function ModernCard({ tool, index }: { tool: Tool; index: number }) {
 // ── Main export ───────────────────────────────────────────────
 export default function ToolsClient({ tools }: { tools: Tool[] }) {
   const [selectedType, setSelectedType] = useState("Todos");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const filtered = tools.filter(t => matchesType(t.tipo, selectedType));
 
@@ -353,16 +355,37 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
         margin: "0 -32px",
       }}>
         <div style={{ padding: "0 32px" }}>
-          <div style={{
-            display: "flex", gap: 8, alignItems: "center",
-            paddingTop: 14, paddingBottom: 14,
-            overflowX: "auto", WebkitOverflowScrolling: "touch" as const,
-          }} className="filter-scroll">
-            <span className="eyebrow" style={{ marginRight: 6, flexShrink: 0 }}>Filtrar</span>
+          {/* Mobile toggle — hidden on desktop via CSS */}
+          <button
+            className="filter-toggle-btn"
+            onClick={() => setFiltersOpen(v => !v)}
+            style={{ display: "none" }}
+          >
+            <span className="eyebrow">
+              Filtros{selectedType !== "Todos" ? ` · ${selectedType}` : ""}
+            </span>
+            <span style={{
+              display: "inline-block", fontSize: 14, color: "var(--muted)",
+              transition: "transform 200ms ease",
+              transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)",
+            }}>▾</span>
+          </button>
+
+          {/* Filter pills — desktop: always visible; mobile: toggle */}
+          <div
+            className={`filter-pills-row filter-scroll${filtersOpen ? " filter-pills-open" : ""}`}
+            style={{
+              display: "flex", gap: 8, alignItems: "center",
+              paddingTop: 14, paddingBottom: 14,
+              overflowX: "auto", WebkitOverflowScrolling: "touch" as const,
+            }}
+          >
+            <span className="eyebrow filter-label" style={{ marginRight: 6, flexShrink: 0 }}>Filtrar</span>
             {FILTER_TYPES.map(type => {
               const active = selectedType === type;
               return (
-                <button key={type} onClick={() => setSelectedType(type)}
+                <button key={type}
+                  onClick={() => { setSelectedType(type); setFiltersOpen(false); }}
                   style={{
                     flexShrink: 0,
                     background: active ? "var(--ink)" : "transparent",
@@ -411,9 +434,35 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
         .tool-link:hover { gap: 12px !important; }
         .filter-scroll { scrollbar-width: none; }
         .filter-scroll::-webkit-scrollbar { display: none; }
+
         @media (max-width: 640px) {
-          .tools-filter-wrap { margin: 0 -20px !important; }
-          .tools-grid { grid-template-columns: 1fr !important; }
+          /* Container */
+          .tools-filter-wrap { margin: 0 -23px !important; }
+
+          /* 2 colunas */
+          .tools-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+
+          /* Cards compactos */
+          .tool-card > div:first-child { height: 80px !important; }
+          .tool-card-body { padding: 10px 10px 8px !important; gap: 8px !important; }
+          .tool-card-body h3 { font-size: 16px !important; line-height: 1.1 !important; }
+          .tool-card-body p { font-size: 12px !important; }
+          .tool-card-usecases, .tool-card-recby { display: none !important; }
+
+          /* Botão filtros */
+          .filter-toggle-btn {
+            display: flex !important; width: 100%;
+            justify-content: space-between; align-items: center;
+            padding: 14px 0; background: transparent; border: 0;
+            cursor: pointer; font-family: var(--body);
+          }
+          .filter-pills-row { display: none !important; }
+          .filter-pills-row.filter-pills-open {
+            display: flex !important; flex-wrap: wrap !important;
+            overflow-x: visible !important;
+            padding-top: 4px !important; padding-bottom: 14px !important;
+          }
+          .filter-label { display: none !important; }
         }
       `}</style>
     </div>
