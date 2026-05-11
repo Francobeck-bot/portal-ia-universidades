@@ -196,11 +196,11 @@
 html, body { overflow-x: hidden; max-width: 100vw; }
 
 @media (max-width: 768px) {
-  .container-wide, .container { padding-left: 26px !important; padding-right: 26px !important; }
-  .home-section        { padding: 28px 26px !important; }
-  .home-section-stats  { padding: 28px 26px !important; }
-  .dir-section         { padding: 28px 26px !important; }
-  .dir-section-dark    { padding: 28px 26px !important; }
+  .container-wide, .container { padding-left: 23px !important; padding-right: 23px !important; }
+  .home-section        { padding: 28px 23px !important; }
+  .home-section-stats  { padding: 28px 23px !important; }
+  .dir-section         { padding: 28px 23px !important; }
+  .dir-section-dark    { padding: 28px 23px !important; }
 
   /* Grids → 1 coluna */
   .nav-cards-grid { grid-template-columns: 1fr !important; }
