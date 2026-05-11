@@ -36,7 +36,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="header-desktop-nav" style={{ display: "flex", alignItems: "center", gap: 36 }}>
+          <nav className="header-desktop-nav" style={{ alignItems: "center", gap: 36 }}>
             {navLinks.map((link) => {
               const active = pathname === link.href;
               return (
