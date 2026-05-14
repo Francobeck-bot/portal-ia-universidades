@@ -36,7 +36,7 @@ export default async function DiretrizesPage() {
             Diretrizes para Uso Responsável de IA
           </h1>
           <p className="lead" style={{ maxWidth: 680, marginTop: 32, color: "rgba(255,255,255,0.72)" }}>
-            O uso de IA no ensino superior não é uma questão de ser a favor ou contra. É uma questão de como fazer de forma que realmente beneficie o aprendizado.
+            A discussão sobre Inteligência Artificial (IA) no ensino superior vai além de permitir ou restringir sua utilização. Trata-se de integrá-la de forma estratégica e benéfica para potencializar o aprendizado.
           </p>
         </div>
       </section>
@@ -47,10 +47,10 @@ export default async function DiretrizesPage() {
           <div style={{ marginBottom: 40, maxWidth: 760 }}>
             <span className="num-eyebrow" style={{ display: "block", marginBottom: 14, fontSize: 13 }}>01</span>
             <h2 className="display-tight" style={{ fontSize: "clamp(30px, 3.4vw, 44px)", letterSpacing: "-0.015em", lineHeight: 1.08, marginBottom: 12 }}>
-              Princípios para uso responsável de IA no ensino
+              Orientações para uso responsável de IA no ensino
             </h2>
             <p className="lead" style={{ color: "var(--muted)" }}>
-              Cinco princípios baseados no que as melhores universidades do mundo praticam e recomendam.
+              Cinco pilares inspirados nas práticas e recomendações das principais universidades do mundo, validados pela Comissão de Graduação (COMGRAD) do curso de Engenharia de Produção da Universidade Federal do Rio Grande do Sul (UFRGS).
             </p>
           </div>
 
@@ -71,7 +71,7 @@ export default async function DiretrizesPage() {
               Como comunicar sua política de IA para os alunos
             </h2>
             <p className="lead" style={{ color: "var(--muted)" }}>
-              Três modelos prontos para copiar e colar no syllabus do seu curso.
+              Três modelos prontos validados pela COMGRAD para adaptar e inserir no plano de ensino (syllabus) do curso.
             </p>
           </div>
 
