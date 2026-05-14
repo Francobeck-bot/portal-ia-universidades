@@ -7,11 +7,14 @@ import { SHEETS_CONFIG } from "@/lib/config";
 
 const stats = [
   { value: "2×",      label: "mais aprendizagem",        source: "Harvard · 2025",
-    detail: "Tutor IA (PS2 Pal) gerou o dobro de aprendizagem em estudo controlado com 194 alunos de Física. O maior ganho já medido em comparação com aula ativa tradicional." },
+    detail: "Tutor IA (PS2 Pal) gerou o dobro de aprendizagem em estudo controlado com 194 alunos de Física. O maior ganho já medido em comparação com aula ativa tradicional.",
+    refLink: "/referencias#ref-11" },
   { value: "75–97%",  label: "de precisão nas respostas", source: "Georgia Tech · Jill Watson",
-    detail: "Assistente virtual Jill Watson responde dúvidas dos alunos 24/7 com precisão de 75 a 97%. Estudantes passaram semanas sem perceber que não era humana." },
+    detail: "Assistente virtual Jill Watson responde dúvidas dos alunos 24/7 com precisão de 75 a 97%. Estudantes passaram semanas sem perceber que não era humana.",
+    refLink: "" },
   { value: "Simulação", label: "de pacientes com IA",    source: "NUS · Singapura",
-    detail: "Chatbot simula pacientes para estudantes de saúde praticarem anamnese e diagnóstico antes de situações reais. Usado amplamente desde 2020." },
+    detail: "Chatbot simula pacientes para estudantes de saúde praticarem anamnese e diagnóstico antes de situações reais. Usado amplamente desde 2020.",
+    refLink: "" },
 ];
 
 export default async function HomePage() {
@@ -121,6 +124,19 @@ export default async function HomePage() {
                 <p style={{ fontSize: "clamp(13px, 1.8vw, 14px)", lineHeight: 1.55, color: "rgba(255,255,255,0.78)", marginTop: "auto" }}>
                   {s.detail}
                 </p>
+                {s.refLink && (
+                  <a href={s.refLink} style={{
+                    marginTop: 12,
+                    display: "inline-flex", alignItems: "center", gap: 4,
+                    fontSize: 11, letterSpacing: "0.04em",
+                    color: "rgba(255,255,255,0.35)",
+                    borderBottom: "1px solid rgba(255,255,255,0.15)",
+                    paddingBottom: 1, textDecoration: "none",
+                    fontFamily: "var(--body)",
+                  }}>
+                    Ver referência ↗
+                  </a>
+                )}
               </div>
             ))}
           </div>

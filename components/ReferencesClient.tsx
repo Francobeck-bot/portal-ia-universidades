@@ -53,7 +53,7 @@ export default function ReferencesTable({ references }: { references: Reference[
       {/* ── Body ── */}
       <tbody>
         {references.map((ref, i) => (
-          <tr key={i} className="ref-row" style={{
+          <tr key={i} id={`ref-${pad(ref.numero, i)}`} className="ref-row" style={{
             borderBottom: "1px solid var(--hairline)",
             verticalAlign: "top",
           }}>
