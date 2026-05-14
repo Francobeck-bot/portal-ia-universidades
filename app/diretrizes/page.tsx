@@ -7,13 +7,17 @@ import PrincipleCard from "@/components/PrincipleCard";
 
 const worldPolicies = [
   { n: "01", uni: "Harvard University", year: "2024", stance: "Permissiva com declaração",
-    note: 'Adota framework de "disclosure obrigatório" — uso é permitido em quase toda situação, desde que declarado com prompt e ferramenta.' },
+    note: 'Adota framework de "disclosure obrigatório" — uso é permitido em quase toda situação, desde que declarado com prompt e ferramenta.',
+    refLink: "/referencias#ref-09" },
   { n: "02", uni: "MIT", year: "2024", stance: "Caso a caso por curso",
-    note: "Política definida pelo docente em cada disciplina. Rejeita detectores de IA como evidência em processos disciplinares." },
+    note: "Política definida pelo docente em cada disciplina. Rejeita detectores de IA como evidência em processos disciplinares.",
+    refLink: "/referencias#ref-12" },
   { n: "03", uni: "Stanford", year: "2023", stance: "Integrada ao syllabus",
-    note: "Exige que todo plano de ensino inclua seção sobre IA. Oferece três templates institucionais análogos aos adotados aqui." },
+    note: "Exige que todo plano de ensino inclua seção sobre IA. Oferece três templates institucionais análogos aos adotados aqui.",
+    refLink: "/referencias#ref-06" },
   { n: "04", uni: "University of Toronto", year: "2024", stance: "Contra detectores",
-    note: "Rejeita formalmente Turnitin AI e GPTZero. Investe em redesenho de avaliações com evidência de processo." },
+    note: "Rejeita formalmente Turnitin AI e GPTZero. Investe em redesenho de avaliações com evidência de processo.",
+    refLink: "/referencias#ref-39" },
 ];
 
 export default async function DiretrizesPage() {
@@ -105,6 +109,17 @@ export default async function DiretrizesPage() {
                 <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)", fontSize: 11 }}>{w.year}</span>
                 <div className="eyebrow" style={{ color: "rgba(255,255,255,0.7)", fontSize: 11, marginTop: 4 }}>{w.stance}</div>
                 <p style={{ fontSize: "clamp(8px, 1.7vw, 13.5px)", lineHeight: 1.55, color: "rgba(255,255,255,0.72)", marginTop: "auto" }}>{w.note}</p>
+                <a href={w.refLink} style={{
+                  marginTop: 12,
+                  display: "inline-flex", alignItems: "center", gap: 4,
+                  fontSize: 11, letterSpacing: "0.04em",
+                  color: "rgba(255,255,255,0.35)",
+                  borderBottom: "1px solid rgba(255,255,255,0.15)",
+                  paddingBottom: 1, textDecoration: "none",
+                  fontFamily: "var(--body)",
+                }}>
+                  Ver referência ↗
+                </a>
               </div>
             ))}
           </div>

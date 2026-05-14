@@ -11,10 +11,10 @@ const stats = [
     refLink: "/referencias#ref-11" },
   { value: "75–97%",  label: "de precisão nas respostas", source: "Georgia Tech · Jill Watson",
     detail: "Assistente virtual Jill Watson responde dúvidas dos alunos 24/7 com precisão de 75 a 97%. Estudantes passaram semanas sem perceber que não era humana.",
-    refLink: "" },
+    refLink: "/referencias#ref-21" },
   { value: "Simulação", label: "de pacientes com IA",    source: "NUS · Singapura",
     detail: "Chatbot simula pacientes para estudantes de saúde praticarem anamnese e diagnóstico antes de situações reais. Usado amplamente desde 2020.",
-    refLink: "" },
+    refLink: "/referencias#ref-42" },
 ];
 
 export default async function HomePage() {
