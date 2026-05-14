@@ -114,8 +114,7 @@ export default async function DiretrizesPage() {
                   display: "inline-flex", alignItems: "center", gap: 4,
                   fontSize: 11, letterSpacing: "0.04em",
                   color: "rgba(255,255,255,0.35)",
-                  borderBottom: "1px solid rgba(255,255,255,0.15)",
-                  paddingBottom: 1, textDecoration: "none",
+                  textDecoration: "none",
                   fontFamily: "var(--body)",
                 }}>
                   Ver referência ↗

@@ -122,6 +122,15 @@ export default function ReferencesTable({ references }: { references: Reference[
       <style>{`
         .ref-row:hover { background: rgba(0,0,0,0.025); }
         .ref-link-btn:hover { opacity: 0.6; }
+        .ref-row:target {
+          background: #fef9c3;
+          box-shadow: inset 4px 0 0 #ca8a04;
+          animation: ref-flash 2s ease forwards;
+        }
+        @keyframes ref-flash {
+          0%   { background: #fef08a; }
+          100% { background: #fef9c3; }
+        }
         @media (max-width: 860px) {
           table { min-width: 0 !important; }
           .ref-col-tipo, .ref-col-pais { display: none; }
