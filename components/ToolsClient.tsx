@@ -369,7 +369,7 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
     >
       {/* Colored cover */}
       {/* Logo + tag badge */}
-      <div style={{ position: "relative" }}>
+      <div className="tool-logo-wrap" style={{ position: "relative", overflow: "hidden" }}>
         <ToolMonogram name={tool.nome} accent={color.accent} imageUrl={tool.imagem_url} />
         {tool.tag?.trim() && (
           <span style={{
@@ -378,7 +378,7 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
             color: "#5B21B6",
             fontSize: 11, fontWeight: 600,
             padding: "4px 11px",
-            borderRadius: 999,
+            borderRadius: 8,
             letterSpacing: "0.01em",
             whiteSpace: "nowrap",
             pointerEvents: "none",
@@ -593,11 +593,14 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
           /* 2 colunas */
           .tools-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
 
-          /* Logos — caixa igual para todos, só reduz a imagem dentro */
-          .tool-card > div:first-child { height: 80px !important; }
-          .tool-card > div:first-child img { max-height: 56px !important; max-width: 126px !important; }
-          .tool-card[data-tool="Google Gemini"] > div:first-child img { max-height: 72px !important; }
-          .tool-card[data-tool="Teachy"] > div:first-child img { max-height: 80px !important; max-width: 180px !important; }
+          /* Logos — wrapper e imagens */
+          .tool-logo-wrap > div:first-child { height: 80px !important; }
+          .tool-logo-wrap img { max-height: 56px !important; max-width: 126px !important; }
+          .tool-card[data-tool="Google Gemini"] .tool-logo-wrap img { max-height: 72px !important; }
+          .tool-card[data-tool="Teachy"] .tool-logo-wrap img { max-height: 80px !important; max-width: 180px !important; }
+
+          /* Tag menor no mobile */
+          .tool-logo-wrap span { font-size: 9px !important; padding: 3px 7px !important; top: 7px !important; right: 7px !important; }
 
           /* Cards compactos */
           .tool-card-body { padding: 10px 10px 6px !important; gap: 5px !important; }
