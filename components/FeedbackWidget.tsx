@@ -5,6 +5,7 @@ import { X, Check } from "lucide-react";
 
 const TIPOS = [
   "Sugerir uma ferramenta",
+  "Sugerir um exemplo de uso",
   "Erro no conteúdo",
   "Melhoria no site",
   "Outro",
