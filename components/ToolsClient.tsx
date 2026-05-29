@@ -343,7 +343,6 @@ function ToolModal({ tool, onClose }: { tool: Tool; onClose: () => void }) {
 
 // ── Modern Card ───────────────────────────────────────────────
 function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore: () => void }) {
-  const [hover, setHover] = useState(false);
   const color = CARD_COLOR;
   const tags = getTags(tool.tipo);
   const recommendedBy = getRecommendedBy(tool.universidades_que_recomendam);
@@ -353,19 +352,15 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
       className="tool-card"
       data-tool={tool.nome}
       onClick={onMore}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
       style={{
         background: "var(--surface)",
-        border: `1px solid ${hover ? color.accent : "var(--hairline)"}`,
+        border: "1px solid var(--hairline)",
         borderRadius: "var(--radius)",
         overflow: "hidden",
         display: "flex", flexDirection: "column",
         flex: 1,
         cursor: "pointer",
-        transition: "transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease",
-        transform: hover ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: hover ? "0 12px 32px rgba(15,23,42,0.12)" : "0 1px 2px rgba(15,23,42,0.04)",
+        boxShadow: "0 1px 2px rgba(15,23,42,0.04)",
       }}
     >
       {/* Logo */}
@@ -519,11 +514,11 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
             gap: 24,
           }} className="tools-grid">
             {filtered.map((tool, i) => (
-              <div key={tool.nome} style={{ position: "relative", display: "flex", flexDirection: "column" }}>
+              <div key={tool.nome} className="tool-card-wrapper" style={{ position: "relative", display: "flex", flexDirection: "column" }}>
                 <ModernCard tool={tool} index={i} onMore={() => setActiveTool(tool)} />
                 {tool.tag?.trim() && (
                   <span className="tool-tag-badge" style={{
-                    position: "absolute", top: -13, right: 14, zIndex: 2,
+                    position: "absolute", top: -13, right: 10, zIndex: 2,
                     background: "#EDE9FE", color: "#5B21B6",
                     fontSize: 11, fontWeight: 600,
                     padding: "4px 11px", borderRadius: 8,
@@ -547,6 +542,18 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
       <style>{`
         .filter-scroll { scrollbar-width: none; }
         .filter-scroll::-webkit-scrollbar { display: none; }
+
+        /* Hover: wrapper sobe inteiro (card + tag juntos) */
+        .tool-card-wrapper {
+          transition: transform 220ms ease;
+        }
+        .tool-card-wrapper:hover {
+          transform: translateY(-4px);
+        }
+        .tool-card-wrapper:hover .tool-card {
+          border-color: #4F46E5;
+          box-shadow: 0 12px 32px rgba(15,23,42,0.12);
+        }
 
         /* Modal centralizado no desktop */
         @media (min-width: 641px) {
