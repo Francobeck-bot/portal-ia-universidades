@@ -368,25 +368,9 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
       }}
     >
       {/* Colored cover */}
-      {/* Logo + tag badge */}
+      {/* Logo */}
       <div className="tool-logo-wrap" style={{ position: "relative", overflow: "hidden" }}>
         <ToolMonogram name={tool.nome} accent={color.accent} imageUrl={tool.imagem_url} />
-        {tool.tag?.trim() && (
-          <span style={{
-            position: "absolute", top: 10, right: 10,
-            background: "#EDE9FE",
-            color: "#5B21B6",
-            fontSize: 11, fontWeight: 600,
-            padding: "4px 11px",
-            borderRadius: 8,
-            letterSpacing: "0.01em",
-            whiteSpace: "nowrap",
-            pointerEvents: "none",
-            boxShadow: "0 1px 4px rgba(109,40,217,0.12)",
-          }}>
-            {tool.tag}
-          </span>
-        )}
       </div>
 
       <div className="tool-card-body" style={{ padding: "24px 24px 20px", display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
@@ -571,7 +555,22 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
             gap: 24,
           }} className="tools-grid">
             {filtered.map((tool, i) => (
-              <ModernCard key={tool.nome} tool={tool} index={i} onMore={() => setActiveTool(tool)} />
+              <div key={tool.nome} style={{ position: "relative" }}>
+                <ModernCard tool={tool} index={i} onMore={() => setActiveTool(tool)} />
+                {tool.tag?.trim() && (
+                  <span className="tool-tag-badge" style={{
+                    position: "absolute", top: -13, right: 14, zIndex: 2,
+                    background: "#EDE9FE", color: "#5B21B6",
+                    fontSize: 11, fontWeight: 600,
+                    padding: "4px 11px", borderRadius: 8,
+                    letterSpacing: "0.01em", whiteSpace: "nowrap",
+                    pointerEvents: "none",
+                    boxShadow: "0 2px 8px rgba(109,40,217,0.15)",
+                  }}>
+                    {tool.tag}
+                  </span>
+                )}
+              </div>
             ))}
           </div>
         )}
@@ -600,7 +599,7 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
           .tool-card[data-tool="Teachy"] .tool-logo-wrap img { max-height: 80px !important; max-width: 180px !important; }
 
           /* Tag menor no mobile */
-          .tool-logo-wrap span { font-size: 9px !important; padding: 3px 7px !important; top: 7px !important; right: 7px !important; }
+          .tool-tag-badge { font-size: 9px !important; padding: 3px 7px !important; top: -11px !important; right: 10px !important; }
 
           /* Cards compactos */
           .tool-card-body { padding: 10px 10px 6px !important; gap: 5px !important; }
