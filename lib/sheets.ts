@@ -74,7 +74,7 @@ export interface Tool {
   link: string;
   universidades_que_recomendam: string;
   video_url: string;
-  tag: string;
+  tag?: string;
 }
 
 export interface Example {
