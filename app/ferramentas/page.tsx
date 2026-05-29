@@ -34,10 +34,8 @@ export default async function FerramentasPage() {
         </div>
       </section>
 
-      {/* ── Catalog (sticky filter bar lives inside ToolsClient) ── */}
-      <div className="container-wide" style={{ padding: "0 32px" }}>
-        <ToolsClient tools={tools} />
-      </div>
+      {/* ── Catalog — sem container para a filter bar ir até as bordas ── */}
+      <ToolsClient tools={tools} />
 
     </main>
   );

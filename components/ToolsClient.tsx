@@ -264,8 +264,9 @@ function ToolModal({ tool, onClose }: { tool: Tool; onClose: () => void }) {
     }}>
       <div className="modal-sheet" onClick={e => e.stopPropagation()} style={{
         background: "var(--surface)",
-        width: "100%", maxWidth: 560,
+        width: "100%", maxWidth: 680,
         maxHeight: "90vh", overflowY: "auto",
+        overflowX: "hidden",
         borderRadius: "14px 14px 0 0",
         boxShadow: "0 -8px 48px rgba(0,0,0,0.3)",
         overscrollBehavior: "contain",
@@ -371,47 +372,50 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
         <ToolMonogram name={tool.nome} accent={color.accent} imageUrl={tool.imagem_url} />
       </div>
 
-      <div className="tool-card-body" style={{ padding: "20px 20px 16px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
-        {/* Nome */}
-        <h3 className="tool-name" style={{
-          fontFamily: "var(--display)", fontSize: 28,
-          letterSpacing: "-0.015em", lineHeight: 1.1,
-          color: "var(--ink)", fontWeight: 400,
-        }}>
-          {tool.nome}
-        </h3>
-
-        {/* Descrição */}
-        <p className="tool-desc" style={{
-          fontSize: 13, lineHeight: 1.6, color: "var(--muted)",
-          display: "-webkit-box", WebkitLineClamp: 3,
-          WebkitBoxOrient: "vertical" as const, overflow: "hidden",
-        }}>
-          {tool.descricao}
-        </p>
-
-        {/* Recomendado por */}
-        {recommendedBy.length > 0 && (
-          <p className="tool-recby" style={{ fontSize: 12, color: "var(--muted-soft)", lineHeight: 1.45 }}>
-            <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)" }}>
-              Recomendado por
-            </span>
-            {" · "}{recommendedBy.join(" · ")}
+      <div className="tool-card-body" style={{ padding: "20px 20px 16px", display: "flex", flexDirection: "column", flex: 1 }}>
+        {/* Topo: nome + descrição */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <h3 className="tool-name" style={{
+            fontFamily: "var(--display)", fontSize: 28,
+            letterSpacing: "-0.015em", lineHeight: 1.1,
+            color: "var(--ink)", fontWeight: 400,
+          }}>
+            {tool.nome}
+          </h3>
+          <p className="tool-desc" style={{
+            fontSize: 13, lineHeight: 1.6, color: "var(--muted)",
+            display: "-webkit-box", WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical" as const, overflow: "hidden",
+          }}>
+            {tool.descricao}
           </p>
-        )}
+        </div>
 
-        {/* Tipos — pills estilo tag */}
-        <div className="tool-card-pills" style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: "auto", paddingTop: 4 }}>
-          {tags.map(tag => (
-            <span key={tag} style={{
-              background: color.bg, color: color.fg,
-              padding: "3px 9px", borderRadius: 8,
-              fontSize: 11, fontWeight: 500,
-              letterSpacing: "0.01em", whiteSpace: "nowrap",
-            }}>
-              {tag}
-            </span>
-          ))}
+        {/* Spacer — empurra rodapé para baixo */}
+        <div style={{ flex: 1, minHeight: 12 }} />
+
+        {/* Fundo: recomendado por + pills */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {recommendedBy.length > 0 && (
+            <p className="tool-recby" style={{ fontSize: 11.5, color: "var(--muted-soft)", lineHeight: 1.45 }}>
+              <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)" }}>
+                Recomendado por
+              </span>
+              {" · "}{recommendedBy.join(" · ")}
+            </p>
+          )}
+          <div className="tool-card-pills" style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+            {tags.map(tag => (
+              <span key={tag} style={{
+                background: color.bg, color: color.fg,
+                padding: "3px 9px", borderRadius: 8,
+                fontSize: 11, fontWeight: 500,
+                letterSpacing: "0.01em", whiteSpace: "nowrap",
+              }}>
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -443,9 +447,8 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
         position: "sticky", top: 64, zIndex: 10,
         background: "var(--surface)",
         borderBottom: "1px solid var(--hairline)",
-        margin: "0 -32px",
       }}>
-        <div style={{ padding: "0 32px" }}>
+        <div className="filter-inner" style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
           {/* Mobile toggle — hidden on desktop via CSS */}
           <button
             className="filter-toggle-btn"
@@ -497,7 +500,7 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
       </div>
 
       {/* ── Cards ── */}
-      <div style={{ paddingTop: 48, paddingBottom: 96 }}>
+      <div className="tools-cards-wrap" style={{ maxWidth: 1440, margin: "0 auto", padding: "48px 32px 96px" }}>
         {filtered.length === 0 ? (
           <div style={{ textAlign: "center", padding: "80px 0", color: "var(--muted)" }}>
             <SearchX size={36} style={{ margin: "0 auto 12px", opacity: 0.4, display: "block" }} />
@@ -511,7 +514,7 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
         ) : (
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gridTemplateColumns: "repeat(3, 1fr)",
             gap: 24,
           }} className="tools-grid">
             {filtered.map((tool, i) => (
@@ -550,26 +553,24 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
           .modal-sheet  { border-radius: 14px !important; max-height: 85vh !important; }
         }
 
+        @media (max-width: 768px) {
+          /* Filter inner padding alinha com o container mobile */
+          .filter-inner { padding: 0 23px !important; }
+          .tools-cards-wrap { padding: 32px 23px 64px !important; }
+        }
+
         @media (max-width: 640px) {
-          .tools-filter-wrap { margin: 0 -23px !important; }
-          .tools-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+          /* Grid 1 coluna no mobile */
+          .tools-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
 
           /* Logos compactos */
-          .tool-logo-wrap > div:first-child { height: 80px !important; }
-          .tool-logo-wrap img { max-height: 56px !important; max-width: 126px !important; }
-          .tool-card[data-tool="Google Gemini"] .tool-logo-wrap img { max-height: 72px !important; }
-          .tool-card[data-tool="Teachy"] .tool-logo-wrap img { max-height: 80px !important; max-width: 180px !important; }
+          .tool-logo-wrap > div:first-child { height: 100px !important; }
+          .tool-logo-wrap img { max-height: 64px !important; max-width: 160px !important; }
+          .tool-card[data-tool="Google Gemini"] .tool-logo-wrap img { max-height: 80px !important; }
+          .tool-card[data-tool="Teachy"] .tool-logo-wrap img { max-height: 90px !important; max-width: 200px !important; }
 
           /* Tag menor */
-          .tool-tag-badge { font-size: 9px !important; padding: 3px 7px !important; top: -11px !important; right: 10px !important; }
-
-          /* Card compacto */
-          .tool-card-body { padding: 10px 10px 6px !important; gap: 6px !important; }
-          .tool-name { font-size: 17px !important; line-height: 1.05 !important; }
-          .tool-desc, .tool-recby { display: none !important; }
-          .tool-card-pills > span { font-size: 9px !important; padding: 2px 6px !important; }
-          .tool-mais-info { font-size: 11px !important; }
-          .tool-card > div:last-child { padding: 9px 10px !important; }
+          .tool-tag-badge { font-size: 10px !important; padding: 3px 8px !important; top: -12px !important; right: 12px !important; }
 
           /* Botão filtros */
           .filter-toggle-btn {
