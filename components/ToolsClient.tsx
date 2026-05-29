@@ -79,6 +79,24 @@ const FILTER_TYPES = [
   "Produtividade", "Gerenciamento de informações", "Pesquisa",
 ];
 
+// ── Tag color palette ─────────────────────────────────────────
+const TAG_PALETTE = [
+  { bg: "#DBEAFE", fg: "#1E40AF" }, // azul
+  { bg: "#FCE7F3", fg: "#9D174D" }, // rosa
+  { bg: "#D1FAE5", fg: "#065F46" }, // verde
+  { bg: "#EDE9FE", fg: "#5B21B6" }, // violeta
+  { bg: "#CCFBF1", fg: "#0F766E" }, // teal
+  { bg: "#FEF3C7", fg: "#92400E" }, // âmbar
+  { bg: "#E0E7FF", fg: "#3730A3" }, // índigo
+  { bg: "#FFE4E6", fg: "#9F1239" }, // vermelho suave
+];
+
+function tagColor(tag: string) {
+  let h = 0;
+  for (let i = 0; i < tag.length; i++) { h = Math.imul(31, h) + tag.charCodeAt(i) | 0; }
+  return TAG_PALETTE[Math.abs(h) % TAG_PALETTE.length];
+}
+
 // ── Helpers ───────────────────────────────────────────────────
 function getTags(tipo: string) {
   if (!tipo?.trim()) return [];
@@ -519,12 +537,13 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
                 {tool.tag?.trim() && (
                   <span className="tool-tag-badge" style={{
                     position: "absolute", top: -13, right: 0, zIndex: 2,
-                    background: "#EDE9FE", color: "#5B21B6",
-                    fontSize: 11, fontWeight: 600,
+                    background: tagColor(tool.tag!).bg,
+                    color: tagColor(tool.tag!).fg,
+                    fontSize: 11, fontWeight: 500,
                     padding: "4px 11px", borderRadius: 8,
                     letterSpacing: "0.01em", whiteSpace: "nowrap",
                     pointerEvents: "none",
-                    boxShadow: "0 2px 8px rgba(109,40,217,0.15)",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
                   }}>
                     {tool.tag}
                   </span>
