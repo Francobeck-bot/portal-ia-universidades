@@ -361,6 +361,7 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
         borderRadius: "var(--radius)",
         overflow: "hidden",
         display: "flex", flexDirection: "column",
+        flex: 1,
         cursor: "pointer",
         transition: "transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease",
         transform: hover ? "translateY(-4px)" : "translateY(0)",
@@ -384,7 +385,7 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
           </h3>
           <p className="tool-desc" style={{
             fontSize: 13, lineHeight: 1.6, color: "var(--muted)",
-            display: "-webkit-box", WebkitLineClamp: 2,
+            display: "-webkit-box", WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical" as const, overflow: "hidden",
           }}>
             {tool.descricao}
@@ -518,7 +519,7 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
             gap: 24,
           }} className="tools-grid">
             {filtered.map((tool, i) => (
-              <div key={tool.nome} style={{ position: "relative" }}>
+              <div key={tool.nome} style={{ position: "relative", display: "flex", flexDirection: "column" }}>
                 <ModernCard tool={tool} index={i} onMore={() => setActiveTool(tool)} />
                 {tool.tag?.trim() && (
                   <span className="tool-tag-badge" style={{
