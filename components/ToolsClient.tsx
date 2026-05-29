@@ -256,13 +256,13 @@ function ToolModal({ tool, onClose }: { tool: Tool; onClose: () => void }) {
   }, [onClose]);
 
   return (
-    <div onClick={onClose} style={{
+    <div className="modal-overlay" onClick={onClose} style={{
       position: "fixed", inset: 0, zIndex: 1000,
       background: "rgba(10,15,25,0.6)",
       display: "flex", alignItems: "flex-end", justifyContent: "center",
       backdropFilter: "blur(3px)",
     }}>
-      <div onClick={e => e.stopPropagation()} style={{
+      <div className="modal-sheet" onClick={e => e.stopPropagation()} style={{
         background: "var(--surface)",
         width: "100%", maxWidth: 560,
         maxHeight: "90vh", overflowY: "auto",
@@ -345,13 +345,13 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
   const [hover, setHover] = useState(false);
   const color = CARD_COLOR;
   const tags = getTags(tool.tipo);
-  const useCases = getUseCases(tool.casos_de_uso);
   const recommendedBy = getRecommendedBy(tool.universidades_que_recomendam);
 
   return (
     <article
       className="tool-card"
       data-tool={tool.nome}
+      onClick={onMore}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
@@ -360,41 +360,20 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
         borderRadius: "var(--radius)",
         overflow: "hidden",
         display: "flex", flexDirection: "column",
+        cursor: "pointer",
         transition: "transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease",
         transform: hover ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: hover
-          ? "0 12px 32px rgba(15,23,42,0.12)"
-          : "0 1px 2px rgba(15,23,42,0.04)",
+        boxShadow: hover ? "0 12px 32px rgba(15,23,42,0.12)" : "0 1px 2px rgba(15,23,42,0.04)",
       }}
     >
-      {/* Colored cover */}
       {/* Logo */}
       <div className="tool-logo-wrap" style={{ position: "relative", overflow: "hidden" }}>
         <ToolMonogram name={tool.nome} accent={color.accent} imageUrl={tool.imagem_url} />
       </div>
 
-      <div className="tool-card-body" style={{ padding: "24px 24px 20px", display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
-        {/* Category pills (all types) */}
-        <div className="tool-card-pills" style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {tags.map(tag => (
-            <span key={tag} style={{
-              display: "inline-flex", alignItems: "center", gap: 5,
-              background: color.bg, color: color.fg,
-              padding: "5px 10px", borderRadius: 999,
-              fontSize: 11, fontWeight: 600, letterSpacing: "0.02em",
-              whiteSpace: "nowrap",
-            }}>
-              <span style={{ width: 5, height: 5, borderRadius: "50%", background: color.accent, flexShrink: 0 }} />
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Pricing */}
-        <span className="num-eyebrow" style={{ fontSize: 11 }}>{tool.custo}</span>
-
-        {/* Name */}
-        <h3 style={{
+      <div className="tool-card-body" style={{ padding: "20px 20px 16px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
+        {/* Nome */}
+        <h3 className="tool-name" style={{
           fontFamily: "var(--display)", fontSize: 28,
           letterSpacing: "-0.015em", lineHeight: 1.1,
           color: "var(--ink)", fontWeight: 400,
@@ -402,67 +381,48 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
           {tool.nome}
         </h3>
 
-        {/* Description */}
-        <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)", whiteSpace: "pre-line" }}>
+        {/* Descrição */}
+        <p className="tool-desc" style={{
+          fontSize: 13, lineHeight: 1.6, color: "var(--muted)",
+          display: "-webkit-box", WebkitLineClamp: 3,
+          WebkitBoxOrient: "vertical" as const, overflow: "hidden",
+        }}>
           {tool.descricao}
         </p>
-      </div>
 
-      {/* Use cases */}
-      <div className="tool-card-usecases" style={{ borderTop: "1px solid var(--hairline-soft)", padding: "16px 24px", background: "#fafbfc" }}>
-        <span className="eyebrow" style={{ display: "block", marginBottom: 10, fontSize: 10 }}>Casos de uso</span>
-        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {useCases.map(u => (
-            <span key={u} style={{
-              fontSize: 12, padding: "4px 10px",
-              background: "#fff", border: "1px solid var(--hairline)",
-              borderRadius: "var(--radius)", color: "var(--ink-soft)",
-            }}>{u}</span>
+        {/* Recomendado por */}
+        {recommendedBy.length > 0 && (
+          <p className="tool-recby" style={{ fontSize: 12, color: "var(--muted-soft)", lineHeight: 1.45 }}>
+            <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)" }}>
+              Recomendado por
+            </span>
+            {" · "}{recommendedBy.join(" · ")}
+          </p>
+        )}
+
+        {/* Tipos — pills estilo tag */}
+        <div className="tool-card-pills" style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: "auto", paddingTop: 4 }}>
+          {tags.map(tag => (
+            <span key={tag} style={{
+              background: color.bg, color: color.fg,
+              padding: "3px 9px", borderRadius: 8,
+              fontSize: 11, fontWeight: 500,
+              letterSpacing: "0.01em", whiteSpace: "nowrap",
+            }}>
+              {tag}
+            </span>
           ))}
         </div>
       </div>
 
-      {/* Recommended by */}
-      {recommendedBy.length > 0 && (
-        <div className="tool-card-recby" style={{ padding: "14px 24px", borderTop: "1px solid var(--hairline-soft)", background: "#fafbfc" }}>
-          <span className="eyebrow" style={{ display: "block", marginBottom: 6, fontSize: 10 }}>Recomendado por</span>
-          <p style={{ fontSize: 12.5, color: "var(--muted)", lineHeight: 1.5 }}>
-            {recommendedBy.join(" · ")}
-          </p>
-        </div>
-      )}
-
-      {/* Tutorial + Acessar — visíveis no desktop, ocultos no mobile */}
-      <div className="card-desktop-only">
-        <TutorialBlock
-          nome={tool.nome} videoUrl={tool.video_url}
-          accent={color.accent} colorBg={color.bg}
-        />
-      </div>
-      <div className="card-desktop-only" style={{ padding: "14px 24px", borderTop: "1px solid var(--hairline-soft)" }}>
-        <a
-          href={tool.link} target="_blank" rel="noopener noreferrer"
-          className="tool-link"
-          style={{
-            fontSize: 13, fontWeight: 600, color: color.accent,
-            display: "inline-flex", alignItems: "center", gap: 8,
-            textDecoration: "none", transition: "gap 160ms ease",
-          }}
-        >
-          Acessar ferramenta <Arrow />
-        </a>
-      </div>
-
-      {/* Mais informações — visível só no mobile */}
-      <div className="card-mobile-cta" style={{ display: "none", padding: "11px 12px", borderTop: "1px solid var(--hairline-soft)" }}>
-        <button onClick={onMore} style={{
-          fontSize: 12, fontWeight: 600, color: color.accent,
-          display: "inline-flex", alignItems: "center", gap: 6,
-          background: "transparent", border: 0, cursor: "pointer",
-          fontFamily: "var(--body)", padding: 0,
+      {/* Footer */}
+      <div style={{ padding: "12px 20px", borderTop: "1px solid var(--hairline-soft)" }}>
+        <span className="tool-mais-info" style={{
+          fontSize: 13, fontWeight: 600, color: color.accent,
+          display: "inline-block",
         }}>
-          Mais informações <Arrow />
-        </button>
+          Mais informações
+        </span>
       </div>
     </article>
   );
@@ -581,42 +541,35 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
       )}
 
       <style>{`
-        .tool-link:hover { gap: 12px !important; }
         .filter-scroll { scrollbar-width: none; }
         .filter-scroll::-webkit-scrollbar { display: none; }
 
-        @media (max-width: 640px) {
-          /* Container */
-          .tools-filter-wrap { margin: 0 -23px !important; }
+        /* Modal centralizado no desktop */
+        @media (min-width: 641px) {
+          .modal-overlay { align-items: center !important; }
+          .modal-sheet  { border-radius: 14px !important; max-height: 85vh !important; }
+        }
 
-          /* 2 colunas */
+        @media (max-width: 640px) {
+          .tools-filter-wrap { margin: 0 -23px !important; }
           .tools-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
 
-          /* Logos — wrapper e imagens */
+          /* Logos compactos */
           .tool-logo-wrap > div:first-child { height: 80px !important; }
           .tool-logo-wrap img { max-height: 56px !important; max-width: 126px !important; }
           .tool-card[data-tool="Google Gemini"] .tool-logo-wrap img { max-height: 72px !important; }
           .tool-card[data-tool="Teachy"] .tool-logo-wrap img { max-height: 80px !important; max-width: 180px !important; }
 
-          /* Tag menor no mobile */
+          /* Tag menor */
           .tool-tag-badge { font-size: 9px !important; padding: 3px 7px !important; top: -11px !important; right: 10px !important; }
 
-          /* Cards compactos */
-          .tool-card-body { padding: 10px 10px 6px !important; gap: 5px !important; }
-
-          /* Nome em destaque — no topo */
-          .tool-card-body h3 { order: -1 !important; font-size: 26px !important; line-height: 0.95 !important; margin-bottom: 4px !important; }
-
-          /* Pills muito menores */
-          .tool-card-pills { gap: 3px !important; }
-          .tool-card-pills > span { font-size: 7px !important; padding: 1px 4px !important; gap: 2px !important; letter-spacing: 0 !important; }
-          .tool-card-pills > span > span { width: 3px !important; height: 3px !important; }
-
-          /* Esconde descrição no card — aparece só no popup */
-          .tool-card-body p { display: none !important; }
-          .tool-card-usecases, .tool-card-recby { display: none !important; }
-          .card-desktop-only { display: none !important; }
-          .card-mobile-cta { display: block !important; }
+          /* Card compacto */
+          .tool-card-body { padding: 10px 10px 6px !important; gap: 6px !important; }
+          .tool-name { font-size: 17px !important; line-height: 1.05 !important; }
+          .tool-desc, .tool-recby { display: none !important; }
+          .tool-card-pills > span { font-size: 9px !important; padding: 2px 6px !important; }
+          .tool-mais-info { font-size: 11px !important; }
+          .tool-card > div:last-child { padding: 9px 10px !important; }
 
           /* Botão filtros */
           .filter-toggle-btn {
