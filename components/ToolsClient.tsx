@@ -374,16 +374,15 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
         {tool.tag?.trim() && (
           <span style={{
             position: "absolute", top: 10, right: 10,
-            background: "rgba(15,23,42,0.78)",
-            color: "#fff",
-            fontSize: 10, fontWeight: 700,
-            padding: "3px 8px",
+            background: "#EDE9FE",
+            color: "#5B21B6",
+            fontSize: 11, fontWeight: 600,
+            padding: "4px 11px",
             borderRadius: 999,
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            backdropFilter: "blur(4px)",
+            letterSpacing: "0.01em",
             whiteSpace: "nowrap",
             pointerEvents: "none",
+            boxShadow: "0 1px 4px rgba(109,40,217,0.12)",
           }}>
             {tool.tag}
           </span>
