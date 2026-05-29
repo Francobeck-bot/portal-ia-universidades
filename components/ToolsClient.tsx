@@ -115,9 +115,12 @@ function Arrow() {
 }
 
 // ── Colored cover with tool name ──────────────────────────────
-function ToolMonogram({ name, accent }: { name: string; accent: string }) {
-  const logoSrc = TOOL_LOGOS[name];
-  if (logoSrc) {
+function ToolMonogram({ name, accent, imageUrl }: { name: string; accent: string; imageUrl?: string }) {
+  // Prioridade: URL da planilha → logo local hardcoded → monograma de texto
+  const sheetSrc = imageUrl?.trim() || null;
+  const localSrc = TOOL_LOGOS[name] || null;
+
+  if (sheetSrc || localSrc) {
     return (
       <div style={{
         height: 140, background: "#fff",
@@ -125,13 +128,15 @@ function ToolMonogram({ name, accent }: { name: string; accent: string }) {
         position: "relative", overflow: "hidden", padding: "0 32px",
         borderBottom: "1px solid var(--hairline)",
       }}>
-        <Image
-          src={logoSrc}
-          alt={name}
-          width={180}
-          height={90}
-          style={{ objectFit: "contain", maxHeight: 80, maxWidth: 180 }}
-        />
+        {sheetSrc ? (
+          // URL externa da planilha — usa img simples (sem restrição de domínio Next.js)
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={sheetSrc} alt={name}
+            style={{ objectFit: "contain", maxHeight: 80, maxWidth: 180 }} />
+        ) : (
+          <Image src={localSrc!} alt={name} width={180} height={90}
+            style={{ objectFit: "contain", maxHeight: 80, maxWidth: 180 }} />
+        )}
       </div>
     );
   }
@@ -286,7 +291,7 @@ function ToolModal({ tool, onClose }: { tool: Tool; onClose: () => void }) {
         </div>
 
         {/* Logo */}
-        <ToolMonogram name={tool.nome} accent={color.accent} />
+        <ToolMonogram name={tool.nome} accent={color.accent} imageUrl={tool.imagem_url} />
 
         <div style={{ padding: "22px 24px 36px" }}>
           <span className="num-eyebrow" style={{ display: "block", marginBottom: 8 }}>{tool.custo}</span>
@@ -365,7 +370,7 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
       {/* Colored cover */}
       {/* Logo + tag badge */}
       <div style={{ position: "relative" }}>
-        <ToolMonogram name={tool.nome} accent={color.accent} />
+        <ToolMonogram name={tool.nome} accent={color.accent} imageUrl={tool.imagem_url} />
         {tool.tag?.trim() && (
           <span style={{
             position: "absolute", top: 10, right: 10,

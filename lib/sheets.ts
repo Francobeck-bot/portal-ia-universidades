@@ -75,6 +75,7 @@ export interface Tool {
   universidades_que_recomendam: string;
   video_url: string;
   tag?: string;
+  imagem_url?: string;
 }
 
 export interface Example {
@@ -325,7 +326,8 @@ export async function fetchTools(sheetUrl?: string): Promise<Tool[]> {
       link:                        (r["link"]                         ?? r["Link"]                         ?? "").trim(),
       universidades_que_recomendam:(r["universidades_que_recomendam"] ?? r["Universidades que Recomendam"] ?? "").trim(),
       video_url:                   (r["video_url"]                    ?? r["Video URL"]                    ?? r["video url"] ?? "").trim(),
-      tag:                         (r["tag"]                          ?? r["Tag"]                          ?? r["Destaque"] ?? "").trim(),
+      tag:                         (r["tag"]                          ?? r["Tag"]                          ?? r["Destaque"]   ?? "").trim(),
+      imagem_url:                  (r["imagem_url"]                   ?? r["Imagem URL"]                   ?? r["imagem"]     ?? r["Imagem"] ?? r["logo_url"] ?? "").trim(),
     }));
     const valid = mapped.filter(t => t.nome && t.link);
     if (valid.length === 0) return FALLBACK_TOOLS;
