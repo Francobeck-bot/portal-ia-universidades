@@ -35,10 +35,8 @@ export default async function ExemplosPage() {
         </div>
       </section>
 
-      {/* ── Examples (sticky filter bar lives inside ExamplesClient) ── */}
-      <div className="container-wide" style={{ padding: "0 32px" }}>
-        <ExamplesClient examples={examples} />
-      </div>
+      {/* ── Examples — sem container para o filter bar ir até as bordas ── */}
+      <ExamplesClient examples={examples} />
 
     </main>
   );

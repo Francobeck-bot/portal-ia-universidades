@@ -211,9 +211,8 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
         position: "sticky", top: 64, zIndex: 10,
         background: "var(--surface)",
         borderBottom: "1px solid var(--hairline)",
-        margin: "0 -32px",
       }}>
-        <div style={{ padding: "0 32px" }}>
+        <div className="ex-filter-inner" style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
           <div style={{
             display: "flex", gap: 8, alignItems: "center",
             paddingTop: 14, paddingBottom: 14,
@@ -244,7 +243,7 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
       </div>
 
       {/* ── Groups ── */}
-      <div style={{ paddingTop: 48, paddingBottom: 96 }}>
+      <div className="ex-cards-wrap" style={{ maxWidth: 1440, margin: "0 auto", paddingTop: 48, paddingBottom: 96, padding: "48px 32px 96px" }}>
         {visible.length === 0 ? (
           <div style={{ textAlign: "center", padding: "80px 0", color: "var(--muted)" }}>
             <SearchX size={36} style={{ margin: "0 auto 12px", opacity: 0.4, display: "block" }} />
@@ -319,7 +318,8 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
         .filter-scroll { scrollbar-width: none; }
         .filter-scroll::-webkit-scrollbar { display: none; }
         @media (max-width: 640px) {
-          .ex-filter-wrap { margin: 0 -20px !important; }
+          .ex-filter-inner { padding: 0 23px !important; }
+          .ex-cards-wrap { padding: 32px 23px 64px !important; }
           .ex-cards-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
