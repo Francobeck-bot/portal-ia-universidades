@@ -363,7 +363,27 @@ function ModernCard({ tool, index, onMore }: { tool: Tool; index: number; onMore
       }}
     >
       {/* Colored cover */}
-      <ToolMonogram name={tool.nome} accent={color.accent} />
+      {/* Logo + tag badge */}
+      <div style={{ position: "relative" }}>
+        <ToolMonogram name={tool.nome} accent={color.accent} />
+        {tool.tag?.trim() && (
+          <span style={{
+            position: "absolute", top: 10, right: 10,
+            background: "rgba(15,23,42,0.78)",
+            color: "#fff",
+            fontSize: 10, fontWeight: 700,
+            padding: "3px 8px",
+            borderRadius: 999,
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            backdropFilter: "blur(4px)",
+            whiteSpace: "nowrap",
+            pointerEvents: "none",
+          }}>
+            {tool.tag}
+          </span>
+        )}
+      </div>
 
       <div className="tool-card-body" style={{ padding: "24px 24px 20px", display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
         {/* Category pills (all types) */}

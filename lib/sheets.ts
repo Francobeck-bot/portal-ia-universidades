@@ -74,6 +74,7 @@ export interface Tool {
   link: string;
   universidades_que_recomendam: string;
   video_url: string;
+  tag: string;
 }
 
 export interface Example {
@@ -95,7 +96,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito / Pago",
     link: "https://chat.openai.com",
     universidades_que_recomendam: "Harvard, MIT, Stanford, Cornell, Princeton",
-    video_url: "",
+    video_url: "", tag: "",
   },
   {
     nome: "Microsoft Copilot",
@@ -315,10 +316,18 @@ export async function fetchTools(sheetUrl?: string): Promise<Tool[]> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
     const rows = parseCSV(csv);
-    // Remove linhas vazias (sem nome ou sem link) para não gerar cards quebrados
-    const valid = (rows as unknown as Tool[]).filter(
-      (t) => t.nome?.trim() && t.link?.trim()
-    );
+    const mapped: Tool[] = rows.map(r => ({
+      nome:                        (r["nome"]                         ?? r["Nome"]                         ?? "").trim(),
+      tipo:                        (r["tipo"]                         ?? r["Tipo"]                         ?? "").trim(),
+      descricao:                   (r["descricao"]                    ?? r["Descrição"]                    ?? r["Descricao"] ?? "").trim(),
+      casos_de_uso:                (r["casos_de_uso"]                 ?? r["Casos de Uso"]                 ?? r["casos de uso"] ?? "").trim(),
+      custo:                       (r["custo"]                        ?? r["Custo"]                        ?? "").trim(),
+      link:                        (r["link"]                         ?? r["Link"]                         ?? "").trim(),
+      universidades_que_recomendam:(r["universidades_que_recomendam"] ?? r["Universidades que Recomendam"] ?? "").trim(),
+      video_url:                   (r["video_url"]                    ?? r["Video URL"]                    ?? r["video url"] ?? "").trim(),
+      tag:                         (r["tag"]                          ?? r["Tag"]                          ?? r["Destaque"] ?? "").trim(),
+    }));
+    const valid = mapped.filter(t => t.nome && t.link);
     if (valid.length === 0) return FALLBACK_TOOLS;
     return valid;
   } catch {
