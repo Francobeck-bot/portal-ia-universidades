@@ -518,7 +518,7 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
                 <ModernCard tool={tool} index={i} onMore={() => setActiveTool(tool)} />
                 {tool.tag?.trim() && (
                   <span className="tool-tag-badge" style={{
-                    position: "absolute", top: -13, right: 10, zIndex: 2,
+                    position: "absolute", top: -13, right: 0, zIndex: 2,
                     background: "#EDE9FE", color: "#5B21B6",
                     fontSize: 11, fontWeight: 600,
                     padding: "4px 11px", borderRadius: 8,
