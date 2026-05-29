@@ -536,7 +536,7 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
                 <ModernCard tool={tool} index={i} onMore={() => setActiveTool(tool)} />
                 {tool.tag?.trim() && (
                   <span className="tool-tag-badge" style={{
-                    position: "absolute", top: -13, right: 0, zIndex: 2,
+                    position: "absolute", top: -13, right: -10, zIndex: 2,
                     background: tagColor(tool.tag!).bg,
                     color: tagColor(tool.tag!).fg,
                     fontSize: 11, fontWeight: 500,
@@ -597,7 +597,7 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
           .tool-card[data-tool="Teachy"] .tool-logo-wrap img { max-height: 90px !important; max-width: 200px !important; }
 
           /* Tag menor */
-          .tool-tag-badge { font-size: 10px !important; padding: 3px 8px !important; top: -12px !important; right: 12px !important; }
+          .tool-tag-badge { font-size: 10px !important; padding: 3px 8px !important; top: -12px !important; right: -8px !important; }
 
           /* Botão filtros */
           .filter-toggle-btn {
