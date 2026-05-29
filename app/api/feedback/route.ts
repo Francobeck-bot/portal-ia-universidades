@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const scriptUrl = process.env.FEEDBACK_SCRIPT_URL;
+  const scriptUrl = process.env.FEEDBACK_SCRIPT_URL?.trim();
 
   let body: Record<string, string>;
   try {
@@ -10,9 +10,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
   }
 
-  // If no script URL configured yet, log and return OK so the UI still works
-  if (!scriptUrl || scriptUrl.includes("SEU_ID") || scriptUrl.trim() === "") {
-    console.log("[Feedback - not configured]", body);
+  if (!scriptUrl) {
+    console.warn("[Feedback] FEEDBACK_SCRIPT_URL não configurada. Dados recebidos:", body);
     return NextResponse.json({ ok: true });
   }
 
@@ -23,16 +22,22 @@ export async function POST(req: NextRequest) {
       pagina: req.headers.get("referer") ?? "",
     };
 
+    // Google Apps Script redireciona POSTs — usar Content-Type text/plain
+    // evita o problema do redirect POST→GET no Node.js fetch
     const res = await fetch(scriptUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload),
+      redirect: "follow",
     });
 
-    if (!res.ok) throw new Error(`Apps Script returned ${res.status}`);
+    const responseText = await res.text().catch(() => "");
+    console.log("[Feedback] GAS status:", res.status, "| resposta:", responseText.slice(0, 150));
+
+    if (!res.ok) throw new Error(`GAS retornou status ${res.status}`);
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[Feedback] Error sending to Apps Script:", err);
+    console.error("[Feedback] Erro ao enviar:", err);
     return NextResponse.json({ ok: false, error: "Submit failed" }, { status: 500 });
   }
 }
