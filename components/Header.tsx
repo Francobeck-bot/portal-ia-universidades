@@ -11,6 +11,8 @@ const navLinks = [
   { href: "/diretrizes",  label: "Diretrizes" },
   { href: "/ferramentas", label: "Ferramentas" },
   { href: "/exemplos",    label: "Exemplos de Uso" },
+  { href: "/aprender",    label: "Aprender IA" },
+  { href: "/cursos",      label: "Cursos" },
 ];
 
 export default function Header() {

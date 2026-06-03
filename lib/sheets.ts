@@ -402,3 +402,103 @@ export async function fetchReferences(sheetUrl?: string): Promise<Reference[]> {
     return FALLBACK_REFERENCES;
   }
 }
+
+// ── Literacy (Aprender IA) ────────────────────────────────────────────────────
+
+export interface LiteracyItem {
+  titulo: string;
+  descricao: string;
+  icone?: string;
+  subtopicos?: string;
+}
+
+export const FALLBACK_LITERACY: LiteracyItem[] = [
+  { titulo: "O que é Inteligência Artificial?", icone: "🤖",
+    descricao: "IA é um conjunto de tecnologias que permitem que máquinas aprendam com dados e tomem decisões. Não é mágica — é estatística e padrões.",
+    subtopicos: "Machine Learning, Redes Neurais, Modelos de Linguagem (LLM)" },
+  { titulo: "Como funcionam os chatbots de IA?", icone: "💬",
+    descricao: "Ferramentas como ChatGPT e Claude são modelos de linguagem treinados em grandes volumes de texto. Eles preveem a próxima palavra com base no contexto.",
+    subtopicos: "Prompt, Contexto, Temperatura, Alucinação" },
+  { titulo: "O que a IA pode e não pode fazer?", icone: "⚖️",
+    descricao: "IA é excelente para geração de texto, resumos e brainstorming. Ela erra em fatos, não tem acesso a eventos recentes e não substitui julgamento crítico.",
+    subtopicos: "Pontos fortes, Limitações, Vieses" },
+  { titulo: "Como usar IA de forma ética?", icone: "🎓",
+    descricao: "Declare quando usou IA, verifique as informações geradas, preserve a privacidade dos dados e mantenha o pensamento crítico como protagonista.",
+    subtopicos: "Transparência, Verificação, Privacidade, Plágio" },
+];
+
+export async function fetchLiteracy(sheetUrl?: string): Promise<LiteracyItem[]> {
+  if (!sheetUrl || sheetUrl.includes("SEU_ID")) return FALLBACK_LITERACY;
+  try {
+    const res = await fetch(sheetUrl, { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const mapped: LiteracyItem[] = rows.map(r => ({
+      titulo:      (r["titulo"]      ?? r["Titulo"]      ?? r["Título"]      ?? "").trim(),
+      descricao:   (r["descricao"]   ?? r["Descrição"]   ?? r["Descricao"]   ?? "").trim(),
+      icone:       (r["icone"]       ?? r["Ícone"]       ?? r["icone"]       ?? "").trim(),
+      subtopicos:  (r["subtopicos"]  ?? r["Subtópicos"]  ?? r["subtopicos"]  ?? "").trim(),
+    }));
+    const valid = mapped.filter(i => i.titulo && i.descricao);
+    return valid.length > 0 ? valid : FALLBACK_LITERACY;
+  } catch {
+    return FALLBACK_LITERACY;
+  }
+}
+
+// ── Courses ───────────────────────────────────────────────────────────────────
+
+export interface Course {
+  nome: string;
+  descricao: string;
+  nivel: string;
+  link: string;
+  plataforma?: string;
+  duracao?: string;
+  gratuito?: string;
+}
+
+export const FALLBACK_COURSES: Course[] = [
+  { nome: "Elements of AI", nivel: "Iniciante",
+    descricao: "Introdução à IA para não-especialistas. Gratuito, sem pré-requisitos, com mais de 1 milhão de usuários.",
+    link: "https://www.elementsofai.com/br", plataforma: "University of Helsinki", duracao: "6 semanas", gratuito: "Sim" },
+  { nome: "AI for Everyone – Andrew Ng", nivel: "Iniciante",
+    descricao: "Visão geral de IA para líderes e não-técnicos. Explica o que a IA pode e não pode fazer nas organizações.",
+    link: "https://www.coursera.org/learn/ai-for-everyone", plataforma: "Coursera / DeepLearning.AI", duracao: "6 horas", gratuito: "Sim" },
+  { nome: "Prompt Engineering for ChatGPT", nivel: "Intermediário",
+    descricao: "Como escrever prompts eficazes para obter melhores resultados com LLMs. Prático e direto.",
+    link: "https://www.coursera.org/learn/prompt-engineering", plataforma: "Coursera / Vanderbilt", duracao: "10 horas", gratuito: "Parcial" },
+  { nome: "ChatGPT Prompt Engineering for Developers", nivel: "Intermediário",
+    descricao: "Curso técnico de Andrew Ng e OpenAI sobre como usar a API do ChatGPT eficientemente.",
+    link: "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/", plataforma: "DeepLearning.AI", duracao: "2 horas", gratuito: "Sim" },
+  { nome: "Machine Learning Specialization", nivel: "Avançado",
+    descricao: "Fundamentos de machine learning com Andrew Ng. Regressão, classificação, redes neurais e aprendizado por reforço.",
+    link: "https://www.coursera.org/specializations/machine-learning-introduction", plataforma: "Coursera / Stanford", duracao: "3 meses", gratuito: "Parcial" },
+  { nome: "Deep Learning Specialization", nivel: "Avançado",
+    descricao: "Redes neurais profundas, CNNs, RNNs e Transformers. O caminho completo para entender a fundação dos LLMs modernos.",
+    link: "https://www.coursera.org/specializations/deep-learning", plataforma: "Coursera / DeepLearning.AI", duracao: "4 meses", gratuito: "Parcial" },
+];
+
+export async function fetchCourses(sheetUrl?: string): Promise<Course[]> {
+  if (!sheetUrl || sheetUrl.includes("SEU_ID")) return FALLBACK_COURSES;
+  try {
+    const res = await fetch(sheetUrl, { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const mapped: Course[] = rows.map(r => ({
+      nome:       (r["nome"]       ?? r["Nome"]       ?? "").trim(),
+      descricao:  (r["descricao"]  ?? r["Descrição"]  ?? r["Descricao"]  ?? "").trim(),
+      nivel:      (r["nivel"]      ?? r["Nível"]      ?? r["Nivel"]      ?? "").trim(),
+      link:       (r["link"]       ?? r["Link"]       ?? "").trim(),
+      plataforma: (r["plataforma"] ?? r["Plataforma"] ?? "").trim(),
+      duracao:    (r["duracao"]    ?? r["Duração"]    ?? r["Duracao"]    ?? "").trim(),
+      gratuito:   (r["gratuito"]   ?? r["Gratuito"]   ?? "").trim(),
+    }));
+    const valid = mapped.filter(c => c.nome && c.link && c.nivel);
+    return valid.length > 0 ? valid : FALLBACK_COURSES;
+  } catch {
+    return FALLBACK_COURSES;
+  }
+}

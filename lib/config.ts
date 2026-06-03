@@ -6,4 +6,6 @@ export const SHEETS_CONFIG = {
   principlesSheetUrl:   process.env.PRINCIPLES_SHEET_URL   || "SEU_ID_AQUI",
   syllabusSheetUrl:     process.env.SYLLABUS_SHEET_URL     || "SEU_ID_AQUI",
   referencesSheetUrl:   process.env.REFERENCES_SHEET_URL   || "SEU_ID_AQUI",
+  literacySheetUrl:     process.env.LITERACY_SHEET_URL     || "SEU_ID_AQUI",
+  coursesSheetUrl:      process.env.COURSES_SHEET_URL      || "SEU_ID_AQUI",
 };
