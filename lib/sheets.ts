@@ -414,24 +414,24 @@ export interface LiteracyItem {
 
 export const FALLBACK_LITERACY: LiteracyItem[] = [
   {
-    titulo: "Por onde começar",
-    descricao: "Abra o ChatGPT ou o Claude e simplesmente escreva uma pergunta, como faria com um colega de trabalho. Não precisa saber programar, não precisa instalar nada. Se você consegue mandar um e-mail, consegue usar IA. Comece com algo simples: \"Me sugira três formas de tornar uma aula de Gestão de Operações mais interativa.\"",
-    subtopicos: "ChatGPT, Claude, Sem instalação, Gratuito para começar",
+    titulo: "Como acessar e dar o primeiro passo",
+    descricao: "Entre em chat.openai.com (ChatGPT) ou claude.ai (Claude) pelo navegador do computador ou celular. Crie uma conta gratuita com seu e-mail. Pronto: aparece uma caixa de texto, como um chat de WhatsApp. Digite sua pergunta e aperte Enter.\n\nNão precisa instalar nada, não precisa saber programar. Se você consegue mandar um e-mail, consegue usar IA.",
+    subtopicos: "chat.openai.com, claude.ai, Conta gratuita, Funciona no celular",
   },
   {
-    titulo: "O que a IA pode fazer por você como professor",
-    descricao: "Na prática, você pode usar IA para preparar planos de aula e rubricas de avaliação, criar exercícios e listas de problemas, resumir artigos longos em pontos principais, dar feedback detalhado em textos de alunos e responder dúvidas de alunos fora do horário de atendimento. Nada disso exige configuração especial.",
-    subtopicos: "Plano de aula, Exercícios, Resumo de artigos, Feedback, Atendimento 24h",
+    titulo: "O que você pode pedir para a IA como professor",
+    descricao: "Você pode colar o texto de um artigo longo e pedir um resumo. Pode pedir que ela crie exercícios ou questões de prova sobre um tema. Pode pedir feedback em um texto de aluno, sugestões de plano de aula, ou que ela responda dúvidas frequentes dos seus alunos.\n\nVocê também pode enviar um PDF diretamente no chat (clique no ícone de clipe ou adição de arquivo) e pedir que ela leia e resuma. O ChatGPT e o Claude conseguem ler documentos inteiros.",
+    subtopicos: "Resumir PDF, Criar exercícios, Feedback em textos, Plano de aula",
   },
   {
-    titulo: "Como dar uma boa instrução para a IA",
-    descricao: "Quanto mais contexto você der, melhor a resposta. Compare os dois exemplos abaixo.\n\nExemplo fraco: \"Crie um exercício sobre processos.\"\n\nExemplo bom: \"Crie um exercício de múltipla escolha para alunos de 3º ano de Engenharia de Produção sobre balanceamento de linha de montagem. Nível intermediário, 4 alternativas, inclua uma pegadinha comum que os alunos costumam errar.\"\n\nA diferença é enorme. Trate a IA como um assistente que precisa de contexto, não como um buscador.",
-    subtopicos: "Prompt, Contexto, Papel, Nível de detalhe",
+    titulo: "Como pedir bem e obter respostas melhores",
+    descricao: "A IA responde melhor quando você explica quem você é, o que quer e para quem é o resultado. Compare:\n\nPedido vago: \"Crie um exercício sobre processos.\"\n\nPedido claro: \"Sou professora de Engenharia de Produção. Crie um exercício de múltipla escolha para alunos do 3º ano sobre balanceamento de linha de montagem. 4 alternativas, nível intermediário, com uma pegadinha comum que os alunos costumam errar.\"\n\nQuanto mais contexto, mais útil a resposta.",
+    subtopicos: "Contexto, Papel, Público-alvo, Nível de detalhe",
   },
   {
-    titulo: "O que a IA não faz e onde não confiar cegamente",
-    descricao: "A IA inventa. Ela pode apresentar fatos errados com total confiança, incluindo referências bibliográficas que não existem. Não tem acesso a notícias ou publicações recentes. E não substitui seu julgamento como professor: ela não conhece sua turma, não sabe o que já foi ensinado e não tem responsabilidade pedagógica. Use como rascunho e ponto de partida, nunca como produto final.",
-    subtopicos: "Alucinação, Verificação de fatos, Sem acesso a eventos recentes",
+    titulo: "O que a IA erra e onde não confiar",
+    descricao: "A IA inventa com confiança. Ela pode citar artigos que não existem, atribuir afirmações a autores que nunca as fizeram, e apresentar números errados como se fossem corretos.\n\nEla também não sabe o que aconteceu nos últimos meses. Sua base de conhecimento tem uma data de corte.\n\nUse o que ela produz como rascunho. Sempre revise antes de usar com alunos ou publicar.",
+    subtopicos: "Verificar fatos, Referências inventadas, Data de corte, Revisar sempre",
   },
 ];
 

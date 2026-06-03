@@ -12,6 +12,13 @@ function Arrow() {
   );
 }
 
+const CARD_ACCENTS = [
+  { bar: "#3B82F6", num: "#DBEAFE", numFg: "#1E40AF" }, // azul
+  { bar: "#059669", num: "#D1FAE5", numFg: "#065F46" }, // verde
+  { bar: "#7C3AED", num: "#EDE9FE", numFg: "#5B21B6" }, // violeta
+  { bar: "#D97706", num: "#FEF3C7", numFg: "#92400E" }, // âmbar
+];
+
 export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
   const [choice, setChoice] = useState<"confident" | "learning" | null>(null);
 
@@ -128,36 +135,54 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 24 }}>
-              {items.map((item, i) => (
-                <div key={i} style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--hairline)",
-                  borderRadius: 10, padding: "28px 24px",
-                  display: "flex", flexDirection: "column", gap: 12,
-                }}>
-                  <h4 style={{
-                    fontFamily: "var(--display)", fontSize: 22,
-                    letterSpacing: "-0.01em", lineHeight: 1.1, fontWeight: 400,
-                    color: "var(--ink)",
+              {items.map((item, i) => {
+                const accent = CARD_ACCENTS[i % CARD_ACCENTS.length];
+                return (
+                  <div key={i} style={{
+                    background: "var(--surface)",
+                    border: "1px solid var(--hairline)",
+                    borderRadius: 10, overflow: "hidden",
+                    display: "flex", flexDirection: "column",
                   }}>
-                    {item.titulo}
-                  </h4>
-                  <p style={{ fontSize: 14, lineHeight: 1.65, color: "var(--muted)", whiteSpace: "pre-line" }}>
-                    {item.descricao}
-                  </p>
-                  {item.subtopicos?.trim() && (
-                    <div style={{ marginTop: 4, display: "flex", flexWrap: "wrap", gap: 6 }}>
-                      {item.subtopicos.split(",").map(s => s.trim()).filter(Boolean).map(sub => (
-                        <span key={sub} style={{
-                          fontSize: 11, padding: "2px 8px",
-                          background: "var(--bg)", border: "1px solid var(--hairline)",
-                          borderRadius: 6, color: "var(--ink-soft)",
-                        }}>{sub}</span>
-                      ))}
+                    {/* Barra colorida no topo */}
+                    <div style={{ height: 4, background: accent.bar }} />
+
+                    <div style={{ padding: "22px 24px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+                      {/* Número */}
+                      <span style={{
+                        display: "inline-flex", alignItems: "center", justifyContent: "center",
+                        width: 28, height: 28, borderRadius: 6,
+                        background: accent.num, color: accent.numFg,
+                        fontSize: 11, fontWeight: 700, letterSpacing: "0.04em",
+                      }}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+
+                      <h4 style={{
+                        fontFamily: "var(--display)", fontSize: 22,
+                        letterSpacing: "-0.01em", lineHeight: 1.1, fontWeight: 400,
+                        color: "var(--ink)",
+                      }}>
+                        {item.titulo}
+                      </h4>
+                      <p style={{ fontSize: 14, lineHeight: 1.65, color: "var(--muted)", whiteSpace: "pre-line" }}>
+                        {item.descricao}
+                      </p>
+                      {item.subtopicos?.trim() && (
+                        <div style={{ marginTop: 4, display: "flex", flexWrap: "wrap", gap: 6 }}>
+                          {item.subtopicos.split(",").map(s => s.trim()).filter(Boolean).map(sub => (
+                            <span key={sub} style={{
+                              fontSize: 11, padding: "2px 8px",
+                              background: "var(--bg)", border: "1px solid var(--hairline)",
+                              borderRadius: 6, color: "var(--ink-soft)",
+                            }}>{sub}</span>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
 
             <div style={{ marginTop: 64, padding: "32px 28px", background: "var(--charcoal)", borderRadius: 10, maxWidth: 640 }}>
