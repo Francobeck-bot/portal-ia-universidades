@@ -45,7 +45,6 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
                 fontFamily: "var(--body)",
               }}
             >
-              <span style={{ fontSize: 32, display: "block", marginBottom: 12 }}>✅</span>
               <p style={{
                 fontFamily: "var(--display)", fontSize: "clamp(18px, 2.2vw, 26px)",
                 lineHeight: 1.15, fontWeight: 400,
@@ -72,7 +71,6 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
                 fontFamily: "var(--body)",
               }}
             >
-              <span style={{ fontSize: 32, display: "block", marginBottom: 12 }}>🤔</span>
               <p style={{
                 fontFamily: "var(--display)", fontSize: "clamp(18px, 2.2vw, 26px)",
                 lineHeight: 1.15, fontWeight: 400,
@@ -99,7 +97,7 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
                 Explore os cursos disponíveis
               </h3>
               <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--muted)", marginBottom: 28 }}>
-                Separamos cursos por nível — de introdutórios a avançados — para você continuar evoluindo no uso de IA.
+                Separamos cursos por nível, de introdutórios a avançados, para você continuar evoluindo no uso de IA.
               </p>
               <Link href="/cursos" className="btn-primary" style={{
                 display: "inline-flex", alignItems: "center", gap: 10,
@@ -137,9 +135,6 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
                   borderRadius: 10, padding: "28px 24px",
                   display: "flex", flexDirection: "column", gap: 12,
                 }}>
-                  {item.icone && (
-                    <span style={{ fontSize: 28 }}>{item.icone}</span>
-                  )}
                   <h4 style={{
                     fontFamily: "var(--display)", fontSize: 22,
                     letterSpacing: "-0.01em", lineHeight: 1.1, fontWeight: 400,

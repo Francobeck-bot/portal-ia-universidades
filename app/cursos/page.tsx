@@ -69,7 +69,7 @@ export default async function CursosPage() {
             Cursos de IA para Educadores
           </h1>
           <p className="lead" style={{ maxWidth: 600, marginTop: 32, color: "rgba(255,255,255,0.72)" }}>
-            Uma seleção curada de cursos online — de introdutórios a avançados —
+            Uma seleção curada de cursos online, de introdutórios a avançados,
             para quem quer entender e usar IA com mais profundidade.
           </p>
         </div>
