@@ -413,18 +413,30 @@ export interface LiteracyItem {
 }
 
 export const FALLBACK_LITERACY: LiteracyItem[] = [
-  { titulo: "O que é Inteligência Artificial?", icone: "🤖",
-    descricao: "IA é um conjunto de tecnologias que permitem que máquinas aprendam com dados e tomem decisões. Não é mágica — é estatística e padrões.",
-    subtopicos: "Machine Learning, Redes Neurais, Modelos de Linguagem (LLM)" },
-  { titulo: "Como funcionam os chatbots de IA?", icone: "💬",
-    descricao: "Ferramentas como ChatGPT e Claude são modelos de linguagem treinados em grandes volumes de texto. Eles preveem a próxima palavra com base no contexto.",
-    subtopicos: "Prompt, Contexto, Temperatura, Alucinação" },
-  { titulo: "O que a IA pode e não pode fazer?", icone: "⚖️",
-    descricao: "IA é excelente para geração de texto, resumos e brainstorming. Ela erra em fatos, não tem acesso a eventos recentes e não substitui julgamento crítico.",
-    subtopicos: "Pontos fortes, Limitações, Vieses" },
-  { titulo: "Como usar IA de forma ética?", icone: "🎓",
-    descricao: "Declare quando usou IA, verifique as informações geradas, preserve a privacidade dos dados e mantenha o pensamento crítico como protagonista.",
-    subtopicos: "Transparência, Verificação, Privacidade, Plágio" },
+  {
+    titulo: "Por onde começar",
+    icone: "👋",
+    descricao: "Abra o ChatGPT ou o Claude e simplesmente escreva uma pergunta — como faria com um colega de trabalho. Não precisa saber programar, não precisa instalar nada. Se você consegue mandar um e-mail, consegue usar IA. Comece com algo simples: \"Me sugira três formas de tornar uma aula de Gestão de Operações mais interativa.\"",
+    subtopicos: "ChatGPT, Claude, Sem instalação, Gratuito para começar",
+  },
+  {
+    titulo: "O que a IA pode fazer por você como professor",
+    icone: "🛠️",
+    descricao: "Na prática, você pode usar IA para: preparar planos de aula e rubricas de avaliação, criar exercícios e listas de problemas, resumir artigos longos em pontos principais, dar feedback detalhado em textos de alunos, e responder dúvidas de alunos fora do horário de atendimento. Nada disso exige configuração especial — é só pedir.",
+    subtopicos: "Plano de aula, Exercícios, Resumo de artigos, Feedback, Atendimento 24h",
+  },
+  {
+    titulo: "Como dar uma boa instrução para a IA",
+    icone: "✍️",
+    descricao: "Quanto mais contexto você der, melhor a resposta. Compare:\n\n❌ Ruim: \"Crie um exercício sobre processos.\"\n\n✅ Bom: \"Crie um exercício de múltipla escolha para alunos de 3º ano de Engenharia de Produção sobre balanceamento de linha de montagem. Nível intermediário, 4 alternativas, inclua uma pegadinha comum que os alunos costumam errar.\"\n\nA diferença é enorme. Trate a IA como um assistente inteligente que precisa de contexto — não como um buscador.",
+    subtopicos: "Prompt, Contexto, Papel, Nível de detalhe",
+  },
+  {
+    titulo: "O que a IA não faz — e onde não confiar cegamente",
+    icone: "⚠️",
+    descricao: "A IA inventa. Ela pode apresentar fatos errados com total confiança — incluindo referências bibliográficas que não existem. Não tem acesso a notícias ou publicações recentes. E não substitui seu julgamento como professor: ela não conhece sua turma, não sabe o que já foi ensinado, não tem responsabilidade pedagógica. Use como rascunho e ponto de partida, nunca como produto final.",
+    subtopicos: "Alucinação, Verificação de fatos, Sem acesso a eventos recentes",
+  },
 ];
 
 export async function fetchLiteracy(sheetUrl?: string): Promise<LiteracyItem[]> {

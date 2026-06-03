@@ -147,7 +147,7 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
                   }}>
                     {item.titulo}
                   </h4>
-                  <p style={{ fontSize: 14, lineHeight: 1.65, color: "var(--muted)" }}>
+                  <p style={{ fontSize: 14, lineHeight: 1.65, color: "var(--muted)", whiteSpace: "pre-line" }}>
                     {item.descricao}
                   </p>
                   {item.subtopicos?.trim() && (
