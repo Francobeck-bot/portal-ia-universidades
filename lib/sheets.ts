@@ -501,7 +501,7 @@ export async function fetchCourses(sheetUrl?: string): Promise<Course[]> {
     const csv = await res.text();
     const rows = parseCSV(csv);
     const mapped: Course[] = rows.map(r => ({
-      nome:       (r["nome"]       ?? r["Nome"]       ?? "").trim(),
+      nome:       (r["nome"]       ?? r["Nome"]       ?? r["nom"] ?? r["Nom"] ?? "").trim(),
       descricao:  (r["descricao"]  ?? r["Descrição"]  ?? r["Descricao"]  ?? "").trim(),
       nivel:      (r["nivel"]      ?? r["Nível"]      ?? r["Nivel"]      ?? "").trim(),
       link:       (r["link"]       ?? r["Link"]       ?? "").trim(),
