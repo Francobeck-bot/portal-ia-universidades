@@ -91,8 +91,43 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── STATS ─────────────────────────────────────────── */}
+      {/* ── APRENDER IA CTA ──────────────────────────────── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
+        <div className="container-wide" style={{ padding: "72px 32px" }}>
+          <div className="aprender-cta-inner" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 40, flexWrap: "wrap" }}>
+            <div style={{ maxWidth: 580 }}>
+              <span className="eyebrow" style={{ display: "block", marginBottom: 16, color: "rgba(255,255,255,0.45)" }}>
+                Aprender IA
+              </span>
+              <h2 className="display-tight" style={{
+                fontSize: "clamp(28px, 3.6vw, 48px)",
+                lineHeight: 1.05, letterSpacing: "-0.02em",
+                color: "#fff", marginBottom: 16,
+              }}>
+                Nunca usou IA e não sabe por onde começar?
+              </h2>
+              <p style={{ fontSize: 15, lineHeight: 1.65, color: "rgba(255,255,255,0.6)", maxWidth: 460 }}>
+                Criamos um guia para quem está dando os primeiros passos. Do acesso básico ao uso consciente, sem precisar saber nada de tecnologia.
+              </p>
+            </div>
+            <Link href="/aprender" style={{
+              display: "inline-flex", alignItems: "center", gap: 10,
+              background: "#fff", color: "var(--charcoal)",
+              padding: "14px 24px", borderRadius: "var(--radius)",
+              fontSize: 14, fontWeight: 600, textDecoration: "none",
+              whiteSpace: "nowrap", flexShrink: 0,
+            }}>
+              Ver Aprender IA
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── STATS ─────────────────────────────────────────── */}
+      <section style={{ background: "var(--charcoal)", color: "var(--on-dark)", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div className="container-wide home-section-stats" style={{ padding: "88px 32px" }}>
           <div style={{ marginBottom: 56, maxWidth: 680 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
@@ -175,6 +210,9 @@ export default async function HomePage() {
 
       <style>{`
         .nav-card-item:hover { background: #fafbfb; }
+        @media (max-width: 640px) {
+          .aprender-cta-inner { flex-direction: column !important; align-items: flex-start !important; }
+        }
       `}</style>
     </div>
   );
