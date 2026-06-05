@@ -33,6 +33,15 @@ export default async function HomePage() {
     { href: "/exemplos",    n: "03", label: "Exemplos de Uso",
       desc: "Casos práticos reais com instruções de como implementar na sua disciplina hoje.",
       tag: `${examples.length} exemplos` },
+    { href: "/aprender",    n: "04", label: "Aprender IA",
+      desc: "Guia para quem nunca usou IA. Do primeiro acesso ao uso consciente, sem precisar saber nada de tecnologia.",
+      tag: "Para iniciantes" },
+    { href: "/cursos",      n: "05", label: "Cursos",
+      desc: "Seleção curada de cursos online do nível iniciante ao avançado, com opções gratuitas.",
+      tag: "Iniciante ao avançado" },
+    { href: "/referencias", n: "06", label: "Referências",
+      desc: "Pesquisas e políticas de universidades globais que embasam as recomendações deste portal.",
+      tag: "Fontes e pesquisas" },
   ];
 
   return (
@@ -61,9 +70,11 @@ export default async function HomePage() {
                 href={it.href}
                 style={{
                   textAlign: "left",
-                  padding: "36px 28px 36px 0",
-                  borderRight: i < 2 ? "1px solid var(--hairline)" : "none",
-                  paddingLeft: i > 0 ? 28 : 0,
+                  padding: "36px 0",
+                  paddingLeft:   i % 3 !== 0 ? 28 : 0,
+                  paddingRight:  (i + 1) % 3 !== 0 ? 28 : 0,
+                  borderRight:   (i + 1) % 3 !== 0 ? "1px solid var(--hairline)" : "none",
+                  borderBottom:  i < 3 ? "1px solid var(--hairline)" : "none",
                   display: "flex", flexDirection: "column", gap: 18,
                   transition: "background 180ms ease",
                 }}

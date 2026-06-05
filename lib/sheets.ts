@@ -44,7 +44,13 @@ export async function fetchPrinciples(sheetUrl?: string): Promise<Principle[]> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const csv = await res.text();
     const rows = parseCSV(csv);
-    const valid = (rows as unknown as Principle[]).filter((p) => p.titulo?.trim());
+    const mapped: Principle[] = rows.map((r, idx) => ({
+      numero:            (r["numero"]            ?? r["Numero"]            ?? r["Número"]            ?? String(idx + 1).padStart(2, "0")).trim(),
+      titulo:            (r["titulo"]            ?? r["Titulo"]            ?? r["Título"]            ?? "").trim(),
+      descricao:         (r["descricao"]         ?? r["Descrição"]         ?? r["Descricao"]         ?? "").trim(),
+      descricao_completa:(r["descricao_completa"] ?? r["Descrição Completa"] ?? r["descricao completa"] ?? r["descricao_completa"] ?? "").trim(),
+    }));
+    const valid = mapped.filter((p) => p.titulo);
     return valid.length > 0 ? valid : FALLBACK_PRINCIPLES;
   } catch {
     return FALLBACK_PRINCIPLES;
