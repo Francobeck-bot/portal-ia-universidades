@@ -433,6 +433,11 @@ export const FALLBACK_LITERACY: LiteracyItem[] = [
     descricao: "A IA inventa com confiança. Ela pode citar artigos que não existem, atribuir afirmações a autores que nunca as fizeram, e apresentar números errados como se fossem corretos.\n\nEla também não sabe o que aconteceu nos últimos meses. Sua base de conhecimento tem uma data de corte.\n\nUse o que ela produz como rascunho. Sempre revise antes de usar com alunos ou publicar.",
     subtopicos: "Verificar fatos, Referências inventadas, Data de corte, Revisar sempre",
   },
+  {
+    titulo: "O que nunca colocar na IA",
+    descricao: "Tudo que você digita no ChatGPT, Claude ou qualquer IA comercial vai para os servidores da empresa. Por padrão, pode ser usado para treinar modelos futuros.\n\nEvite colocar: notas ou dados pessoais de alunos, provas que ainda não foram aplicadas, dados de pesquisa com cláusula de sigilo, informações institucionais confidenciais e qualquer dado que identifique pessoas sem consentimento.\n\nSe precisar usar a IA com esse tipo de conteúdo, substitua por versões fictícias. Troque nomes por \"Aluno A\", remova números reais, use um caso hipotético equivalente. O resultado será igualmente útil.",
+    subtopicos: "Dados de alunos, Provas não aplicadas, LGPD, Sigilo de pesquisa, Dados fictícios",
+  },
 ];
 
 export async function fetchLiteracy(sheetUrl?: string): Promise<LiteracyItem[]> {
