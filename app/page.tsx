@@ -51,7 +51,7 @@ export default async function HomePage() {
 
       {/* ── NAVIGATION CARDS ─────────────────────────────── */}
       <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)" }}>
-        <div className="container-wide home-section" style={{ padding: "88px 32px" }}>
+        <div className="container-wide home-section" style={{ padding: "88px 32px 48px" }}>
           <div style={{ marginBottom: 56, maxWidth: 680 }}>
             <span className="eyebrow" style={{ display: "block", marginBottom: 16 }}>O que você encontra aqui</span>
             <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.4vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.02em", marginBottom: 16 }}>
