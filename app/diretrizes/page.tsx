@@ -66,6 +66,74 @@ export default async function DiretrizesPage() {
         </div>
       </section>
 
+      {/* ── DARK · Riscos e Privacidade ── */}
+      <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
+        <div className="container-wide dir-section-dark" style={{ padding: "72px 32px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.2)", marginBottom: 48 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 12 }}>
+              <span style={{ width: 20, height: 1, background: "rgba(255,255,255,0.4)" }} />
+              <span className="eyebrow" style={{ color: "rgba(255,255,255,0.55)" }}>Pontos de atenção</span>
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48 }} className="riscos-grid">
+
+            {/* Riscos */}
+            <div>
+              <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 28, marginBottom: 24 }}>
+                <h3 className="display" style={{ fontSize: "clamp(22px, 2.6vw, 32px)", color: "#fff", marginBottom: 14, letterSpacing: "-0.01em", lineHeight: 1.1 }}>
+                  Riscos
+                </h3>
+                <p style={{ fontSize: 14, lineHeight: 1.65, color: "rgba(255,255,255,0.6)" }}>
+                  O monitoramento dos riscos da IA é essencial para garantir que a tecnologia apoie o aprendizado sem comprometer o pensamento crítico, a integridade acadêmica e a qualidade do processo de ensino-aprendizagem.
+                </p>
+              </div>
+              {[
+                { title: "Plágio e Integridade Acadêmica", body: "Uso da IA para produzir trabalhos sem autoria real ou sem transparência." },
+                { title: "Dependência Excessiva", body: "Redução do pensamento crítico, criatividade e autonomia dos estudantes." },
+                { title: "Informações Incorretas e Viés Algorítmico", body: "Respostas imprecisas, enviesadas ou alucinações geradas pela IA." },
+                { title: "Aprendizagem Superficial", body: "Priorização de respostas rápidas em detrimento da compreensão real do conteúdo." },
+              ].map((item, i) => (
+                <div key={i} style={{ padding: "16px 0", borderTop: "1px solid rgba(255,255,255,0.12)", display: "grid", gridTemplateColumns: "20px 1fr", gap: 14, alignItems: "start" }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", paddingTop: 2 }}>0{i + 1}</span>
+                  <div>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 4 }}>{item.title}</p>
+                    <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.5)" }}>{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Privacidade */}
+            <div>
+              <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 28, marginBottom: 24 }}>
+                <h3 className="display" style={{ fontSize: "clamp(22px, 2.6vw, 32px)", color: "#fff", marginBottom: 14, letterSpacing: "-0.01em", lineHeight: 1.1 }}>
+                  Privacidade e dados confidenciais
+                </h3>
+                <p style={{ fontSize: 14, lineHeight: 1.65, color: "rgba(255,255,255,0.6)" }}>
+                  Tudo que você digita em uma IA comercial vai para servidores de terceiros fora do Brasil e pode ser usado para treinar modelos futuros. Não é público, mas também não está sob seu controle.
+                </p>
+              </div>
+              {[
+                { title: "Dados de alunos", body: "Notas, desempenho e identificação inseridos em IAs comerciais podem configurar violação da LGPD." },
+                { title: "Pesquisas com sigilo", body: "Convênios, contratos e dados de campo podem ter o sigilo comprometido em ferramentas externas." },
+                { title: "Provas não aplicadas", body: "Avaliações inseridas em IAs ficam fora do controle do professor, com risco real de vazamento." },
+                { title: "A solução prática", body: "Use versões fictícias. Troque nomes por \"Aluno A\", substitua números reais e descreva cenários sem identificar pessoas." },
+              ].map((item, i) => (
+                <div key={i} style={{ padding: "16px 0", borderTop: "1px solid rgba(255,255,255,0.12)", display: "grid", gridTemplateColumns: "20px 1fr", gap: 14, alignItems: "start" }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", paddingTop: 2 }}>0{i + 1}</span>
+                  <div>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 4 }}>{item.title}</p>
+                    <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.5)" }}>{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── 02 · Modelos de política ── */}
       <section>
         <div className="container-wide dir-section" style={{ padding: "80px 32px 64px" }}>
@@ -172,6 +240,7 @@ export default async function DiretrizesPage() {
         @media (max-width: 768px) {
           .world-grid { grid-template-columns: 1fr 1fr !important; }
           .detector-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .riscos-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .dir-section { padding: 48px 20px !important; }
           .dir-section-dark { padding: 48px 20px !important; }
         }
