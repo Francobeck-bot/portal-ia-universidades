@@ -80,7 +80,7 @@ export default async function DiretrizesPage() {
 
             {/* Riscos */}
             <div>
-              <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 28, marginBottom: 24 }}>
+              <div style={{ paddingTop: 4, marginBottom: 24 }}>
                 <h3 className="display" style={{ fontSize: "clamp(22px, 2.6vw, 32px)", color: "#fff", marginBottom: 14, letterSpacing: "-0.01em", lineHeight: 1.1 }}>
                   Riscos
                 </h3>
@@ -106,7 +106,7 @@ export default async function DiretrizesPage() {
 
             {/* Privacidade */}
             <div>
-              <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 28, marginBottom: 24 }}>
+              <div style={{ paddingTop: 4, marginBottom: 24 }}>
                 <h3 className="display" style={{ fontSize: "clamp(22px, 2.6vw, 32px)", color: "#fff", marginBottom: 14, letterSpacing: "-0.01em", lineHeight: 1.1 }}>
                   Privacidade e dados confidenciais
                 </h3>
