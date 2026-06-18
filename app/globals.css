@@ -211,13 +211,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .hero-fiel-grid { grid-template-columns: 1fr !important; }
 
   /* Nav cards — scroll horizontal no mobile */
-  .nav-cards-scroll {
-    margin-left: -23px !important;
-    margin-right: -23px !important;
-    padding-left: 23px !important;
-    padding-right: 23px !important;
-    width: calc(100% + 46px) !important;
-  }
+  .nav-cards-scroll { padding-left: 23px !important; }
   .nav-card-item {
     min-width: 78vw !important;
     max-width: 78vw !important;

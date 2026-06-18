@@ -51,8 +51,9 @@ export default async function HomePage() {
 
       {/* ── NAVIGATION CARDS ─────────────────────────────── */}
       <section style={{ background: "var(--surface)", borderTop: "1px solid var(--hairline)", borderBottom: "1px solid var(--hairline)" }}>
-        <div className="container-wide home-section" style={{ padding: "88px 32px 48px" }}>
-          <div style={{ marginBottom: 56, maxWidth: 680 }}>
+        {/* Título fora do scroll para manter padding correto */}
+        <div className="container-wide" style={{ padding: "88px 32px 32px" }}>
+          <div style={{ maxWidth: 680 }}>
             <span className="eyebrow" style={{ display: "block", marginBottom: 16 }}>O que você encontra aqui</span>
             <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.4vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.02em", marginBottom: 16 }}>
               Tudo em um só lugar
@@ -61,45 +62,48 @@ export default async function HomePage() {
               De diretrizes a ferramentas, de casos práticos a instruções passo a passo. Conteúdo baseado nas melhores universidades do mundo.
             </p>
           </div>
+        </div>
 
-          <div className="nav-cards-scroll" style={{
-            display: "flex", overflowX: "auto", borderTop: "1px solid var(--hairline)",
-            scrollbarWidth: "none", msOverflowStyle: "none",
-          }}>
-            {pages.map((it, i) => (
-              <Link
-                key={it.href}
-                href={it.href}
-                style={{
-                  textAlign: "left",
-                  padding: "36px 28px",
-                  paddingLeft: i === 0 ? 0 : 28,
-                  borderRight: i < pages.length - 1 ? "1px solid var(--hairline)" : "none",
-                  display: "flex", flexDirection: "column", gap: 18,
-                  transition: "background 180ms ease",
-                  minWidth: 240, flex: "0 0 auto",
-                }}
-                className="nav-card-item"
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8 }}>
-                  <span className="num-eyebrow" style={{ flexShrink: 0 }}>{it.n}</span>
-                  <span className="num-eyebrow" style={{ color: "var(--muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{it.tag}</span>
-                </div>
-                <h3 className="display" style={{ fontSize: "clamp(20px, 2.2vw, 34px)", letterSpacing: "-0.01em", lineHeight: 1 }}>
-                  {it.label}
-                </h3>
-                <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)", maxWidth: 260 }}>
-                  {it.desc}
-                </p>
-                <span style={{ marginTop: "auto", paddingTop: 24, display: "inline-flex", alignItems: "center", gap: 10, fontSize: 14, fontWeight: 500 }}>
-                  Acessar
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
-                  </svg>
-                </span>
-              </Link>
-            ))}
-          </div>
+        {/* Scroll fora do container-wide para sangrar até as bordas */}
+        <div className="nav-cards-scroll" style={{
+          display: "flex", overflowX: "auto",
+          borderTop: "1px solid var(--hairline)",
+          paddingLeft: 32, paddingBottom: 48,
+          scrollbarWidth: "none", msOverflowStyle: "none",
+        }}>
+          {pages.map((it, i) => (
+            <Link
+              key={it.href}
+              href={it.href}
+              style={{
+                textAlign: "left",
+                padding: "36px 28px",
+                paddingLeft: i === 0 ? 0 : 28,
+                borderRight: i < pages.length - 1 ? "1px solid var(--hairline)" : "none",
+                display: "flex", flexDirection: "column", gap: 18,
+                transition: "background 180ms ease",
+                minWidth: 240, maxWidth: 240, flex: "0 0 auto",
+              }}
+              className="nav-card-item"
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8 }}>
+                <span className="num-eyebrow" style={{ flexShrink: 0 }}>{it.n}</span>
+                <span className="num-eyebrow" style={{ color: "var(--muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{it.tag}</span>
+              </div>
+              <h3 className="display" style={{ fontSize: "clamp(20px, 2.2vw, 34px)", letterSpacing: "-0.01em", lineHeight: 1 }}>
+                {it.label}
+              </h3>
+              <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)" }}>
+                {it.desc}
+              </p>
+              <span style={{ marginTop: "auto", paddingTop: 16, display: "inline-flex", alignItems: "center", gap: 10, fontSize: 14, fontWeight: 500 }}>
+                Acessar
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
+                </svg>
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
 
