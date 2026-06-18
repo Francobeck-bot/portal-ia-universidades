@@ -222,11 +222,14 @@ html, body { overflow-x: hidden; max-width: 100vw; }
     max-width: 80vw !important;
     flex-shrink: 0 !important;
     min-height: auto !important;
-    padding: 20px 20px 20px 0 !important;
+    padding: 20px !important;
     border-right: 1px solid rgba(255,255,255,0.2) !important;
   }
   .world-grid > div:first-child { padding-left: 0 !important; }
   .world-grid > div:last-child  { border-right: none !important; padding-right: 23px !important; }
+  /* Fontes dos cards world-grid no mobile — os clamp() do desktop colapsam para min, corrigir aqui */
+  .world-grid > div .display { font-size: 18px !important; }
+  .world-grid > div p { font-size: 13px !important; line-height: 1.55 !important; }
   .detector-grid  { grid-template-columns: 1fr !important; gap: 32px !important; }
   .hero-fiel-grid { grid-template-columns: 1fr !important; }
 
