@@ -238,24 +238,22 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   /* Riscos items — scroll horizontal no mobile */
   .riscos-items {
     display: flex !important;
-    overflow-x: auto !important;
-    margin-left: -23px !important;
-    margin-right: -23px !important;
-    padding-left: 23px !important;
+    overflow-x: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
   }
   .riscos-items::-webkit-scrollbar { display: none; }
   .riscos-items > div {
-    min-width: 80vw !important;
-    max-width: 80vw !important;
+    min-width: 75vw !important;
+    max-width: 75vw !important;
     flex-shrink: 0 !important;
-    padding: 16px 20px !important;
+    padding: 16px 16px 16px 0 !important;
     border-top: 1px solid rgba(255,255,255,0.12) !important;
     border-right: 1px solid rgba(255,255,255,0.12) !important;
   }
-  .riscos-items > div:first-child { padding-left: 0 !important; }
-  .riscos-items > div:last-child  { border-right: none !important; padding-right: 23px !important; }
+  .riscos-items > div:nth-child(n+2) { padding-left: 16px !important; }
+  .riscos-items > div:last-child  { border-right: none !important; }
 
   .detector-grid  { grid-template-columns: 1fr !important; gap: 32px !important; }
   .hero-fiel-grid { grid-template-columns: 1fr !important; }
