@@ -240,7 +240,6 @@ export default async function DiretrizesPage() {
         @media (max-width: 768px) {
           .world-grid { grid-template-columns: 1fr 1fr !important; }
           .detector-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
-          .riscos-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .dir-section { padding: 36px 20px !important; }
           .dir-section-dark { padding: 32px 20px !important; }
         }
