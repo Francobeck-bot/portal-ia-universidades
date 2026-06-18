@@ -206,7 +206,27 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .nav-cards-grid { grid-template-columns: 1fr !important; }
   .stats-grid     { grid-template-columns: 1fr !important; }
   .cta-grid       { grid-template-columns: 1fr !important; gap: 24px !important; align-items: start !important; }
-  .world-grid     { grid-template-columns: 1fr !important; }
+  .world-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    grid-template-columns: unset !important;
+    margin-left: -23px !important;
+    margin-right: -23px !important;
+    padding-left: 23px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  .world-grid::-webkit-scrollbar { display: none; }
+  .world-grid > div {
+    min-width: 80vw !important;
+    max-width: 80vw !important;
+    flex-shrink: 0 !important;
+    min-height: auto !important;
+    padding: 20px 20px 20px 0 !important;
+    border-right: 1px solid rgba(255,255,255,0.2) !important;
+  }
+  .world-grid > div:first-child { padding-left: 0 !important; }
+  .world-grid > div:last-child  { border-right: none !important; padding-right: 23px !important; }
   .detector-grid  { grid-template-columns: 1fr !important; gap: 32px !important; }
   .hero-fiel-grid { grid-template-columns: 1fr !important; }
 
