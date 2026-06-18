@@ -62,32 +62,33 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div style={{ display: "grid", gap: 0, borderTop: "1px solid var(--hairline)" }}
-               className="nav-cards-grid">
+          <div className="nav-cards-scroll" style={{
+            display: "flex", overflowX: "auto", borderTop: "1px solid var(--hairline)",
+            scrollbarWidth: "none", msOverflowStyle: "none",
+          }}>
             {pages.map((it, i) => (
               <Link
                 key={it.href}
                 href={it.href}
                 style={{
                   textAlign: "left",
-                  padding: "36px 0",
-                  paddingLeft:   i % 3 !== 0 ? 28 : 0,
-                  paddingRight:  (i + 1) % 3 !== 0 ? 28 : 0,
-                  borderRight:   (i + 1) % 3 !== 0 ? "1px solid var(--hairline)" : "none",
-                  borderBottom:  i < 3 ? "1px solid var(--hairline)" : "none",
+                  padding: "36px 28px",
+                  paddingLeft: i === 0 ? 0 : 28,
+                  borderRight: i < pages.length - 1 ? "1px solid var(--hairline)" : "none",
                   display: "flex", flexDirection: "column", gap: 18,
                   transition: "background 180ms ease",
+                  minWidth: 240, flex: "0 0 auto",
                 }}
                 className="nav-card-item"
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8 }}>
                   <span className="num-eyebrow" style={{ flexShrink: 0 }}>{it.n}</span>
-                  <span className="num-eyebrow" style={{ color: "var(--muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginLeft: 4 }}>{it.tag}</span>
+                  <span className="num-eyebrow" style={{ color: "var(--muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{it.tag}</span>
                 </div>
-                <h3 className="display" style={{ fontSize: "clamp(13px, 4.5vw, 34px)", letterSpacing: "-0.01em", lineHeight: 1 }}>
+                <h3 className="display" style={{ fontSize: "clamp(20px, 2.2vw, 34px)", letterSpacing: "-0.01em", lineHeight: 1 }}>
                   {it.label}
                 </h3>
-                <p style={{ fontSize: "clamp(9px, 2vw, 15px)", lineHeight: 1.6, color: "var(--muted)", maxWidth: 340 }}>
+                <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)", maxWidth: 260 }}>
                   {it.desc}
                 </p>
                 <span style={{ marginTop: "auto", paddingTop: 24, display: "inline-flex", alignItems: "center", gap: 10, fontSize: 14, fontWeight: 500 }}>
@@ -221,6 +222,7 @@ export default async function HomePage() {
 
       <style>{`
         .nav-card-item:hover { background: #fafbfb; }
+        .nav-cards-scroll::-webkit-scrollbar { display: none; }
         @media (max-width: 640px) {
           .aprender-cta-inner { flex-direction: column !important; align-items: flex-start !important; }
         }
