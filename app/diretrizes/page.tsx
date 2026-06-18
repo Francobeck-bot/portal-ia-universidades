@@ -88,20 +88,22 @@ export default async function DiretrizesPage() {
                   O monitoramento dos riscos da IA é essencial para garantir que a tecnologia apoie o aprendizado sem comprometer o pensamento crítico, a integridade acadêmica e a qualidade do processo de ensino-aprendizagem.
                 </p>
               </div>
-              {[
-                { title: "Plágio e Integridade Acadêmica", body: "Uso da IA para produzir trabalhos sem autoria real ou sem transparência." },
-                { title: "Dependência Excessiva", body: "Redução do pensamento crítico, criatividade e autonomia dos estudantes." },
-                { title: "Informações Incorretas e Viés Algorítmico", body: "Respostas imprecisas, enviesadas ou alucinações geradas pela IA." },
-                { title: "Aprendizagem Superficial", body: "Priorização de respostas rápidas em detrimento da compreensão real do conteúdo." },
-              ].map((item, i) => (
-                <div key={i} style={{ padding: "16px 0", borderTop: "1px solid rgba(255,255,255,0.12)", display: "grid", gridTemplateColumns: "20px 1fr", gap: 14, alignItems: "start" }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", paddingTop: 2 }}>0{i + 1}</span>
-                  <div>
-                    <p style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 4 }}>{item.title}</p>
-                    <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.5)" }}>{item.body}</p>
+              <div className="riscos-items">
+                {[
+                  { title: "Plágio e Integridade Acadêmica", body: "Uso da IA para produzir trabalhos sem autoria real ou sem transparência." },
+                  { title: "Dependência Excessiva", body: "Redução do pensamento crítico, criatividade e autonomia dos estudantes." },
+                  { title: "Informações Incorretas e Viés Algorítmico", body: "Respostas imprecisas, enviesadas ou alucinações geradas pela IA." },
+                  { title: "Aprendizagem Superficial", body: "Priorização de respostas rápidas em detrimento da compreensão real do conteúdo." },
+                ].map((item, i) => (
+                  <div key={i} style={{ padding: "16px 0", borderTop: "1px solid rgba(255,255,255,0.12)", display: "grid", gridTemplateColumns: "20px 1fr", gap: 14, alignItems: "start" }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", paddingTop: 2 }}>0{i + 1}</span>
+                    <div>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 4 }}>{item.title}</p>
+                      <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.5)" }}>{item.body}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             {/* Privacidade */}
@@ -114,20 +116,22 @@ export default async function DiretrizesPage() {
                   Tudo que você digita em uma IA comercial vai para servidores de terceiros fora do Brasil e pode ser usado para treinar modelos futuros. Não é público, mas também não está sob seu controle.
                 </p>
               </div>
-              {[
-                { title: "Dados de alunos", body: "Notas, desempenho e identificação inseridos em IAs comerciais podem configurar violação da LGPD." },
-                { title: "Pesquisas com sigilo", body: "Convênios, contratos e dados de campo podem ter o sigilo comprometido em ferramentas externas." },
-                { title: "Provas não aplicadas", body: "Avaliações inseridas em IAs ficam fora do controle do professor, com risco real de vazamento." },
-                { title: "A solução prática", body: "Use versões fictícias. Troque nomes por \"Aluno A\", substitua números reais e descreva cenários sem identificar pessoas." },
-              ].map((item, i) => (
-                <div key={i} style={{ padding: "16px 0", borderTop: "1px solid rgba(255,255,255,0.12)", display: "grid", gridTemplateColumns: "20px 1fr", gap: 14, alignItems: "start" }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", paddingTop: 2 }}>0{i + 1}</span>
-                  <div>
-                    <p style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 4 }}>{item.title}</p>
-                    <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.5)" }}>{item.body}</p>
+              <div className="riscos-items">
+                {[
+                  { title: "Dados de alunos", body: "Notas, desempenho e identificação inseridos em IAs comerciais podem configurar violação da LGPD." },
+                  { title: "Pesquisas com sigilo", body: "Convênios, contratos e dados de campo podem ter o sigilo comprometido em ferramentas externas." },
+                  { title: "Provas não aplicadas", body: "Avaliações inseridas em IAs ficam fora do controle do professor, com risco real de vazamento." },
+                  { title: "A solução prática", body: "Use versões fictícias. Troque nomes por \"Aluno A\", substitua números reais e descreva cenários sem identificar pessoas." },
+                ].map((item, i) => (
+                  <div key={i} style={{ padding: "16px 0", borderTop: "1px solid rgba(255,255,255,0.12)", display: "grid", gridTemplateColumns: "20px 1fr", gap: 14, alignItems: "start" }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", paddingTop: 2 }}>0{i + 1}</span>
+                    <div>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.88)", marginBottom: 4 }}>{item.title}</p>
+                      <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.5)" }}>{item.body}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
           </div>

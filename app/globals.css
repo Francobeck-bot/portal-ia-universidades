@@ -232,28 +232,30 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .world-grid > div .eyebrow { font-size: 11px !important; }
   .world-grid > div p { font-size: 14px !important; line-height: 1.6 !important; }
 
-  /* Riscos grid — scroll horizontal no mobile */
-  .riscos-grid {
+  /* Riscos grid — 1 coluna no mobile */
+  .riscos-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+  /* Riscos items — scroll horizontal no mobile */
+  .riscos-items {
     display: flex !important;
     overflow-x: auto !important;
-    grid-template-columns: unset !important;
-    gap: 0 !important;
     margin-left: -23px !important;
     margin-right: -23px !important;
     padding-left: 23px !important;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
   }
-  .riscos-grid::-webkit-scrollbar { display: none; }
-  .riscos-grid > div {
-    min-width: 85vw !important;
-    max-width: 85vw !important;
+  .riscos-items::-webkit-scrollbar { display: none; }
+  .riscos-items > div {
+    min-width: 80vw !important;
+    max-width: 80vw !important;
     flex-shrink: 0 !important;
-    padding-right: 20px !important;
-    border-right: 1px solid rgba(255,255,255,0.15) !important;
+    padding: 16px 20px !important;
+    border-top: 1px solid rgba(255,255,255,0.12) !important;
+    border-right: 1px solid rgba(255,255,255,0.12) !important;
   }
-  .riscos-grid > div:first-child { padding-left: 0 !important; }
-  .riscos-grid > div:last-child  { border-right: none !important; padding-right: 23px !important; }
+  .riscos-items > div:first-child { padding-left: 0 !important; }
+  .riscos-items > div:last-child  { border-right: none !important; padding-right: 23px !important; }
 
   .detector-grid  { grid-template-columns: 1fr !important; gap: 32px !important; }
   .hero-fiel-grid { grid-template-columns: 1fr !important; }
