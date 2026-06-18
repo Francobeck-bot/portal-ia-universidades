@@ -234,6 +234,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 
   /* Riscos grid — 1 coluna no mobile */
   .riscos-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .riscos-grid > div { min-width: 0; }
 
   /* Riscos items — scroll horizontal no mobile */
   .riscos-items {
