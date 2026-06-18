@@ -228,8 +228,9 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .world-grid > div:first-child { padding-left: 0 !important; }
   .world-grid > div:last-child  { border-right: none !important; padding-right: 23px !important; }
   /* Fontes dos cards world-grid no mobile — os clamp() do desktop colapsam para min, corrigir aqui */
-  .world-grid > div .display { font-size: 18px !important; }
-  .world-grid > div p { font-size: 13px !important; line-height: 1.55 !important; }
+  .world-grid > div .display { font-size: 22px !important; }
+  .world-grid > div .eyebrow { font-size: 11px !important; }
+  .world-grid > div p { font-size: 14px !important; line-height: 1.6 !important; }
   .detector-grid  { grid-template-columns: 1fr !important; gap: 32px !important; }
   .hero-fiel-grid { grid-template-columns: 1fr !important; }
 

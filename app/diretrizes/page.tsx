@@ -158,7 +158,7 @@ export default async function DiretrizesPage() {
       {/* ── DARK · Como universidades decidem ── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
         <div className="container-wide dir-section-dark" style={{ padding: "72px 32px" }}>
-          <div style={{ marginBottom: 48 }}>
+          <div style={{ marginBottom: 32 }}>
             <h2 className="display-tight" style={{ fontSize: "clamp(28px, 3.4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#fff" }}>
               Como as melhores universidades estão decidindo
             </h2>
@@ -239,10 +239,10 @@ export default async function DiretrizesPage() {
       <style>{`
         @media (max-width: 768px) {
           .world-grid { grid-template-columns: 1fr 1fr !important; }
-          .detector-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .detector-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .riscos-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
-          .dir-section { padding: 48px 20px !important; }
-          .dir-section-dark { padding: 48px 20px !important; }
+          .dir-section { padding: 36px 20px !important; }
+          .dir-section-dark { padding: 32px 20px !important; }
         }
         @media (max-width: 480px) {
           .world-grid { grid-template-columns: 1fr !important; }
