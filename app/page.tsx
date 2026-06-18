@@ -82,7 +82,7 @@ export default async function HomePage() {
                 borderRight: i < pages.length - 1 ? "1px solid var(--hairline)" : "none",
                 display: "flex", flexDirection: "column", gap: 18,
                 transition: "background 180ms ease",
-                minWidth: 240, maxWidth: 240, flex: "0 0 auto",
+                minWidth: 360, maxWidth: 360, flex: "0 0 auto",
               }}
               className="nav-card-item"
             >
