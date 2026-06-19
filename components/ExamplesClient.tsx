@@ -287,22 +287,24 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
 
                   {/* Cards */}
                   <div style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+                    display: "flex",
+                    overflowX: "auto",
                     gap: 20,
+                    paddingBottom: 12,
                   }} className="ex-cards-grid">
                     {group.items.map((ex, i) => {
                       const key = `${group.name}-${i}`;
                       return (
-                        <ExampleCard
-                          key={key}
-                          example={ex}
-                          color={color}
-                          isOpen={expanded === key}
-                          onToggle={() =>
-                            setExpanded(expanded === key ? null : key)
-                          }
-                        />
+                        <div key={key} style={{ minWidth: 320, maxWidth: 320, flex: "0 0 auto", display: "flex", flexDirection: "column" }}>
+                          <ExampleCard
+                            example={ex}
+                            color={color}
+                            isOpen={expanded === key}
+                            onToggle={() =>
+                              setExpanded(expanded === key ? null : key)
+                            }
+                          />
+                        </div>
                       );
                     })}
                   </div>
@@ -320,7 +322,19 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
         @media (max-width: 640px) {
           .ex-filter-inner { padding: 0 23px !important; }
           .ex-cards-wrap { padding: 32px 23px 64px !important; }
-          .ex-cards-grid { grid-template-columns: 1fr !important; }
+          .ex-cards-grid {
+            margin-left: -23px !important;
+            margin-right: -23px !important;
+            padding-left: 23px !important;
+            padding-right: 0 !important;
+            scrollbar-width: none !important;
+          }
+          .ex-cards-grid::-webkit-scrollbar { display: none; }
+          .ex-cards-grid > div {
+            min-width: 80vw !important;
+            max-width: 80vw !important;
+          }
+          .ex-cards-grid > div:last-child { padding-right: 23px; }
         }
       `}</style>
     </div>
