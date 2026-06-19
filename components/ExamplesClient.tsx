@@ -274,7 +274,7 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
                         {group.name}
                       </h2>
                     </div>
-                    <span style={{
+                    <span className="ex-cat-pill" style={{
                       display: "inline-flex", alignItems: "center", gap: 6,
                       background: color.bg, color: color.fg,
                       padding: "6px 12px", borderRadius: 999,
@@ -326,8 +326,8 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
         @media (max-width: 640px) {
           .ex-filter-inner { padding: 0 23px !important; }
           .ex-cards-wrap { padding: 32px 23px 64px !important; }
-          .ex-cat-header { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
-          .ex-cat-header h2 { font-size: 22px !important; }
+          .ex-cat-header { align-items: flex-start !important; }
+          .ex-cat-pill { flex-shrink: 0 !important; white-space: nowrap !important; margin-left: 8px !important; }
           .ex-cards-grid {
             margin-left: -23px !important;
             margin-right: -23px !important;
