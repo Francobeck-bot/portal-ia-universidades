@@ -76,13 +76,13 @@ export default async function CursosPage() {
       </section>
 
       {/* ── Cursos por nível ── */}
-      <div className="container-wide" style={{ padding: "72px 32px 96px" }}>
+      <div className="container-wide" style={{ padding: "48px 32px 96px" }}>
         {LEVELS.map((level, li) => {
           const list = byLevel[level];
           const meta = LEVEL_META[level];
           if (list.length === 0) return null;
           return (
-            <section key={level} style={{ marginBottom: li < LEVELS.length - 1 ? 24 : 0 }}>
+            <section key={level} style={{ marginBottom: li < LEVELS.length - 1 ? 40 : 0 }}>
               {/* Level header */}
               <div style={{
                 display: "flex", justifyContent: "space-between", alignItems: "baseline",
