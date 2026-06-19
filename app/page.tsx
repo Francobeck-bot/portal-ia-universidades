@@ -69,7 +69,6 @@ export default async function HomePage() {
           display: "flex", overflowX: "auto",
           borderTop: "1px solid var(--hairline)",
           paddingLeft: 32, paddingBottom: 12,
-          scrollbarWidth: "thin",
         }}>
           {pages.map((it, i) => (
             <Link
