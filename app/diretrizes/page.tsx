@@ -161,7 +161,7 @@ export default async function DiretrizesPage() {
 
       {/* ── DARK · Como universidades decidem ── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
-        <div className="container-wide dir-section-dark" style={{ padding: "72px 32px" }}>
+        <div className="container-wide dir-section-dark" style={{ padding: "72px 32px 48px" }}>
           <div style={{ marginBottom: 32 }}>
             <h2 className="display-tight" style={{ fontSize: "clamp(28px, 3.4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#fff" }}>
               Como as melhores universidades estão decidindo
@@ -174,7 +174,7 @@ export default async function DiretrizesPage() {
                 padding: "32px 24px 32px 0",
                 paddingLeft: i > 0 ? 24 : 0,
                 borderRight: i < worldPolicies.length - 1 ? "1px solid rgba(255,255,255,0.2)" : "none",
-                display: "flex", flexDirection: "column", gap: 14, minHeight: 260,
+                display: "flex", flexDirection: "column", gap: 14,
               }}>
                 <span className="num-eyebrow" style={{ color: "rgba(255,255,255,0.4)" }}>{w.n}</span>
                 <div className="display" style={{ fontSize: "clamp(10px, 2.5vw, 22px)", color: "#fff", lineHeight: 1.1, letterSpacing: "-0.005em" }}>{w.uni}</div>
