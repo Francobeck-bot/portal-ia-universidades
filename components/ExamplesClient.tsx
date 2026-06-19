@@ -252,7 +252,7 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
             </p>
           </div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 72 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
             {visible.map((group, gi) => {
               const color = CAT_COLORS[group.name] ?? FALLBACK[gi % FALLBACK.length];
               return (
@@ -319,6 +319,10 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
         .ex-toggle:hover { background: var(--bg) !important; }
         .filter-scroll { scrollbar-width: none; }
         .filter-scroll::-webkit-scrollbar { display: none; }
+        /* Altura igual para todos os cards do mesmo grupo */
+        .ex-cards-grid { align-items: stretch; }
+        .ex-cards-grid > div { display: flex; flex-direction: column; }
+        .ex-cards-grid > div article { height: 100%; }
         @media (max-width: 640px) {
           .ex-filter-inner { padding: 0 23px !important; }
           .ex-cards-wrap { padding: 32px 23px 64px !important; }
