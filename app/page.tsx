@@ -68,8 +68,8 @@ export default async function HomePage() {
         <div className="nav-cards-scroll" style={{
           display: "flex", overflowX: "auto",
           borderTop: "1px solid var(--hairline)",
-          paddingLeft: 32, paddingBottom: 48,
-          scrollbarWidth: "none", msOverflowStyle: "none",
+          paddingLeft: 32, paddingBottom: 12,
+          scrollbarWidth: "thin",
         }}>
           {pages.map((it, i) => (
             <Link
@@ -226,11 +226,43 @@ export default async function HomePage() {
 
       <style>{`
         .nav-card-item:hover { background: #fafbfb; }
-        .nav-cards-scroll::-webkit-scrollbar { display: none; }
+        .nav-cards-scroll::-webkit-scrollbar { height: 2px; }
+        .nav-cards-scroll::-webkit-scrollbar-track { background: #eef0f1; }
+        .nav-cards-scroll::-webkit-scrollbar-thumb { background: #c8cdd2; border-radius: 2px; }
         @media (max-width: 640px) {
           .aprender-cta-inner { flex-direction: column !important; align-items: flex-start !important; }
+          .nav-cards-scroll::-webkit-scrollbar { display: none; }
         }
       `}</style>
+      <script dangerouslySetInnerHTML={{ __html: `
+        (function() {
+          function init() {
+            var el = document.querySelector('.nav-cards-scroll');
+            if (!el) return;
+            var paused = false;
+            el.addEventListener('mouseenter', function() { paused = true; });
+            el.addEventListener('mouseleave', function() { paused = false; });
+            el.addEventListener('touchstart', function() { paused = true; }, { passive: true });
+            el.addEventListener('touchend', function() { setTimeout(function() { paused = false; }, 2500); }, { passive: true });
+            el.addEventListener('wheel', function() { paused = true; setTimeout(function() { paused = false; }, 2500); }, { passive: true });
+            function tick() {
+              if (!paused) {
+                el.scrollLeft += 0.5;
+                if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
+                  el.scrollLeft = 0;
+                }
+              }
+              requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+          }
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+          } else {
+            init();
+          }
+        })();
+      ` }} />
     </div>
   );
 }
