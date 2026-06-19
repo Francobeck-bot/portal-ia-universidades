@@ -163,7 +163,7 @@ export default async function DiretrizesPage() {
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
         <div className="container-wide dir-section-dark" style={{ padding: "72px 32px 32px" }}>
           <div style={{ marginBottom: 32 }}>
-            <h2 className="display-tight" style={{ fontSize: "clamp(36px, 4.4vw, 56px)", lineHeight: 1.02, letterSpacing: "-0.02em", color: "#fff" }}>
+            <h2 className="display-tight" style={{ fontSize: 32, lineHeight: 1.02, letterSpacing: "-0.02em", color: "#fff" }}>
               Como as melhores universidades estão decidindo
             </h2>
           </div>
