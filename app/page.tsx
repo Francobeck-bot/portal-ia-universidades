@@ -228,6 +228,7 @@ export default async function HomePage() {
         .nav-card-item:hover { background: #fafbfb; }
         @media (max-width: 640px) {
           .aprender-cta-inner { flex-direction: column !important; align-items: flex-start !important; }
+          .nav-cards-scroll::-webkit-scrollbar { display: none; }
         }
       `}</style>
       <script dangerouslySetInnerHTML={{ __html: `
@@ -235,54 +236,21 @@ export default async function HomePage() {
           function init() {
             var el = document.querySelector('.nav-cards-scroll');
             if (!el) return;
-
-            // Esconde scrollbar nativo em todos os browsers
-            var s = document.createElement('style');
-            s.textContent = '.nav-cards-scroll::-webkit-scrollbar{display:none!important}';
-            document.head.appendChild(s);
-            el.style.scrollbarWidth = 'none';
-            el.style.msOverflowStyle = 'none';
-
-            // Fake scrollbar (só desktop)
-            var track = null, thumb = null;
-            if (window.innerWidth > 640) {
-              track = document.createElement('div');
-              track.style.cssText = 'height:1px;background:#eff0f1;margin:6px 32px 0;position:relative;overflow:hidden;';
-              thumb = document.createElement('div');
-              thumb.style.cssText = 'height:1px;background:#d5d8da;border-radius:1px;position:absolute;top:0;left:0;transition:left 0.05s linear;';
-              track.appendChild(thumb);
-              el.parentNode.insertBefore(track, el.nextSibling);
-            }
-
-            function updateThumb() {
-              if (!track || !thumb) return;
-              var ratio = el.clientWidth / el.scrollWidth;
-              var thumbW = Math.round(ratio * track.offsetWidth);
-              var maxLeft = track.offsetWidth - thumbW;
-              var pct = el.scrollWidth > el.clientWidth ? el.scrollLeft / (el.scrollWidth - el.clientWidth) : 0;
-              thumb.style.width = thumbW + 'px';
-              thumb.style.left = Math.round(pct * maxLeft) + 'px';
-            }
-
-            el.addEventListener('scroll', updateThumb);
-            window.addEventListener('resize', updateThumb);
-
             var paused = false;
             el.addEventListener('mouseenter', function() { paused = true; });
             el.addEventListener('mouseleave', function() { paused = false; });
             el.addEventListener('touchstart', function() { paused = true; }, { passive: true });
             el.addEventListener('touchend', function() { setTimeout(function() { paused = false; }, 2500); }, { passive: true });
             el.addEventListener('wheel', function() { paused = true; setTimeout(function() { paused = false; }, 2500); }, { passive: true });
-
             function tick() {
               if (!paused) {
                 el.scrollLeft += 0.5;
-                if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) el.scrollLeft = 0;
+                if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
+                  el.scrollLeft = 0;
+                }
               }
-              updateThumb();
               requestAnimationFrame(tick);
             }
-            updateThumb();
             requestAnimationFrame(tick);
           }
           if (document.readyState === 'loading') {
