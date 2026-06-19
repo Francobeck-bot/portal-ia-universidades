@@ -227,8 +227,8 @@ export default async function HomePage() {
       <style>{`
         .nav-card-item:hover { background: #fafbfb; }
         .nav-cards-scroll::-webkit-scrollbar { height: 2px; }
-        .nav-cards-scroll::-webkit-scrollbar-track { background: #eef0f1; }
-        .nav-cards-scroll::-webkit-scrollbar-thumb { background: #c8cdd2; border-radius: 2px; }
+        .nav-cards-scroll::-webkit-scrollbar-track { background: #f3f4f4; }
+        .nav-cards-scroll::-webkit-scrollbar-thumb { background: #dde0e3; border-radius: 2px; }
         @media (max-width: 640px) {
           .aprender-cta-inner { flex-direction: column !important; align-items: flex-start !important; }
           .nav-cards-scroll::-webkit-scrollbar { display: none; }
