@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import HeroSection from "@/components/HeroSection";
+import NavCardsAutoScroll from "@/components/NavCardsAutoScroll";
 import { fetchTools, fetchExamples } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";
 
@@ -230,35 +231,7 @@ export default async function HomePage() {
           .nav-cards-scroll::-webkit-scrollbar { display: none; }
         }
       `}</style>
-      <script dangerouslySetInnerHTML={{ __html: `
-        (function() {
-          function init() {
-            var el = document.querySelector('.nav-cards-scroll');
-            if (!el) return;
-            var paused = false;
-            el.addEventListener('mouseenter', function() { paused = true; });
-            el.addEventListener('mouseleave', function() { paused = false; });
-            el.addEventListener('touchstart', function() { paused = true; }, { passive: true });
-            el.addEventListener('touchend', function() { setTimeout(function() { paused = false; }, 2500); }, { passive: true });
-            el.addEventListener('wheel', function() { paused = true; setTimeout(function() { paused = false; }, 2500); }, { passive: true });
-            function tick() {
-              if (!paused) {
-                el.scrollLeft += 0.5;
-                if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
-                  el.scrollLeft = 0;
-                }
-              }
-              requestAnimationFrame(tick);
-            }
-            requestAnimationFrame(tick);
-          }
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-          } else {
-            init();
-          }
-        })();
-      ` }} />
+      <NavCardsAutoScroll />
     </div>
   );
 }
