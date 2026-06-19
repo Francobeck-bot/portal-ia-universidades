@@ -113,16 +113,19 @@ export default async function CursosPage() {
 
               {/* Cards */}
               <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                display: "flex",
+                overflowX: "auto",
                 gap: 20,
-              }}>
+                paddingBottom: 12,
+              }} className="cursos-cards-grid">
                 {list.map((course, ci) => (
-                  <div key={ci} style={{
+                  <div key={ci} style={{ minWidth: 300, maxWidth: 300, flex: "0 0 auto", display: "flex", flexDirection: "column" }}>
+                  <div style={{
                     background: "var(--surface)",
                     border: "1px solid var(--hairline)",
                     borderRadius: 10, overflow: "hidden",
                     display: "flex", flexDirection: "column",
+                    height: "100%",
                   }}>
                     {/* Colored top bar */}
                     <div style={{ height: 4, background: meta.color }} />
@@ -174,6 +177,7 @@ export default async function CursosPage() {
                       </a>
                     </div>
                   </div>
+                  </div>
                 ))}
               </div>
             </section>
@@ -207,6 +211,23 @@ export default async function CursosPage() {
 
       <style>{`
         .curso-link:hover { gap: 11px !important; }
+        .cursos-cards-grid { align-items: stretch; }
+        .cursos-cards-grid > div { display: flex; flex-direction: column; }
+        @media (max-width: 640px) {
+          .cursos-cards-grid {
+            margin-left: -23px !important;
+            margin-right: -23px !important;
+            padding-left: 23px !important;
+            padding-right: 0 !important;
+            scrollbar-width: none !important;
+          }
+          .cursos-cards-grid::-webkit-scrollbar { display: none; }
+          .cursos-cards-grid > div {
+            min-width: 80vw !important;
+            max-width: 80vw !important;
+          }
+          .cursos-cards-grid > div:last-child { padding-right: 23px; }
+        }
       `}</style>
     </main>
   );
