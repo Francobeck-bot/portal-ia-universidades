@@ -82,7 +82,7 @@ export default async function CursosPage() {
           const meta = LEVEL_META[level];
           if (list.length === 0) return null;
           return (
-            <section key={level} style={{ marginBottom: li < LEVELS.length - 1 ? 80 : 0 }}>
+            <section key={level} style={{ marginBottom: li < LEVELS.length - 1 ? 48 : 0 }}>
               {/* Level header */}
               <div style={{
                 display: "flex", justifyContent: "space-between", alignItems: "baseline",
