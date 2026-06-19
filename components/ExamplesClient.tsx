@@ -258,7 +258,7 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
               return (
                 <div key={group.name}>
                   {/* Category header */}
-                  <div style={{
+                  <div className="ex-cat-header" style={{
                     display: "flex", justifyContent: "space-between", alignItems: "baseline",
                     marginBottom: 24, paddingBottom: 16,
                     borderBottom: `2px solid ${color.accent}`,
@@ -326,6 +326,8 @@ export default function ExamplesClient({ examples }: { examples: Example[] }) {
         @media (max-width: 640px) {
           .ex-filter-inner { padding: 0 23px !important; }
           .ex-cards-wrap { padding: 32px 23px 64px !important; }
+          .ex-cat-header { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+          .ex-cat-header h2 { font-size: 22px !important; }
           .ex-cards-grid {
             margin-left: -23px !important;
             margin-right: -23px !important;
