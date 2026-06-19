@@ -293,7 +293,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 
 /* ── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar:horizontal { height: 3px; }
+::-webkit-scrollbar:horizontal { height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #d8dce0; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #b7bcc1; }
