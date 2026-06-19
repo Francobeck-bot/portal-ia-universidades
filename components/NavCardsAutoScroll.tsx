@@ -8,23 +8,26 @@ export default function NavCardsAutoScroll() {
 
     const originals = Array.from(el.children) as HTMLElement[];
 
-    // Mede antes de qualquer mudança no DOM
-    const originalWidth = originals.reduce((sum, c) => sum + c.offsetWidth, 0);
+    // Largura total dos cards originais (antes de qualquer modificação)
+    const cardsWidth = originals.reduce((sum, c) => sum + c.offsetWidth, 0);
 
-    // O último card não tem borderRight — adiciona para a costura ficar igual aos demais
-    const last = originals[originals.length - 1];
-    const prevBorder = last.style.borderRight;
-    last.style.borderRight = "1px solid var(--hairline)";
+    // Espaçador entre último original e primeiro clone.
+    // Reproduz o separador visual normal entre cards:
+    // border-left 1px (equivale ao borderRight do card) + 28px de conteúdo vazio
+    // (equivale ao paddingLeft do próximo card) = 29px total.
+    const spacer = document.createElement("div");
+    spacer.style.cssText = "flex-shrink:0;width:29px;border-left:1px solid var(--hairline);box-sizing:border-box;";
+    el.appendChild(spacer);
 
-    // Clona todos os cards e adiciona ao final
-    const clones = originals.map((child, i) => {
+    // Clona todos os cards sem modificar nenhum estilo — ficam idênticos aos originais
+    const clones = originals.map(child => {
       const clone = child.cloneNode(true) as HTMLElement;
-      // O primeiro card tem paddingLeft:0 (compensa o padding do container).
-      // No clone, ele aparece no meio do scroll — precisa de paddingLeft:28 como os demais.
-      if (i === 0) clone.style.paddingLeft = "28px";
       el.appendChild(clone);
       return clone;
     });
+
+    // Ponto de reset: largura dos originais + espaçador
+    const originalWidth = cardsWidth + spacer.offsetWidth;
 
     let paused = false;
     const onEnter = () => { paused = true; };
@@ -43,8 +46,8 @@ export default function NavCardsAutoScroll() {
     function tick() {
       if (!paused) {
         el!.scrollLeft += 0.5;
-        // Quando o scroll chega ao início dos clones, volta para a posição
-        // equivalente nos originais — visualmente idêntico, sem salto
+        // Quando o clone-card-1 chega à mesma posição visual que o original-card-1,
+        // reseta sem salto perceptível
         if (el!.scrollLeft >= originalWidth) {
           el!.scrollLeft -= originalWidth;
         }
@@ -55,7 +58,7 @@ export default function NavCardsAutoScroll() {
 
     return () => {
       cancelAnimationFrame(rafId);
-      last.style.borderRight = prevBorder;
+      if (el.contains(spacer)) el.removeChild(spacer);
       clones.forEach(clone => { if (el.contains(clone)) el.removeChild(clone); });
       el.removeEventListener("mouseenter", onEnter);
       el.removeEventListener("mouseleave", onLeave);
