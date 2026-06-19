@@ -161,9 +161,9 @@ export default async function DiretrizesPage() {
 
       {/* ── DARK · Como universidades decidem ── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
-        <div className="container-wide dir-section-dark" style={{ padding: "72px 32px 48px" }}>
+        <div className="container-wide dir-section-dark" style={{ padding: "72px 32px 32px" }}>
           <div style={{ marginBottom: 32 }}>
-            <h2 className="display-tight" style={{ fontSize: "clamp(28px, 3.4vw, 44px)", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#fff" }}>
+            <h2 className="display-tight" style={{ fontSize: "clamp(24px, 2.6vw, 34px)", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#fff" }}>
               Como as melhores universidades estão decidindo
             </h2>
           </div>
@@ -199,7 +199,7 @@ export default async function DiretrizesPage() {
 
       {/* ── DARK · Detectores de IA ── */}
       <section style={{ background: "var(--charcoal)", color: "var(--on-dark)" }}>
-        <div className="container-wide dir-section-dark" style={{ padding: "96px 32px" }}>
+        <div className="container-wide dir-section-dark" style={{ padding: "56px 32px 96px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.2)", marginBottom: 48 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 12 }}>
               <span style={{ width: 20, height: 1, background: "rgba(255,255,255,0.4)" }} />
