@@ -94,27 +94,60 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
         </div>
       </section>
 
-      {/* ── Opção A: ir para Cursos ── */}
+      {/* ── Opção A: ganchos para Cursos, Ferramentas e Exemplos ── */}
       {choice === "confident" && (
         <section style={{ background: "var(--bg)", borderBottom: "1px solid var(--hairline)" }}>
           <div className="container-wide" style={{ padding: "64px 32px" }}>
-            <div style={{ maxWidth: 560 }}>
-              <span className="eyebrow" style={{ display: "block", marginBottom: 16 }}>Próximo passo</span>
-              <h3 className="display-tight" style={{ fontSize: "clamp(24px, 3vw, 40px)", lineHeight: 1.05, marginBottom: 16 }}>
-                Explore os cursos disponíveis
-              </h3>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--muted)", marginBottom: 28 }}>
-                Separamos cursos por nível, de introdutórios a avançados, para você continuar evoluindo no uso de IA.
-              </p>
-              <Link href="/cursos" className="btn-primary" style={{
-                display: "inline-flex", alignItems: "center", gap: 10,
-                background: "var(--ink)", color: "#fff", border: "none",
-                borderRadius: "var(--radius)", padding: "14px 22px", cursor: "pointer",
-                fontSize: 14, fontWeight: 500, fontFamily: "var(--body)",
-                textDecoration: "none",
-              }}>
-                Ver Cursos <Arrow />
-              </Link>
+            <span className="eyebrow" style={{ display: "block", marginBottom: 16 }}>Próximos passos</span>
+            <h3 className="display-tight" style={{ fontSize: "clamp(24px, 3vw, 40px)", lineHeight: 1.05, marginBottom: 40 }}>
+              Por onde você quer ir?
+            </h3>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}
+                 className="confident-grid">
+              {[
+                {
+                  href: "/cursos",
+                  num: "01",
+                  title: "Cursos",
+                  desc: "Cursos por nível, de introdutórios a avançados, para continuar evoluindo no uso de IA.",
+                  cta: "Ver Cursos",
+                },
+                {
+                  href: "/ferramentas",
+                  num: "02",
+                  title: "Ferramentas",
+                  desc: "Catálogo curado de ferramentas recomendadas por Harvard, MIT, Imperial e outras universidades.",
+                  cta: "Ver Ferramentas",
+                },
+                {
+                  href: "/exemplos",
+                  num: "03",
+                  title: "Exemplos de Uso",
+                  desc: "Casos práticos reais com instruções de como implementar IA na sua disciplina hoje.",
+                  cta: "Ver Exemplos",
+                },
+              ].map(item => (
+                <Link key={item.href} href={item.href} style={{
+                  display: "flex", flexDirection: "column", gap: 12,
+                  padding: "28px 24px",
+                  background: "var(--surface)",
+                  border: "1px solid var(--hairline)",
+                  borderRadius: 10,
+                  textDecoration: "none", color: "var(--ink)",
+                  transition: "border-color 180ms ease, box-shadow 180ms ease",
+                }} className="confident-card">
+                  <span className="num-eyebrow">{item.num}</span>
+                  <h4 className="display" style={{ fontSize: 24, lineHeight: 1.1, fontWeight: 400 }}>
+                    {item.title}
+                  </h4>
+                  <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)", flex: 1 }}>
+                    {item.desc}
+                  </p>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 600, marginTop: 4 }}>
+                    {item.cta} <Arrow />
+                  </span>
+                </Link>
+              ))}
             </div>
           </div>
         </section>
@@ -209,8 +242,10 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
       )}
 
       <style>{`
+        .confident-card:hover { border-color: var(--ink) !important; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
         @media (max-width: 640px) {
           .aprender-options-grid { grid-template-columns: 1fr !important; }
+          .confident-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>
