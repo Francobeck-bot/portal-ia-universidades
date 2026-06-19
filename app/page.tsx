@@ -226,9 +226,10 @@ export default async function HomePage() {
 
       <style>{`
         .nav-card-item:hover { background: #fafbfb; }
-        .nav-cards-scroll::-webkit-scrollbar { height: 2px; }
-        .nav-cards-scroll::-webkit-scrollbar-track { background: #f3f4f4; }
-        .nav-cards-scroll::-webkit-scrollbar-thumb { background: #dde0e3; border-radius: 2px; }
+        .nav-cards-scroll::-webkit-scrollbar { height: 1px; }
+        .nav-cards-scroll::-webkit-scrollbar-track { background: #f5f6f6; }
+        .nav-cards-scroll::-webkit-scrollbar-thumb { background: #e4e7e9; border-radius: 1px; }
+        .nav-cards-scroll::-webkit-scrollbar-button { display: none; }
         @media (max-width: 640px) {
           .aprender-cta-inner { flex-direction: column !important; align-items: flex-start !important; }
           .nav-cards-scroll::-webkit-scrollbar { display: none; }
