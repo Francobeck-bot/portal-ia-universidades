@@ -20,10 +20,17 @@ const CARD_ACCENTS = [
 ];
 
 export default function AprenderClient({ items, tools }: { items: LiteracyItem[]; tools: Tool[] }) {
-  const priorityTools = tools.filter(
-    t => t.esforco !== undefined && t.impacto !== undefined
-      && t.esforco <= 2.5 && t.impacto >= 3.25
-  ).sort((a, b) => (b.impacto! - b.esforco!) - (a.impacto! - a.esforco!));
+  const isPriority = (t: Tool) =>
+    t.esforco !== undefined && t.impacto !== undefined
+    && t.esforco <= 2.5 && t.impacto >= 3.25;
+
+  const priorityTools = tools
+    .filter(t => isPriority(t) || t.nome.toLowerCase().includes("chatgpt"))
+    .sort((a, b) => {
+      const scoreA = (a.impacto ?? 0) - (a.esforco ?? 5);
+      const scoreB = (b.impacto ?? 0) - (b.esforco ?? 5);
+      return scoreB - scoreA;
+    });
   const [choice, setChoice] = useState<"confident" | "learning" | null>(null);
 
   return (
@@ -233,40 +240,46 @@ export default function AprenderClient({ items, tools }: { items: LiteracyItem[]
                 </p>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}
                      className="priority-tools-grid">
-                  {priorityTools.map(tool => (
-                    <a key={tool.nome} href={tool.link} target="_blank" rel="noopener noreferrer"
-                       style={{
-                         display: "flex", flexDirection: "column", gap: 10,
-                         padding: "24px 22px",
-                         background: "var(--surface)",
-                         border: "1px solid var(--hairline)",
-                         borderRadius: 10,
-                         textDecoration: "none", color: "var(--ink)",
-                         transition: "border-color 180ms ease, box-shadow 180ms ease",
-                       }} className="priority-tool-card">
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-                        <h4 className="display" style={{ fontSize: 20, lineHeight: 1.1, fontWeight: 400 }}>
-                          {tool.nome}
-                        </h4>
-                        <span style={{
-                          fontSize: 10, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase",
-                          background: "#D1FAE5", color: "#065F46",
-                          padding: "3px 8px", borderRadius: 6, whiteSpace: "nowrap", flexShrink: 0,
-                        }}>
-                          Prioridade
-                        </span>
-                      </div>
-                      <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "var(--muted)", flex: 1 }}>
-                        {tool.descricao}
-                      </p>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 4 }}>
-                        <span style={{ fontSize: 12, color: "var(--muted-soft)" }}>{tool.custo}</span>
-                        <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 600 }}>
-                          Acessar <Arrow />
-                        </span>
-                      </div>
-                    </a>
-                  ))}
+                  {priorityTools.map(tool => {
+                    const isP = isPriority(tool);
+                    const badge = isP
+                      ? { bg: "#D1FAE5", fg: "#065F46", label: "Prioridade" }
+                      : { bg: "#DBEAFE", fg: "#1E40AF", label: "Recomendada" };
+                    return (
+                      <a key={tool.nome} href={tool.link} target="_blank" rel="noopener noreferrer"
+                         style={{
+                           display: "flex", flexDirection: "column", gap: 10,
+                           padding: "24px 22px",
+                           background: "var(--surface)",
+                           border: "1px solid var(--hairline)",
+                           borderRadius: 10,
+                           textDecoration: "none", color: "var(--ink)",
+                           transition: "border-color 180ms ease, box-shadow 180ms ease",
+                         }} className="priority-tool-card">
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+                          <h4 className="display" style={{ fontSize: 20, lineHeight: 1.1, fontWeight: 400 }}>
+                            {tool.nome}
+                          </h4>
+                          <span style={{
+                            fontSize: 10, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase",
+                            background: badge.bg, color: badge.fg,
+                            padding: "3px 8px", borderRadius: 6, whiteSpace: "nowrap", flexShrink: 0,
+                          }}>
+                            {badge.label}
+                          </span>
+                        </div>
+                        <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "var(--muted)", flex: 1 }}>
+                          {tool.descricao}
+                        </p>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 4 }}>
+                          <span style={{ fontSize: 12, color: "var(--muted-soft)" }}>{tool.custo}</span>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 600 }}>
+                            Acessar <Arrow />
+                          </span>
+                        </div>
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -300,7 +313,23 @@ export default function AprenderClient({ items, tools }: { items: LiteracyItem[]
         @media (max-width: 640px) {
           .aprender-options-grid { grid-template-columns: 1fr !important; }
           .confident-grid { grid-template-columns: 1fr !important; }
-          .priority-tools-grid { grid-template-columns: 1fr !important; }
+          .priority-tools-grid {
+            display: flex !important;
+            overflow-x: auto !important;
+            flex-wrap: nowrap !important;
+            margin-left: -23px !important;
+            margin-right: -23px !important;
+            padding-left: 23px !important;
+            padding-right: 0 !important;
+            scrollbar-width: none !important;
+          }
+          .priority-tools-grid::-webkit-scrollbar { display: none; }
+          .priority-tools-grid > a {
+            min-width: 80vw !important;
+            max-width: 80vw !important;
+            flex-shrink: 0 !important;
+          }
+          .priority-tools-grid > a:last-child { margin-right: 23px; }
         }
       `}</style>
     </div>
