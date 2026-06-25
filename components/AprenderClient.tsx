@@ -246,7 +246,8 @@ export default function AprenderClient({ items, tools }: { items: LiteracyItem[]
                       ? { bg: "#D1FAE5", fg: "#065F46", label: "Prioridade" }
                       : { bg: "#DBEAFE", fg: "#1E40AF", label: "Recomendada" };
                     return (
-                      <a key={tool.nome} href={tool.link} target="_blank" rel="noopener noreferrer"
+                      <Link key={tool.nome}
+                         href={`/ferramentas?tool=${encodeURIComponent(tool.nome)}`}
                          style={{
                            display: "flex", flexDirection: "column", gap: 10,
                            padding: "24px 22px",
@@ -274,10 +275,10 @@ export default function AprenderClient({ items, tools }: { items: LiteracyItem[]
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 4 }}>
                           <span style={{ fontSize: 12, color: "var(--muted-soft)" }}>{tool.custo}</span>
                           <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 600 }}>
-                            Acessar <Arrow />
+                            Saiba mais <Arrow />
                           </span>
                         </div>
-                      </a>
+                      </Link>
                     );
                   })}
                 </div>

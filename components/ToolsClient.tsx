@@ -452,6 +452,14 @@ export default function ToolsClient({ tools }: { tools: Tool[] }) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<Tool | null>(null);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const toolParam = params.get("tool");
+    if (!toolParam) return;
+    const match = tools.find(t => t.nome.toLowerCase() === decodeURIComponent(toolParam).toLowerCase());
+    if (match) setActiveTool(match);
+  }, [tools]);
+
   const filtered = tools.filter(t => matchesType(t.tipo, selectedType));
 
   return (
