@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import type { LiteracyItem } from "@/lib/sheets";
+import type { LiteracyItem, Tool } from "@/lib/sheets";
 
 function Arrow() {
   return (
@@ -19,7 +19,11 @@ const CARD_ACCENTS = [
   { bar: "#D97706", num: "#FEF3C7", numFg: "#92400E" }, // âmbar
 ];
 
-export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
+export default function AprenderClient({ items, tools }: { items: LiteracyItem[]; tools: Tool[] }) {
+  const priorityTools = tools.filter(
+    t => t.esforco !== undefined && t.impacto !== undefined
+      && t.esforco <= 2.5 && t.impacto >= 3.25
+  ).sort((a, b) => (b.impacto! - b.esforco!) - (a.impacto! - a.esforco!));
   const [choice, setChoice] = useState<"confident" | "learning" | null>(null);
 
   return (
@@ -218,7 +222,56 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
               })}
             </div>
 
-            <div style={{ marginTop: 64, padding: "32px 28px", background: "var(--charcoal)", borderRadius: 10, maxWidth: 640 }}>
+            {priorityTools.length > 0 && (
+              <div style={{ marginTop: 64 }}>
+                <span className="eyebrow" style={{ display: "block", marginBottom: 16 }}>Por onde começar</span>
+                <h3 className="display-tight" style={{ fontSize: "clamp(24px, 3vw, 36px)", lineHeight: 1.05, marginBottom: 8 }}>
+                  Ferramentas recomendadas para começar
+                </h3>
+                <p style={{ fontSize: 14, color: "var(--muted)", marginBottom: 32, lineHeight: 1.6 }}>
+                  Selecionadas com base na nossa matriz esforço-impacto: alto retorno com pouca curva de aprendizado.
+                </p>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}
+                     className="priority-tools-grid">
+                  {priorityTools.map(tool => (
+                    <a key={tool.nome} href={tool.link} target="_blank" rel="noopener noreferrer"
+                       style={{
+                         display: "flex", flexDirection: "column", gap: 10,
+                         padding: "24px 22px",
+                         background: "var(--surface)",
+                         border: "1px solid var(--hairline)",
+                         borderRadius: 10,
+                         textDecoration: "none", color: "var(--ink)",
+                         transition: "border-color 180ms ease, box-shadow 180ms ease",
+                       }} className="priority-tool-card">
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+                        <h4 className="display" style={{ fontSize: 20, lineHeight: 1.1, fontWeight: 400 }}>
+                          {tool.nome}
+                        </h4>
+                        <span style={{
+                          fontSize: 10, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase",
+                          background: "#D1FAE5", color: "#065F46",
+                          padding: "3px 8px", borderRadius: 6, whiteSpace: "nowrap", flexShrink: 0,
+                        }}>
+                          Prioridade
+                        </span>
+                      </div>
+                      <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "var(--muted)", flex: 1 }}>
+                        {tool.descricao}
+                      </p>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 4 }}>
+                        <span style={{ fontSize: 12, color: "var(--muted-soft)" }}>{tool.custo}</span>
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 600 }}>
+                          Acessar <Arrow />
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div style={{ marginTop: 48, padding: "32px 28px", background: "var(--charcoal)", borderRadius: 10, maxWidth: 640 }}>
               <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", marginBottom: 6, letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600 }}>
                 Próximo passo
               </p>
@@ -243,9 +296,11 @@ export default function AprenderClient({ items }: { items: LiteracyItem[] }) {
 
       <style>{`
         .confident-card:hover { border-color: var(--ink) !important; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .priority-tool-card:hover { border-color: var(--ink) !important; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
         @media (max-width: 640px) {
           .aprender-options-grid { grid-template-columns: 1fr !important; }
           .confident-grid { grid-template-columns: 1fr !important; }
+          .priority-tools-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>

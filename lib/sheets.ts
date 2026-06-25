@@ -82,6 +82,8 @@ export interface Tool {
   video_url: string;
   tag?: string;
   imagem_url?: string;
+  esforco?: number;
+  impacto?: number;
 }
 
 export interface Example {
@@ -103,7 +105,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito / Pago",
     link: "https://chat.openai.com",
     universidades_que_recomendam: "Harvard, MIT, Stanford, Cornell, Princeton",
-    video_url: "", tag: "",
+    video_url: "", tag: "", esforco: 2.0, impacto: 3.0,
   },
   {
     nome: "Microsoft Copilot",
@@ -113,7 +115,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito para instituições",
     link: "https://copilot.microsoft.com",
     universidades_que_recomendam: "UCL, Cambridge, Imperial, Duke",
-    video_url: "",
+    video_url: "", esforco: 2.0, impacto: 3.5,
   },
   {
     nome: "Google NotebookLM",
@@ -123,7 +125,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito",
     link: "https://notebooklm.google.com",
     universidades_que_recomendam: "U. Michigan, Cambridge",
-    video_url: "",
+    video_url: "", esforco: 2.0, impacto: 4.0,
   },
   {
     nome: "Google Gemini",
@@ -133,7 +135,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito / Pago",
     link: "https://gemini.google.com",
     universidades_que_recomendam: "U. Michigan, Cambridge",
-    video_url: "",
+    video_url: "", esforco: 2.5, impacto: 3.0,
   },
   {
     nome: "Claude (Anthropic)",
@@ -143,7 +145,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito / Pago",
     link: "https://claude.ai",
     universidades_que_recomendam: "JHU, Imperial",
-    video_url: "",
+    video_url: "", esforco: 2.0, impacto: 4.0,
   },
   {
     nome: "Perplexity AI",
@@ -153,7 +155,7 @@ export const FALLBACK_TOOLS: Tool[] = [
     custo: "Gratuito / Pago",
     link: "https://perplexity.ai",
     universidades_que_recomendam: "CMU",
-    video_url: "",
+    video_url: "", esforco: 2.5, impacto: 3.0,
   },
   {
     nome: "Whisper",
@@ -334,6 +336,8 @@ export async function fetchTools(sheetUrl?: string): Promise<Tool[]> {
       video_url:                   (r["video_url"]                    ?? r["Video URL"]                    ?? r["video url"] ?? "").trim(),
       tag:                         (r["tag"]                          ?? r["Tag"]                          ?? r["Destaque"]   ?? "").trim(),
       imagem_url:                  (r["imagem_url"]                   ?? r["Imagem URL"]                   ?? r["imagem"]     ?? r["Imagem"] ?? r["logo_url"] ?? "").trim(),
+      esforco:                     parseFloat(r["esforco"]            ?? r["Esforço"]                      ?? "") || undefined,
+      impacto:                     parseFloat(r["impacto"]            ?? r["Impacto"]                      ?? "") || undefined,
     }));
     const valid = mapped.filter(t => t.nome && t.link);
     if (valid.length === 0) return FALLBACK_TOOLS;

@@ -1,11 +1,14 @@
 export const dynamic = "force-dynamic";
 
-import { fetchLiteracy } from "@/lib/sheets";
+import { fetchLiteracy, fetchTools } from "@/lib/sheets";
 import { SHEETS_CONFIG } from "@/lib/config";
 import AprenderClient from "@/components/AprenderClient";
 
 export default async function AprenderPage() {
-  const items = await fetchLiteracy(SHEETS_CONFIG.literacySheetUrl);
+  const [items, tools] = await Promise.all([
+    fetchLiteracy(SHEETS_CONFIG.literacySheetUrl),
+    fetchTools(SHEETS_CONFIG.toolsSheetUrl),
+  ]);
 
   return (
     <main style={{ background: "var(--bg)" }}>
@@ -34,7 +37,7 @@ export default async function AprenderPage() {
         </div>
       </section>
 
-      <AprenderClient items={items} />
+      <AprenderClient items={items} tools={tools} />
 
     </main>
   );
