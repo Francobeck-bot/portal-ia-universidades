@@ -246,16 +246,13 @@ export default function AprenderClient({ items, tools }: { items: LiteracyItem[]
                       ? { bg: "#D1FAE5", fg: "#065F46", label: "Prioridade" }
                       : { bg: "#DBEAFE", fg: "#1E40AF", label: "Recomendada" };
                     return (
-                      <Link key={tool.nome}
-                         href={`/ferramentas?tool=${encodeURIComponent(tool.nome)}`}
+                      <div key={tool.nome}
                          style={{
                            display: "flex", flexDirection: "column", gap: 10,
-                           padding: "24px 22px",
+                           padding: "24px 22px 20px",
                            background: "var(--surface)",
                            border: "1px solid var(--hairline)",
                            borderRadius: 10,
-                           textDecoration: "none", color: "var(--ink)",
-                           transition: "border-color 180ms ease, box-shadow 180ms ease",
                          }} className="priority-tool-card">
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
                           <h4 className="display" style={{ fontSize: 20, lineHeight: 1.1, fontWeight: 400 }}>
@@ -272,13 +269,19 @@ export default function AprenderClient({ items, tools }: { items: LiteracyItem[]
                         <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "var(--muted)", flex: 1 }}>
                           {tool.descricao}
                         </p>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 4 }}>
-                          <span style={{ fontSize: 12, color: "var(--muted-soft)" }}>{tool.custo}</span>
-                          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 600 }}>
-                            Saiba mais <Arrow />
-                          </span>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 8, paddingTop: 12, borderTop: "1px solid var(--hairline-soft)" }}>
+                          <Link href={`/ferramentas?tool=${encodeURIComponent(tool.nome)}`}
+                            style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "var(--ink)", textDecoration: "none" }}
+                            className="priority-card-btn">
+                            Saiba mais
+                          </Link>
+                          <a href={tool.link} target="_blank" rel="noopener noreferrer"
+                            style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "var(--ink)", textDecoration: "none" }}
+                            className="priority-card-btn">
+                            Acessar ferramenta <Arrow />
+                          </a>
                         </div>
-                      </Link>
+                      </div>
                     );
                   })}
                 </div>
